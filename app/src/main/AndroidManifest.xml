@@ -36,6 +36,17 @@
         <activity android:name=".signup" />
         <activity android:name=".signupdeetspage" />
         <activity android:name=".otpconfirm" />
+        <activity android:name=".ConfirmRolesSubevents"/>
+        <activity android:name=".NonpayersInputforbothSubevents"/>
+        <activity android:name=".NonPayersInputSubevents"/>
+        <activity android:name=".nonpayerspageforbothsubevents"/>
+        <activity android:name=".NonPayersPageSubevents"/>
+        <activity android:name=".PayersInputforbothSubevents"/>
+        <activity android:name=".PayersInputSubevents"/>
+        <activity android:name=".payerspageforbothsubevents"/>
+        <activity android:name=".PayerspageSubevents"/>
+        <activity android:name=".rolesSubevent"/>
+        <activity android:name=".SubEvents"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

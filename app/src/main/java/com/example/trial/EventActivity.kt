@@ -13,11 +13,13 @@ class EventActivity : AppCompatActivity() {
         eventpagebackbutton.setOnClickListener {
             val intent = Intent(this, homepageevents::class.java)
             startActivity(intent)
+            finish()
         }
 
         editeventprofile.setOnClickListener {
             val intent = Intent(this, EditEventProfile::class.java)
             startActivity(intent)
+            finish()
         }
 
         var eventname = eventName.text.toString()
@@ -31,16 +33,21 @@ class EventActivity : AppCompatActivity() {
         }
 
         viewsubeventsbutton.setOnClickListener {
-            print("view sub events")
+            val intent = Intent(this, RolesPage::class.java)
+            startActivity(intent)
+            finish()
         }
 
         addrolesbutton.setOnClickListener {
             val intent = Intent(this, RolesPage::class.java)
             startActivity(intent)
+            finish()
         }
 
         addsubeventsbutton.setOnClickListener {
-            print("add sub events activity part")
+            val intent = Intent(this, SubEvents::class.java)
+            startActivity(intent)
+            finish()
         }
 
     }
