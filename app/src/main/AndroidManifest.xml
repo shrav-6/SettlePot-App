@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.trial">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,24 +11,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Trial">
-        <activity android:name=".phonesignin">
+        <activity android:name=".editprofilepage"></activity>
+        <activity android:name=".homepageevents" />
+        <activity android:name=".logindeetspage" />
+        <activity android:name=".profilepage" />
+        <activity android:name=".phonesignin" />
+        <activity android:name=".demouserpage" />
+        <activity android:name=".login" />
+        <activity android:name=".googlesignin">
+
+            <!-- intentfilter -->
+        </activity>
+        <activity android:name=".successfulsign" />
+        <activity android:name=".signup" />
+        <activity android:name=".signupdeetspage" />
+        <activity android:name=".otpconfirm" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".demouserpage" />
-        <activity android:name=".login" />
-        <activity android:name=".googlesignin">
-<!--            intentfilter-->
-        </activity>
-        <activity android:name=".successfulsign" />
-        <activity android:name=".signup" />
-        <activity android:name=".signupdeetspage" />
-        <activity android:name=".otpconfirm" />
-        <activity android:name=".MainActivity" />
-<!--                intentfilter-->
     </application>
 
 </manifest>

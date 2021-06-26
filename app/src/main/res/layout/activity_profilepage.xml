@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".profilepage">
+
+
+    <View
+        android:id="@+id/editprofilebg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/profilepagebg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="252dp"
+        android:background="@drawable/roundedbg"
+        android:backgroundTint="#ab7a52"
+        android:hint="Enter name"
+        android:text=""
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editprofilebg" />
+
+    <EditText
+        android:id="@+id/usermailid"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/roundedbg"
+        android:backgroundTint="#ab7a52"
+        android:gravity="center"
+        android:inputType="textEmailAddress"
+        android:hint="Enter email address"
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/username" />
+
+
+    <EditText
+        android:id="@+id/userphno"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/roundedbg"
+        android:gravity="center"
+        android:backgroundTint="#ab7a52"
+        android:hint="Enter phone number"
+        android:inputType="phone"
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usermailid" />
+
+
+    <Button
+        android:id="@+id/saveinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:layout_marginTop="44dp"
+        android:backgroundTint="#A7D28B"
+        android:text="   Save changes   "
+        app:cornerRadius="45dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userphno" />
+
+    <ImageButton
+        android:id="@+id/backtohomepage"
+        android:layout_width="64dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="4dp"
+        android:background="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.021"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/backbutton" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

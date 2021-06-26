@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".signupdeetspage">
+    tools:context=".logindeetspage">
 
     <View
-        android:id="@+id/view2"
+        android:id="@+id/bgforloginpage"
         android:layout_width="420dp"
         android:layout_height="850dp"
         android:background="@drawable/signupmain"
@@ -16,68 +16,85 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <Button
-        android:id="@+id/Buttonsignupsettlepot"
+    <TextView
+        android:id="@+id/Logintextheading"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="196dp"
-        android:background="@android:color/transparent"
-        android:text=" Via SettlePot account"
-        android:textAllCaps="false"
+        android:layout_height="36dp"
+        android:layout_marginTop="148dp"
+        android:background="#000000"
+        android:text="   LOGIN   "
         android:textColor="#ab7a52"
-        android:textSize="15dp"
+        android:textSize="24dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.885"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/Buttonsignupphone"
+        android:id="@+id/loginviasettlepotbutton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="12dp"
         android:background="@android:color/transparent"
-        android:text=" Via Phone Number"
+        android:gravity="center"
+        android:text="Via SettlePot account"
         android:textAllCaps="false"
         android:textColor="#ab7a52"
         android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.962"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Buttonsignupsettlepot" />
+        app:layout_constraintTop_toBottomOf="@+id/Logintextheading" />
 
     <Button
-        android:id="@+id/Buttonsignupmail"
+        android:id="@+id/loginviaphonebutton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginTop="28dp"
         android:background="@android:color/transparent"
-        android:text="     Via Google  "
+        android:gravity="center"
+        android:text="Via Phone Number"
         android:textAllCaps="false"
         android:textColor="#ab7a52"
         android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.966"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Buttonsignupphone" />
+        app:layout_constraintTop_toBottomOf="@+id/loginviasettlepotbutton" />
+
+    <Button
+        android:id="@+id/loginviagooglebutton"
+        android:layout_width="130dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="28dp"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:text="Via Google"
+        android:textAllCaps="false"
+        android:textColor="#ab7a52"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.969"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginviaphonebutton" />
 
     <TextView
-        android:id="@+id/alreadyacustomertext"
+        android:id="@+id/notacustomertext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Already a customer? Login"
-        android:textColor="#ffffff"
+        android:layout_marginBottom="28dp"
         android:clickable="true"
+        android:text="Not a customer already? Sign up"
+        android:textColor="#ffffff"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

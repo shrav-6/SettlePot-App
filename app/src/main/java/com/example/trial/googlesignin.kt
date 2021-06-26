@@ -29,6 +29,14 @@ class googlesignin : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_googlesignin)
+
+        backtosignindeetspagegoogle.setOnClickListener {
+            val backtosignindeetspagegoogleintent = Intent(this, signupdeetspage::class.java)
+            startActivity(backtosignindeetspagegoogleintent)
+            finish()
+        }
+
+
         auth = Firebase.auth
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

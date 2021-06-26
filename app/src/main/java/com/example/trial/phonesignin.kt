@@ -24,25 +24,39 @@ class phonesignin : AppCompatActivity() {
     lateinit var storedVerificationId: String
     lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
+    var flag: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_phonesignin)
 
+        backtosignindeetspagephone.setOnClickListener {
+            val backtosignindeetspagephoneintent = Intent(this, signupdeetspage::class.java)
+            startActivity(backtosignindeetspagephoneintent)
+            finish()
+        }
+
         auth=FirebaseAuth.getInstance()
 
         buttonsendotp.setOnClickListener{
             login() //calling function for verification
+            if(flag==0){
+                flag=1
+                object : CountDownTimer(60000, 1000) {
+                    override fun onTick(millisUntilFinished: Long) {
+                        resendotptext.setText("seconds remaining: " + millisUntilFinished / 1000)
+                    }
 
-            object : CountDownTimer(60000, 1000) {
-                override fun onTick(millisUntilFinished: Long) {
-                    resendotptext.setText("seconds remaining: " + millisUntilFinished / 1000)
-                }
+                    override fun onFinish() {
+                        resendotptext.setText("Click on Send OTP again to resend")
+                        flag = 0
+                    }
+                }.start()
+            }
+            else{
+                Toast.makeText(applicationContext,"Please wait",Toast.LENGTH_SHORT)
+            }
 
-                override fun onFinish() {
-                    resendotptext.setText("Click on Send OTP again to resend")
-                }
-            }.start()
         }
 
         callbacks = object :PhoneAuthProvider.OnVerificationStateChangedCallbacks() {    //callback function for phone auth
@@ -98,7 +112,7 @@ class phonesignin : AppCompatActivity() {
                 .setActivity(this) // Activity (for callback binding)
                 .setCallbacks(callbacks) // OnVerificationStateChangedCallbacks
                 .build()
-        PhoneAuthProvider.verifyPhoneNumber(options)
+        PhoneAuthProvider.verifyPhoneNumber(options)     //reentrant method - no matter how many times you click on send button within a min, otp is sent only once - the same otp
         Log.d("phonesignin" , "Auth started")
     }
 }

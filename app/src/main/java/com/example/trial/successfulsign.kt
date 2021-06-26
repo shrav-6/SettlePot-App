@@ -14,7 +14,7 @@ class successfulsign : AppCompatActivity() {
         setContentView(R.layout.activity_successfulsign)
 
         Handler(Looper.getMainLooper()).postDelayed(Runnable {   //handler use is to schedule messages and runnables to be executed at some point in the future
-            val mainIntent = Intent(this, demouserpage::class.java)
+            val mainIntent = Intent(this, homepageevents::class.java)
             startActivity(mainIntent)
             this.finish()
         }, 5000)

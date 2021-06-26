@@ -10,11 +10,27 @@ class signupdeetspage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signupdeetspage)
 
-        Buttonsignupmail.setOnClickListener {
-            val intent = Intent(this, signup::class.java)
+        Buttonsignupsettlepot.setOnClickListener {
+            val settlepotintent = Intent(this, signup::class.java)
             // start your next activity
-            startActivity(intent)
+            startActivity(settlepotintent)
+            finish()
         }
 
+        alreadyacustomertext.setOnClickListener{
+            val loginintent = Intent(this, logindeetspage::class.java)
+            startActivity(loginintent)
+            finish()
+        }
+        Buttonsignupmail.setOnClickListener{
+            val googleintent = Intent(this, googlesignin::class.java)
+            startActivity(googleintent)
+            finish()
+        }
+        Buttonsignupphone.setOnClickListener{
+            val phoneintent = Intent(this, phonesignin::class.java)
+            startActivity(phoneintent)
+            finish()
+        }
     }
 }

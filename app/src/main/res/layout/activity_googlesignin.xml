@@ -6,6 +6,42 @@
     android:layout_height="match_parent"
     tools:context=".googlesignin">
 
+    <View
+        android:id="@+id/googleloginbg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/googleloginbg" />
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/googlesigninbutton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="39dp"
+        android:layout_marginBottom="252dp"
+        android:gravity="center"
+        android:textColor="#ab7a52"
+        android:text="Login/Sign in via the Google account logged in on your android phone"
+        android:textAlignment="center"
+        android:textSize="16dp"
+        android:textStyle="bold"/>
+
+
+    <ImageButton
+        android:id="@+id/backtosignindeetspagegoogle"
+        android:layout_width="64dp"
+        android:layout_height="54dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="7dp"
+        android:background="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/backbutton" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/googlesigninbutton"

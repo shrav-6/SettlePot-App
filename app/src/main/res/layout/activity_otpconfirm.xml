@@ -23,21 +23,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterotp" />
 
+
+    <ImageButton
+        android:id="@+id/backtophonenumberinput"
+        android:layout_width="64dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="8dp"
+        android:background="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/backbutton" />
+
+
     <com.goodiebag.pinview.Pinview
         android:id="@+id/enterotp"
         style="@style/PinWidget.PinView"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_width="378dp"
+        android:layout_height="51dp"
         android:layout_marginTop="508dp"
         app:cursorVisible="true"
         app:forceKeyboard="true"
         app:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:pinHeight="50dp"
+        app:pinHeight="45dp"
         app:pinLength="6"
-        app:pinWidth="50dp" />
+        app:pinWidth="45dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

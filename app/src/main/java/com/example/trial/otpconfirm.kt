@@ -19,6 +19,12 @@ class otpconfirm : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_otpconfirm)
+
+        backtophonenumberinput.setOnClickListener {
+            val backtophonenoinputintent = Intent(this,phonesignin)
+            startActivity(backtophonenoinputintent)
+            finish()
+        }
         auth=FirebaseAuth.getInstance()
 
         // get storedVerificationId from the intent
