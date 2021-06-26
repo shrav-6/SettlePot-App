@@ -11,17 +11,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Trial">
-        <activity android:name=".editprofilepage"></activity>
+        <activity android:name=".NonPayersInputforBoth"/>
+        <activity android:name=".PayersInputforBoth" />
+        <activity android:name=".PayersPageforBoth" />
+        <activity android:name=".NonPayersPageforBoth" />
+        <activity android:name=".PayersInput" />
+        <activity android:name=".ConfirmEventProfile" />
+        <activity android:name=".EditEventProfile" />
+        <activity android:name=".ConfirmRoles" />
+        <activity android:name=".NonPayersInput" />
+        <activity android:name=".NonPayersPage" />
+        <activity android:name=".PayersPage" />
+        <activity android:name=".RolesPage" />
+        <activity android:name=".EventActivity"/>
+        <activity android:name=".editprofilepage"/>
         <activity android:name=".homepageevents" />
         <activity android:name=".logindeetspage" />
         <activity android:name=".profilepage" />
         <activity android:name=".phonesignin" />
         <activity android:name=".demouserpage" />
         <activity android:name=".login" />
-        <activity android:name=".googlesignin">
-
-            <!-- intentfilter -->
-        </activity>
+        <activity android:name=".googlesignin"/>
         <activity android:name=".successfulsign" />
         <activity android:name=".signup" />
         <activity android:name=".signupdeetspage" />

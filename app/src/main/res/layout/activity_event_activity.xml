@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/eventbgpage"
+    android:orientation="vertical"
+    tools:context=".EventActivity">
+
+    <ImageButton
+        android:id="@+id/eventpagebackbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/backbutton"
+        android:layout_alignParentLeft="true" />
+
+    <ImageButton
+        android:id="@+id/editeventprofile"
+        android:layout_width="75dp"
+        android:layout_height="71dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="72dp"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="128dp"
+        android:background="@drawable/roundedbutton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/profilebutton" />
+
+    <EditText
+        android:id="@+id/eventName"
+        android:layout_width="165dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="128dp"
+        android:background="@drawable/roundedbutton"
+        android:text="Event name"
+        android:gravity="center"
+        android:textColor="#AB7A52"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.137"
+        app:layout_constraintStart_toEndOf="@+id/editeventprofile"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/notesbutton"
+        android:layout_width="340dp"
+        android:layout_height="93dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/roundedbutton"
+        android:text="Notes"
+        android:textAllCaps="false"
+        android:textColor="#AB7A52"
+        android:textSize="18dp"
+        app:backgroundTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.563"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewrolesbutton" />
+
+    <Button
+        android:id="@+id/viewrolesbutton"
+        android:layout_width="170dp"
+        android:layout_height="200dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/roundedbutton"
+        android:text="View Roles"
+        android:textAllCaps="false"
+        android:textColor="#AB7A52"
+        android:textSize="18dp"
+        app:backgroundTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.132"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editeventprofile" />
+
+    <Button
+        android:id="@+id/viewsubeventsbutton"
+        android:layout_width="170dp"
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/roundedbutton"
+        android:text="View Sub-events"
+        android:textAllCaps="false"
+        android:textColor="#AB7A52"
+        android:textSize="18dp"
+        app:backgroundTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/viewrolesbutton"
+        app:layout_constraintTop_toBottomOf="@+id/eventName"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="16dp" />
+
+    <ImageButton
+        android:id="@+id/addrolesbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="44dp"
+        android:layout_marginBottom="48dp"
+        android:background="#a18361"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/addroles"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="44dp" />
+
+    <TextView
+        android:id="@+id/addrolestext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="12dp"
+        android:text="Add roles"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addrolesbutton"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="52dp" />
+
+    <ImageButton
+        android:id="@+id/addsubeventsbutton"
+        android:layout_width="71dp"
+        android:layout_height="71dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="48dp"
+        android:background="#e3bf9b"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/addsubevents"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="32dp" />
+
+    <TextView
+        android:id="@+id/addsubeventstext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="24dp"
+        android:text="Add sub-events"
+        android:textColor="#AB7A52"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addsubeventsbutton"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="24dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

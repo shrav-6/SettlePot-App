@@ -25,6 +25,13 @@ class homepageevents : AppCompatActivity() {
             startActivity(logoutIntent)
             finish()
         }
+        addeventbutton.setOnClickListener {
+            val addeventfromhomepageintent = Intent(this, EventActivity::class.java)
+            startActivity(addeventfromhomepageintent)
+            finish()
+        }
+
+
 
     }
 

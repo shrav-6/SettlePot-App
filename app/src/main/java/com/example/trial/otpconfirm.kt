@@ -21,7 +21,7 @@ class otpconfirm : AppCompatActivity() {
         setContentView(R.layout.activity_otpconfirm)
 
         backtophonenumberinput.setOnClickListener {
-            val backtophonenoinputintent = Intent(this,phonesignin)
+            val backtophonenoinputintent = Intent(this,phonesignin::class.java)
             startActivity(backtophonenoinputintent)
             finish()
         }

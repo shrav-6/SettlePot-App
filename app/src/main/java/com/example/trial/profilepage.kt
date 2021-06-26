@@ -20,7 +20,7 @@ class profilepage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profilepage)
 
-        readUser()
+        //readUser()
 
         backtohomepage.setOnClickListener{
             Toast.makeText(baseContext,"Unsaved changes", Toast.LENGTH_SHORT).show()
@@ -35,24 +35,7 @@ class profilepage : AppCompatActivity() {
 
     }
 
-    private fun readUser() {
-        val userref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid)
-        val postListener = object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                cUser = dataSnapshot.getValue(users::class.java)
-                username.setText(cUser.name)
-                usermailid.setText(cUser.mailid)
-                userphno.setText(cUser.phoneno)
-            }
 
-            override fun onCancelled(databaseError: DatabaseError) {
-                // Getting Post failed, log a message
-                Log.w("profilepage", "ReadUser:onCancelled", databaseError.toException())
-            }
-        }
-        userref.addValueEventListener(postListener)
-
-    }
 
 
     private fun saveUser() {

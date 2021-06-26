@@ -4,17 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".homepageevents">
+    tools:context=".homepageevents"
+    android:background="@drawable/homepage">
 
-    <View
-        android:id="@+id/homepage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/homepage"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <ImageButton
         android:id="@+id/editprofileicon"
@@ -33,55 +26,54 @@
         android:id="@+id/logoutbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="688dp"
+        android:layout_marginStart="16dp"
+
+        android:layout_marginBottom="40dp"
         android:background="@android:color/transparent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logoutbutton" />
 
     <ImageButton
-        android:id="@+id/addevent"
+        android:id="@+id/addeventbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="688dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="44dp"
+
+
         android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.915"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/addeventnew" />
 
     <TextView
         android:id="@+id/logouttext"
-        android:layout_width="88dp"
-        android:layout_height="43dp"
-        android:text="    Logout"
+        android:layout_width="69dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="16dp"
+        android:text="Logout"
         android:textColor="@android:color/white"
         android:textSize="19dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.985" />
+        app:layout_constraintTop_toBottomOf="@+id/logoutbutton" />
 
     <TextView
         android:id="@+id/addeventtext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
         android:gravity="center"
         android:text="Add events"
+
+
         android:textColor="#AB7A52"
         android:textSize="19dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/homepage"
-        app:layout_constraintHorizontal_bias="0.946"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addevent"
-        app:layout_constraintVertical_bias="0.064" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addeventbutton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
