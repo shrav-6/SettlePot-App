@@ -26,7 +26,7 @@
         android:id="@+id/logoutbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
 
         android:layout_marginBottom="40dp"
         android:background="@android:color/transparent"
@@ -53,10 +53,11 @@
         android:id="@+id/logouttext"
         android:layout_width="69dp"
         android:layout_height="26dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         android:text="Logout"
+        android:textStyle="bold"
         android:textColor="@android:color/white"
-        android:textSize="19dp"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logoutbutton" />
 
@@ -65,13 +66,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="16dp"
         android:gravity="center"
         android:text="Add events"
-
-
         android:textColor="#AB7A52"
-        android:textSize="19dp"
+        android:textSize="16dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addeventbutton" />
 

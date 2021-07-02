@@ -5,18 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="400dp"
     android:layout_height="830dp"
+    android:background="@drawable/signupviaemail"
     tools:context=".signup">
 
-    <View
-        android:id="@+id/view3"
-        android:layout_width="420dp"
-        android:layout_height="850dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/signupviaemail"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
 
 
     <ImageButton
@@ -24,7 +15,7 @@
         android:layout_width="64dp"
         android:layout_height="54dp"
         android:layout_marginTop="8dp"
-        android:background="#ffffff"
+        android:background="@drawable/roundedbg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.02"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,33 +25,37 @@
     <EditText
         android:id="@+id/inputEmail"
         android:layout_width="248dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="532dp"
+        android:layout_marginTop="512dp"
         android:layout_marginEnd="64dp"
+        android:background="@drawable/roundedbg"
+        android:gravity="center"
         android:ems="10"
         android:hint="Email ID"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.863"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view3" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/inputPassword"
         android:layout_width="248dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_below="@+id/inputEmail"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="65dp"
+        android:background="@drawable/roundedbg"
         android:ems="10"
+        android:gravity="center"
         android:hint="Password"
         android:inputType="textPassword"
         android:soundEffectsEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.873"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputEmail" />
 
@@ -68,7 +63,7 @@
         android:id="@+id/Signupviaemail"
         android:layout_width="145dp"
         android:layout_height="75dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="@color/white"
         android:text="Sign up"
         android:textColor="#b87333"
@@ -76,7 +71,7 @@
         android:textStyle="bold"
         app:cornerRadius="45dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.564"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputPassword" />
 

@@ -4,13 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/googleloginbg"
     tools:context=".googlesignin">
 
-    <View
-        android:id="@+id/googleloginbg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/googleloginbg" />
 
     <TextView
         android:layout_width="200dp"
@@ -35,8 +31,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="9dp"
-        android:layout_marginTop="7dp"
-        android:background="#ffffff"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/roundedbg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.02"
         app:layout_constraintStart_toStartOf="parent"
