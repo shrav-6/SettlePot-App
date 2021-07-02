@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/signupviaemail"
     tools:context=".login">
-
 
 
     <ImageButton
@@ -13,11 +13,67 @@
         android:layout_width="64dp"
         android:layout_height="54dp"
         android:layout_marginTop="8dp"
-        android:background="#ffffff"
+        android:background="@drawable/roundedbg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.02"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/backbutton" />
+
+    <EditText
+        android:id="@+id/inputEmailLogin"
+        android:layout_width="248dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="500dp"
+        android:layout_marginEnd="64dp"
+        android:background="@drawable/roundedbg"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Email ID"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.888"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/inputPasswordLogin"
+        android:layout_width="248dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/inputEmail"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="65dp"
+        android:background="@drawable/roundedbg"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:soundEffectsEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputEmailLogin" />
+
+    <Button
+        android:id="@+id/Loginviaemail"
+        android:layout_width="145dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="76dp"
+        android:backgroundTint="@color/white"
+        android:text="Login"
+        android:textAllCaps="true"
+        android:textColor="#b87333"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:cornerRadius="45dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputPasswordLogin"
+        app:layout_constraintVertical_bias="0.875" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,6 +15,11 @@ class logindeetspage : AppCompatActivity() {
             startActivity(signupintent)
             finish()
         }
+        loginviasettlepotbutton.setOnClickListener{
+            val loginviasettlepotaccountintent = Intent(this, login::class.java)
+            startActivity(loginviasettlepotaccountintent)
+            finish()
+        }
         loginviagooglebutton.setOnClickListener{
             val googleintent = Intent(this, googlesignin::class.java)
             startActivity(googleintent)

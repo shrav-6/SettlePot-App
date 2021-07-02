@@ -4,38 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/logindeetspagebg"
     tools:context=".logindeetspage">
-
-    <View
-        android:id="@+id/bgforloginpage"
-        android:layout_width="420dp"
-        android:layout_height="850dp"
-        android:background="@drawable/signupmain"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/Logintextheading"
-        android:layout_width="wrap_content"
-        android:layout_height="36dp"
-        android:layout_marginTop="148dp"
-        android:background="#000000"
-        android:text="   LOGIN   "
-        android:textColor="#ab7a52"
-        android:textSize="24dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.885"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/loginviasettlepotbutton"
         android:layout_width="wrap_content"
         android:layout_height="46dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="208dp"
         android:background="@android:color/transparent"
         android:gravity="center"
         android:text="Via SettlePot account"
@@ -44,15 +20,15 @@
         android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.962"
+        app:layout_constraintHorizontal_bias="0.994"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Logintextheading" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/loginviaphonebutton"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="24dp"
         android:background="@android:color/transparent"
         android:gravity="center"
         android:text="Via Phone Number"
@@ -61,7 +37,7 @@
         android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.966"
+        app:layout_constraintHorizontal_bias="0.995"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginviasettlepotbutton" />
 
@@ -69,7 +45,7 @@
         android:id="@+id/loginviagooglebutton"
         android:layout_width="130dp"
         android:layout_height="45dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="24dp"
         android:background="@android:color/transparent"
         android:gravity="center"
         android:text="Via Google"
@@ -78,7 +54,7 @@
         android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.969"
+        app:layout_constraintHorizontal_bias="0.939"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginviaphonebutton" />
 

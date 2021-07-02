@@ -4,53 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/signupviaemail"
     tools:context=".phonesignin">
 <!--    android:background="@drawable/optconfirmbg2"-->
 
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/optconfirmbg2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/backtosignindeetspagephone"
         android:layout_width="64dp"
         android:layout_height="54dp"
         android:layout_marginTop="4dp"
-        android:background="#ffffff"
+        android:background="@drawable/roundedbg"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.021"
+        app:layout_constraintHorizontal_bias="0.018"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/backbutton" />
 
-
     <EditText
         android:id="@+id/enterphonenumber"
-        android:layout_width="240dp"
-        android:layout_height="37dp"
-        android:background="#ffffff"
-        android:backgroundTint="#ffffff"
+        android:layout_width="275dp"
+        android:layout_height="50dp"
+        android:background="@drawable/roundedbg"
+        android:gravity="center"
         android:hint="Enter Phone Number"
         android:inputType="phone"
         android:textColorHint="#ab7a52"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.787" />
+        app:layout_constraintVertical_bias="0.686" />
 
     <Button
         android:id="@+id/buttonsendotp"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="40dp"
         android:backgroundTint="@color/white"
         android:text="    Send OTP    "
         android:textAllCaps="false"
