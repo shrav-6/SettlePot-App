@@ -19,7 +19,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/payers"
+        android:id="@+id/payers_subevent"
         android:layout_width="243dp"
         android:layout_height="64dp"
         android:layout_marginTop="28dp"
@@ -35,7 +35,7 @@
         app:layout_constraintTop_toBottomOf="@+id/enterrole" />
 
     <Button
-        android:id="@+id/nonpayers"
+        android:id="@+id/nonpayers_subevent"
         android:layout_width="243dp"
         android:layout_height="64dp"
         android:layout_marginTop="32dp"
@@ -48,10 +48,10 @@
         app:cornerRadius="45dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/payers" />
+        app:layout_constraintTop_toBottomOf="@+id/payers_subevent" />
 
     <Button
-        android:id="@+id/both"
+        android:id="@+id/both_subevent"
         android:layout_width="243dp"
         android:layout_height="64dp"
         android:backgroundTint="#AB7A52"
@@ -64,7 +64,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nonpayers"
+        app:layout_constraintTop_toBottomOf="@+id/nonpayers_subevent"
         app:layout_constraintVertical_bias="0.106" />
 
     <TextView
@@ -83,7 +83,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/backbuttonrolespage"
+        android:id="@+id/backbuttonrolespage_subevent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"

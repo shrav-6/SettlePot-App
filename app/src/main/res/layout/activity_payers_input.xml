@@ -41,7 +41,7 @@
                 android:drawableRight="@drawable/plussign"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:text="Add"
+                android:text="Add Payer(s)"
                 android:textAllCaps="false"
                 android:textColor="#5E2F04"
                 app:cornerRadius="45dp"

@@ -1,8 +1,6 @@
 package com.example.trial
 
-import java.io.Serializable
-
-class NonPayers : Serializable {
+class NonPayers {
     var nonpayerName: String? = null
 
 

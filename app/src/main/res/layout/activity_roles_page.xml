@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/rolesbg"
-    tools:context=".rolespage">
+    tools:context=".RolesPage">
+<!--    earlier rolespage-->
 
     <ImageButton
         android:id="@+id/backbuttonforrolespage"

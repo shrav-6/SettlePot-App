@@ -85,7 +85,7 @@ class PayersInput : AppCompatActivity() , View.OnClickListener {
             if (editPayersAmt.text.toString() != "") {
                 payer.payerAmt = editPayersName.text.toString()
             } else {
-                Toast.makeText(baseContext, "Enter Valid details!!", Toast.LENGTH_SHORT).show()
+
                 result = false
                 break
             }
@@ -93,7 +93,7 @@ class PayersInput : AppCompatActivity() , View.OnClickListener {
         }
         if (payersList.size == 0) {
             result = false
-            Toast.makeText(baseContext, "Add payers!!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(baseContext, "Enter Valid details!!", Toast.LENGTH_SHORT).show()
         } else if (!result) {
             Toast.makeText(baseContext, "Enter Valid details!!", Toast.LENGTH_SHORT).show()
         }
