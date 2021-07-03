@@ -12,20 +12,21 @@ class rolesSubevent : AppCompatActivity() {
         setContentView(R.layout.activity_roles)
 
         payers.setOnClickListener {
-            val payers_intent = Intent(this, PayerspageSubevents::class.java)
+            val payers_intent = Intent(this, PayersInputSubevents::class.java)
             startActivity(payers_intent)
             finish()
         }
 
         nonpayers.setOnClickListener {
-            val nonpayers_intent = Intent(this, NonPayersPageSubevents::class.java)
+            val nonpayers_intent = Intent(this, NonPayersInputSubevents::class.java)
             startActivity(nonpayers_intent)
             finish()
         }
 
         both.setOnClickListener {
-            val both_intent = Intent(this, payerspageforbothsubevents::class.java)
-            startActivity(both_intent)
+            val intent1 = Intent(this, PayersInputSubevents::class.java)
+            intent1.putExtra("callerfromboth", "callerfromboth")
+            startActivity(intent1)
             finish()
         }
 

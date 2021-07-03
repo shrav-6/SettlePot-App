@@ -32,7 +32,7 @@
                 android:orientation="vertical"/>
 
             <Button
-                android:id="@+id/button_addpayers"
+                android:id="@+id/button_addnonpayers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -51,7 +51,7 @@
                 app:layout_constraintTop_toTopOf="@+id/layout_list" />
 
             <Button
-                android:id="@+id/button_createrolesforpayers"
+                android:id="@+id/button_createrolesfornonpayers"
                 android:layout_width="160dp"
                 android:layout_height="64dp"
                 android:layout_gravity="center"
@@ -65,7 +65,7 @@
                 tools:layout_editor_absoluteX="121dp" />
 
             <Button
-                android:id="@+id/backbutton_payersinput"
+                android:id="@+id/backbutton_nonpayersinput"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
@@ -81,4 +81,3 @@
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

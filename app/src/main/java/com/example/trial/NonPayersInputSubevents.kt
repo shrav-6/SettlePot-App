@@ -11,7 +11,7 @@ class NonPayersInputSubevents : AppCompatActivity() {
         setContentView(R.layout.activity_non_payers_input_subevents)
 
         backbuttonfornonpayersinput_subevent.setOnClickListener {
-            val backtononpayerspageintent = Intent(this, NonPayersPageSubevents::class.java)
+            val backtononpayerspageintent = Intent(this, rolesSubevent::class.java)
             startActivity(backtononpayerspageintent)
             finish()
         }

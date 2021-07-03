@@ -11,7 +11,7 @@ class PayersInputSubevents : AppCompatActivity() {
         setContentView(R.layout.activity_payers_input_subevents)
 
         backbuttonforpayersinput_subevent.setOnClickListener {
-            val backtopayerspageintent = Intent(this, PayerspageSubevents::class.java)
+            val backtopayerspageintent = Intent(this, rolesSubevent::class.java)
             startActivity(backtopayerspageintent)
             finish()
         }

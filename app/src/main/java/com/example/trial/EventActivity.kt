@@ -33,9 +33,7 @@ class EventActivity : AppCompatActivity() {
         }
 
         viewsubeventsbutton.setOnClickListener {
-            val intent = Intent(this, RolesPage::class.java)
-            startActivity(intent)
-            finish()
+            print("view subevents")
         }
 
         addrolesbutton.setOnClickListener {
