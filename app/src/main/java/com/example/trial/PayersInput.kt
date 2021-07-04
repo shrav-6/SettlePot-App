@@ -8,47 +8,84 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_payers_input.*
 import java.util.*
 
 
 class PayersInput : AppCompatActivity() , View.OnClickListener {
     var layoutList: LinearLayout? = null
-
-    var amtList: MutableList<String?> = ArrayList()
+    private lateinit var Payersref: DatabaseReference
+    var amtList: MutableList<String?> = ArrayList()x
     var payersList = ArrayList<Payers>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payers_input)
-        layoutList = findViewById(R.id.layout_list)
 
+
+
+
+
+        layoutList = findViewById(R.id.layout_list)
+        lateinit var payerobj: Payers
+        var i:Int = 1
         val intentcaller = intent
+        var pid: String? = null     //==rid=eid
+        var receiveintent = intent
+        if(receiveintent.hasExtra("payerid")) {        //from roles page (rid) = eid
+            pid  = receiveintent.getStringExtra("payerid")
+        }
+        else if(receiveintent.hasExtra("bothpayerid")){
+            pid = receiveintent.getStringExtra("bothpayerid")
+        }
+        else if(receiveintent.hasExtra("backbothpayerid")){
+            pid = receiveintent.getStringExtra("backbothpayerid")
+        }
+
+
+
+
 
         button_addpayers.setOnClickListener {
             addView()
         }
         button_createrolesforpayers.setOnClickListener {
             val result = checkIfValidAndRead()
-
             if(result) {
-                if(intentcaller.hasExtra("callerfromboth")) {
+                Payersref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
+                for (counterobj in 0..payersList.size - 1) {
+                    Payersref.child(pid.toString()).child("Roles").child("Payers").child("Payer $i").setValue(payersList[counterobj])
+                    i++
+                }
+            }
+//            Payersref.child(pid.toString()).child("Roles").child("Payers").setValue(payersList)
+            //finish writing payer objects before this
+            if(result) {
+                if(intentcaller.hasExtra("bothpayerid") ) {
                     val intentcallfrompayersinput = Intent(this, NonPayersInput::class.java)
-                    intentcallfrompayersinput.putExtra("callerfromboth", "callerfromboth")
+                    intentcallfrompayersinput.putExtra("bothpayerid",pid)
                     startActivity(intentcallfrompayersinput)
-                    finish()
+                }
+                else if(intentcaller.hasExtra("backbothpayerid")){
+                    val intentcallfrompayersinput = Intent(this, NonPayersInput::class.java)
+                    intentcallfrompayersinput.putExtra("bothpayerid",pid)
+                    startActivity(intentcallfrompayersinput)
                 }
                 else {
                     val intent = Intent(this, ConfirmRoles::class.java)
+                    intent.putExtra("confirmrolesid",pid)
                     startActivity(intent)
-                    finish()
+
                 }
             }
         }
 
         backbutton_payersinput.setOnClickListener {
             val intent = Intent(this, RolesPage::class.java)
+            intent.putExtra("backtorolespid",pid)
             startActivity(intent)
-            finish()
         }
 
     }
@@ -79,11 +116,11 @@ class PayersInput : AppCompatActivity() , View.OnClickListener {
                 payer.payerName = editPayersName.text.toString()
             } else {
                 payer.payerName = "Payer $payercount"
-                Toast.makeText(baseContext, payer.payerName, Toast.LENGTH_SHORT).show()
+//                Toast.makeText(baseContext, payer.payerName, Toast.LENGTH_SHORT).show()
                 payercount++
             }
             if (editPayersAmt.text.toString() != "") {
-                payer.payerAmt = editPayersName.text.toString()
+                payer.payerAmt = editPayersAmt.text.toString()
             } else {
 
                 result = false

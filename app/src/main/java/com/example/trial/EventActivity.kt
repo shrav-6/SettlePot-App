@@ -29,6 +29,12 @@ class EventActivity : AppCompatActivity() {
         else if( receiveidintent.hasExtra("eventnotesid")){
             eid = receiveidintent.getStringExtra("eventnotesid")
         }
+        else if(receiveidintent.hasExtra("backtoeventid")){
+            eid = receiveidintent.getStringExtra("backtoeventid")
+        }
+        else if(receiveidintent.hasExtra("backfromrolesid")){
+            eid = receiveidintent.getStringExtra("backfromrolesid")
+        }
 
         eventpagebackbutton.setOnClickListener {
 //            Toast.makeText(baseContext,"Unsaved changes", Toast.LENGTH_SHORT).show()
@@ -60,17 +66,17 @@ class EventActivity : AppCompatActivity() {
         }
 
         addrolesbutton.setOnClickListener {
-            val intent = Intent(this, RolesPage::class.java)
-            startActivity(intent)
-            finish()
+            val addrolesintent = Intent(this, RolesPage::class.java)
+            addrolesintent.putExtra("rolesid",eid)
+            startActivity(addrolesintent)
         }
 
         addsubeventsbutton.setOnClickListener {
-            val intent = Intent(this, SubEvents::class.java)
-            startActivity(intent)
+            val addsubeventsintent = Intent(this, SubEvents::class.java)
+            startActivity(addsubeventsintent)
             finish()
         }
-        savechangesbutton.setOnClickListener {
+        savechangesbutton.setOnClickListener {                //name of the event
             ref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
             var eventename = eventName.text.toString().trim()
             if (TextUtils.isEmpty(eventename)) {

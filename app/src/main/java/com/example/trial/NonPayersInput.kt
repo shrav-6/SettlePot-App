@@ -8,44 +8,70 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.trial.ActivityNonPayers
 import com.example.trial.ConfirmRoles
 import com.example.trial.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_nonpayers_input.*
 import java.util.*
 
 
 class NonPayersInput : AppCompatActivity(), View.OnClickListener {
     var layoutList: LinearLayout? = null
-
+    private lateinit var Nonpayersref: DatabaseReference
+    private var i:Int = 1
     var nonpayersList = ArrayList<NonPayers>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nonpayers_input)
         layoutList = findViewById(R.id.layout_list)
 
+
+
         val intentcaller = intent
+        var npid: String? = null
+        var receiverintent = intent
+        if(receiverintent.hasExtra("nonpayerid")) {        //from roles page (rid) = eid
+            npid  = receiverintent.getStringExtra("nonpayerid")
+        }
+        else if(receiverintent.hasExtra("bothpayerid")){
+            npid = receiverintent.getStringExtra("bothpayerid")
+        }
+
+
+
 
         button_addnonpayers.setOnClickListener {
             addView()
         }
+
+
+
         button_createrolesfornonpayers.setOnClickListener {
             val result = checkIfValidAndRead()
+            Nonpayersref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
+            for(counterobj in 0..nonpayersList.size-1){
+                Nonpayersref.child(npid.toString()).child("Roles").child("Non Payers").child("Non Payer $i").setValue(nonpayersList[counterobj])
+                i++
+            }
+            //write to database nonpayer objects before this
             if(result) {
                 val intent = Intent(this, ConfirmRoles::class.java)
+                intent.putExtra("confirmrolesid",npid)
                 startActivity(intent)
-                finish()
             }
         }
 
         backbutton_nonpayersinput.setOnClickListener {
 
-            if(intentcaller.hasExtra("callerfromboth")) {
+            if(intentcaller.hasExtra("bothpayerid")) {
                 val intentcallfromnonpayersinput = Intent(this, PayersInput::class.java)
-                intentcallfromnonpayersinput.putExtra("callerfromboth", "callerfromboth")
+                intentcallfromnonpayersinput.putExtra("backbothpayerid", npid)
                 startActivity(intentcallfromnonpayersinput)
                 finish()
             } else {
                 val intent = Intent(this, RolesPage::class.java)
+                intent.putExtra("backtorolesnpid",npid)
                 startActivity(intent)
-                finish()
             }
         }
 
