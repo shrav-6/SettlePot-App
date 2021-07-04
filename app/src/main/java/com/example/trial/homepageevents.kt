@@ -5,9 +5,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_homepageevents.*
 
 class homepageevents : AppCompatActivity() {
+    companion object{
+        var eventscounter: Int = 0
+    }
+    private lateinit var reference: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homepageevents)
@@ -26,9 +32,13 @@ class homepageevents : AppCompatActivity() {
             finish()
         }
         addeventbutton.setOnClickListener {
-            val addeventfromhomepageintent = Intent(this, EventActivity::class.java)
-            startActivity(addeventfromhomepageintent)
-            finish()
+            eventscounter++
+            reference = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
+            var neweid = reference.push().key.toString()
+            Toast.makeText(baseContext, "No. of events created: $eventscounter", Toast.LENGTH_LONG).show()
+            val intent = Intent(applicationContext, EventActivity::class.java)
+            intent.putExtra("neweventid", neweid)
+            startActivity(intent)
         }
 
 

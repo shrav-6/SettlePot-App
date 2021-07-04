@@ -12,12 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Trial">
         <activity android:name=".ActivityNonPayers_subevent"></activity>
-        <activity android:name=".row_nonpayers_subevent" />
-        <activity android:name=".NonPayers_subevent" />
-        <activity android:name=".row_add_nonpayer_subevents" />
-        <activity android:name=".row_add_payer_subevent" />
         <activity android:name=".PayersInput" />
         <activity android:name=".ConfirmEventProfile" />
+        <activity android:name=".ActivityNotes"/>
+        <activity android:name=".ActivityPayers_subevent"/>
         <activity android:name=".EditEventProfile" />
         <activity android:name=".ConfirmRoles" />
         <activity android:name=".NonPayersInput" />
@@ -31,6 +29,7 @@
         <activity android:name=".phonesignin" />
         <activity android:name=".ActivityPayers" />
         <activity android:name=".login" />
+        <activity android:name=".NotesInput"/>
         <activity android:name=".googlesignin" />
         <activity android:name=".successfulsign" />
         <activity android:name=".signup" />

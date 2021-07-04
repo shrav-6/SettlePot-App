@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/eventbgpage"
+            android:orientation="vertical"
+            tools:context=".SampleActivity">
+
+
+            <LinearLayout
+                android:id="@+id/layout_list"
+                android:paddingTop="100dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"/>
+
+            <Button
+                android:id="@+id/button_addnotes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:backgroundTint="@color/white"
+                android:drawableRight="@drawable/plussign"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="Add"
+                android:textAllCaps="false"
+                android:textColor="#5E2F04"
+                app:cornerRadius="45dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/layout_list" />
+
+            <Button
+                android:id="@+id/button_savenotes"
+                android:layout_width="160dp"
+                android:layout_height="64dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="36dp"
+                android:backgroundTint="#a7d28b"
+                android:text="Save notes"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                app:cornerRadius="45dp"
+                app:layout_constraintTop_toBottomOf="@+id/button_addnotes"
+                tools:layout_editor_absoluteX="121dp" />
+
+            <Button
+                android:id="@+id/backbutton_notesinput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:text="back to previous page"
+                android:textColor="#5E2F04"
+                app:cornerRadius="45dp"
+                app:layout_constraintTop_toBottomOf="@+id/button_savenotes"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

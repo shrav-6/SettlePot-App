@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/eventbgpage"
-    android:orientation="vertical"
     tools:context=".EventActivity">
 
     <ImageButton
@@ -40,11 +39,12 @@
 
     <EditText
         android:id="@+id/eventName"
-        android:layout_width="165dp"
+        android:layout_width="170dp"
         android:layout_height="70dp"
         android:layout_marginTop="128dp"
         android:background="@drawable/roundedbutton"
-        android:text="Event name"
+        android:hint="Enter Event name"
+        android:textColorHint="#ab7a52"
         android:gravity="center"
         android:textColor="#AB7A52"
         app:layout_constraintEnd_toEndOf="parent"
@@ -175,5 +175,21 @@
         app:layout_constraintTop_toBottomOf="@+id/addsubeventsbutton"
         android:layout_alignParentRight="true"
         android:layout_marginRight="24dp" />
+
+    <Button
+        android:id="@+id/savechangesbutton"
+        android:layout_width="160dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#A7D28B"
+        android:text="Save Changes"
+        android:textAllCaps="true"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        app:cornerRadius="45dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notesbutton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

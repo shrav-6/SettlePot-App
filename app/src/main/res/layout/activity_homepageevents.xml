@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".homepageevents"
-    android:background="@drawable/homepage">
-
+    android:background="@drawable/eventbgpage">
 
 
     <ImageButton
@@ -16,10 +15,10 @@
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintHorizontal_bias="0.045"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.01"
+        app:layout_constraintVertical_bias="0.02"
         app:srcCompat="@drawable/usericonbrown" />
 
     <ImageButton
@@ -53,11 +52,11 @@
         android:id="@+id/logouttext"
         android:layout_width="69dp"
         android:layout_height="26dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="28dp"
         android:text="Logout"
-        android:textStyle="bold"
         android:textColor="@android:color/white"
         android:textSize="16dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logoutbutton" />
 

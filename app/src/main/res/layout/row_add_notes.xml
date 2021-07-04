@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+
+
+    <EditText
+        android:id="@+id/edit_notes_data"
+        android:layout_width="286dp"
+        android:layout_height="43dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="40dp"
+        android:layout_weight="1"
+        android:background="@drawable/rounded_edge"
+        android:hint="Enter a note"
+        android:paddingLeft="20dp"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/image_remove"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/cross" />
+
+</LinearLayout>

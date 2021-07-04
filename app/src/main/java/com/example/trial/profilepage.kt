@@ -46,7 +46,7 @@ class profilepage : AppCompatActivity() {
         database = FirebaseDatabase.getInstance().getReference("Users")
         val id = curuser!!.uid
         val userobj = users(id,uname,umailid,uphoneno)
-        database.child(id).setValue(userobj).addOnCompleteListener {
+        database.child(id).child("Profile info").setValue(userobj).addOnCompleteListener {
             Toast.makeText(baseContext,"Updated successfully",Toast.LENGTH_SHORT).show()
         }
     }
