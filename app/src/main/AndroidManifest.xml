@@ -19,7 +19,6 @@
         <activity android:name=".EditEventProfile" />
         <activity android:name=".ConfirmRoles" />
         <activity android:name=".NonPayersInput" />
-        <activity android:name=".ActivityNonPayers" />
         <activity android:name=".RolesPage" />
         <activity android:name=".EventActivity" />
         <activity android:name=".editprofilepage" />
@@ -27,7 +26,6 @@
         <activity android:name=".logindeetspage" />
         <activity android:name=".profilepage" />
         <activity android:name=".phonesignin" />
-        <activity android:name=".ActivityPayers" />
         <activity android:name=".login" />
         <activity android:name=".NotesInput"/>
         <activity android:name=".googlesignin" />

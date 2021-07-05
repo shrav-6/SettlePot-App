@@ -57,7 +57,7 @@ class PayersInputSubevents : AppCompatActivity() , View.OnClickListener {
         when (v.id) {
             R.id.button_add -> addView()
             R.id.button_createrolesforpayers -> if (checkIfValidAndRead()) {
-                val intent = Intent(this, ActivityNonPayers::class.java)
+                val intent = Intent(this, ActivityNonPayers_subevent::class.java)
                 val bundle = Bundle()
                 bundle.putSerializable("list", payersList_subevent)
                 intent.putExtras(bundle)

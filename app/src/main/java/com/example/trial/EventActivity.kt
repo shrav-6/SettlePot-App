@@ -55,6 +55,7 @@ class EventActivity : AppCompatActivity() {
             var notespageintent = Intent(applicationContext, NotesInput::class.java)
             notespageintent.putExtra("eventid",eid)
             startActivity(notespageintent)
+            finish()
         }
 
         viewrolesbutton.setOnClickListener {
@@ -69,6 +70,7 @@ class EventActivity : AppCompatActivity() {
             val addrolesintent = Intent(this, RolesPage::class.java)
             addrolesintent.putExtra("rolesid",eid)
             startActivity(addrolesintent)
+            finish()
         }
 
         addsubeventsbutton.setOnClickListener {
@@ -76,6 +78,8 @@ class EventActivity : AppCompatActivity() {
             startActivity(addsubeventsintent)
             finish()
         }
+
+
         savechangesbutton.setOnClickListener {                //name of the event
             ref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
             var eventename = eventName.text.toString().trim()

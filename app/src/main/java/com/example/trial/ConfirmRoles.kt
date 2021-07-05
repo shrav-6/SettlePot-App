@@ -20,6 +20,7 @@ class ConfirmRoles : AppCompatActivity() {
             val intent = Intent(this, EventActivity::class.java)
             intent.putExtra("backtoeventid",confirm_id)
             startActivity(intent)
+            this.finish()
         }, 2000)
     }
 }

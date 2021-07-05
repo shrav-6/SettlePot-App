@@ -5,7 +5,6 @@ import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_non_payers_subevent.*
-import kotlinx.android.synthetic.main.activity_nonpayers.*
 import java.util.*
 
 

@@ -26,24 +26,28 @@ class RolesPage : AppCompatActivity() {
             val intent = Intent(this,EventActivity::class.java)
             intent.putExtra("backfromrolesid",rid)
             startActivity(intent)
+            finish()
         }
 
         payersbutton.setOnClickListener {
             val payersintentfromrolespage = Intent(this, PayersInput::class.java)
             payersintentfromrolespage.putExtra("payerid",rid)
             startActivity(payersintentfromrolespage)
+            finish()
         }
 
         nonpayersbutton.setOnClickListener {
             val nonpayersintentfromrolespage = Intent(this, NonPayersInput::class.java)
             nonpayersintentfromrolespage.putExtra("nonpayerid",rid)
             startActivity(nonpayersintentfromrolespage)
+            finish()
         }
 
         bothbutton.setOnClickListener {
             val intent1 = Intent(this, PayersInput::class.java)
             intent1.putExtra("bothpayerid", rid)
             startActivity(intent1)
+            finish()
         }
     }
 }
