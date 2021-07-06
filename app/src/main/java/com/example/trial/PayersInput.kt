@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.Editable
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -20,26 +21,27 @@ import kotlin.collections.ArrayList
 
 //class PayersInput : AppCompatActivity() , View.OnClickListener {
 class PayersInput : AppCompatActivity() {
+    companion object{
+        var i: Int = 1
+        var payercount: Int = 1
+        var readpayersList = ArrayList<Payers?>()
+    }
+
     var layoutList: LinearLayout? = null
     private lateinit var Payersref: DatabaseReference
     private lateinit var GetPayersref: DatabaseReference
-//    var amtList: MutableList<String?> = ArrayList() //if not used, delete
     var payersList = ArrayList<Payers>()
-    var readpayersList = ArrayList<Payers?>()
 //    var pname: String? = null
 //    var pamt: String? = null
-
+    var x:Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payers_input)
 
-
-
-
         layoutList = findViewById(R.id.layout_list)
+        layoutList!!.clearAnimation()
 
 
-        var i:Int = 1
         val intentcaller = intent
         var pid: String? = null     //==rid=eid
         var receiveintent = intent
@@ -65,15 +67,13 @@ class PayersInput : AppCompatActivity() {
 //                        Toast.makeText(baseContext,"Counterobj val: $counterobj",Toast.LENGTH_LONG).show()
                         val payerobj: Payers? = counterobj.getValue(Payers::class.java)
                         readpayersList.add(payerobj)
-                    }
-                    for(i in 0..readpayersList.size-1){
-//                          Toast.makeText(baseContext,"Payer ${i+1}: ${readpayersList[i]?.payerName} Amount: ${readpayersList[i]?.payerAmt}",Toast.LENGTH_SHORT).show()
-                          readpayersList[i]?.let { addPayerView(it) }
-                    }
-                    //for loop to display
+                    } //list readpayerslist contains all the object payers that are written onto firebase so far
+//                    for(j in 0..readpayersList.size-1){
+//                          Toast.makeText(baseContext,"Payer ${j+1}: ${readpayersList[j]?.payerName} Amount: ${readpayersList[j]?.payerAmt}",Toast.LENGTH_SHORT).show()
+//                          //view here
+//                    }
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(baseContext,"Firebase Database Exceptions called - onCancelled(PayersInput)",Toast.LENGTH_SHORT).show()
             }
@@ -81,9 +81,17 @@ class PayersInput : AppCompatActivity() {
         GetPayersref.addValueEventListener(getpayersdata)
 
 
+//        for(k in 0..readpayersList.size-1) {
+//            Log.d("Values in readpayersList are:", "${readpayersList[k]?.payerName} and ${readpayersList[k]?.payerAmt}")
+//            addPayerView(readpayersList[k])
+//        }
 
 
-
+        for(loopobj in readpayersList) {
+            Log.d("Values in readpayersList are:", "${loopobj?.payerName} and ${loopobj?.payerAmt}")
+            readpayersView()
+//            addPayerView(loopobj)
+        }
 
 
         //read data from firebase above here
@@ -139,7 +147,6 @@ class PayersInput : AppCompatActivity() {
     private fun checkIfValidAndRead(): Boolean {
         payersList.clear()
         var result = true
-        var payercount = 1
         for (i in 0 until layoutList!!.childCount) {
             val payerView = layoutList!!.getChildAt(i)
             val editPayersName = payerView.findViewById<View>(R.id.edit_payers_name) as EditText
@@ -155,11 +162,10 @@ class PayersInput : AppCompatActivity() {
             if (editPayersAmt.text.toString() != "") {
                 payer.payerAmt = editPayersAmt.text.toString()
             } else {
-
                 result = false
                 break
             }
-            payersList.add(payer)
+            payersList.add(payer)         //only after confirm roles is pressed, all the valid roles are stored in payersList
         }
         if (payersList.size == 0) {
             result = false
@@ -172,6 +178,10 @@ class PayersInput : AppCompatActivity() {
 
     private fun addView() {
         val payerView: View = layoutInflater.inflate(R.layout.row_add_payer, null, false)
+        val pnamewrite = payerView.findViewById<View>(R.id.edit_payers_name) as EditText
+        val pamtwrite = payerView.findViewById<View>(R.id.edit_payers_amt) as EditText
+        pnamewrite.hint = "Payer's Name"
+        pamtwrite.hint = "Amt"
         val imageClose = payerView.findViewById<View>(R.id.image_remove) as ImageView
         imageClose.setOnClickListener { removeView(payerView) }
         layoutList!!.addView(payerView) //addView is an inbuilt func - not to be confused w the addView() function we have created
@@ -181,15 +191,53 @@ class PayersInput : AppCompatActivity() {
         layoutList!!.removeView(view) //removeView is an inbuilt func
     }
 
-
-
-    private fun addPayerView(payersampleobj: Payers) {
+    private fun readpayersView() {
         val payerViewx: View = layoutInflater.inflate(R.layout.row_add_payer, null, false)
-        edit_payers_name.hint = payersampleobj.payerName
-        edit_payers_amt.hint = payersampleobj.payerAmt
+        val pnamewrite = payerViewx.findViewById<View>(R.id.edit_payers_name) as EditText
+        val pamtwrite = payerViewx.findViewById<View>(R.id.edit_payers_amt) as EditText
+        pnamewrite.hint = readpayersList[x]?.payerName
+        pamtwrite.hint = readpayersList[x]?.payerAmt
+        x++
         val imageClose = payerViewx.findViewById<View>(R.id.image_remove) as ImageView
-        imageClose.setOnClickListener { removeView(payerViewx) }
-        layoutList!!.addView(payerViewx)
+        imageClose.setOnClickListener { removepayerView(payerViewx) }
+        layoutList!!.addView(payerViewx) //addView is an inbuilt func - not to be confused w the addView() function we have created
     }
+
+    private fun removepayerView(view: View) {
+        layoutList!!.removeView(view) //removeView is an inbuilt func
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//    private fun addPayerView(payersampleobj: Payers?) {
+//        val payerViewx: View = layoutInflater.inflate(R.layout.row_add_payer, null, false)
+//        edit_payers_name.setText("")
+//        edit_payers_amt.setText("")
+//        edit_payers_name.hint = payersampleobj?.payerName
+//        edit_payers_amt.hint = payersampleobj?.payerAmt
+//        val imageClose = payerViewx.findViewById<View>(R.id.image_remove) as ImageView
+//        imageClose.setOnClickListener { removeView(payerViewx) }
+//        layoutList!!.addView(payerViewx)
+//    }
 
 }

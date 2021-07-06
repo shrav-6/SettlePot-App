@@ -16,7 +16,10 @@ class NonPayersInput : AppCompatActivity() {
     private lateinit var Nonpayersref: DatabaseReference
     private lateinit var GetNonPayersref: DatabaseReference
     var readnonpayersList = ArrayList<NonPayers?>()
-    private var i:Int = 1
+    companion object{
+        var i: Int = 1
+        var nonpayercount: Int = 1
+    }
     var nonpayersList = ArrayList<NonPayers>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,7 +109,7 @@ class NonPayersInput : AppCompatActivity() {
     private fun checkIfValidAndRead(): Boolean {
         nonpayersList.clear()
         var result = true
-        var nonpayercount = 1
+
         for (i in 0 until layoutList!!.childCount) {
             val nonpayerView = layoutList!!.getChildAt(i)
             val editNonPayersName = nonpayerView.findViewById<View>(R.id.edit_nonpayers_name) as EditText

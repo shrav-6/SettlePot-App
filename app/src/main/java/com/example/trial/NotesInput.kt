@@ -38,13 +38,15 @@ class NotesInput : AppCompatActivity(), View.OnClickListener {
 
         button_savenotes.setOnClickListener {
             val result = checkIfValidAndRead()
-            dbref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
-            //var tempnoteslist = mutableListOf(notesList.toString())
-            var notesobject = notesclass(n_id, mutableListOf(temp_notes_list.toString()))
-            Toast.makeText(baseContext,"id: $n_id",Toast.LENGTH_LONG).show()
-            dbref.child(n_id.toString()).child("Notes").setValue(notesobject).addOnCompleteListener{
+            if(result) {
+                dbref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
+                //var tempnoteslist = mutableListOf(notesList.toString())
+                var notesobject = notesclass(n_id, mutableListOf(temp_notes_list.toString()))
+//                Toast.makeText(baseContext, "id: $n_id", Toast.LENGTH_LONG).show()
+                dbref.child(n_id.toString()).child("Notes").setValue(notesobject).addOnCompleteListener {
 //            dbref.setValue(notesobject).addOnCompleteListener{
-                Toast.makeText(baseContext,"Notes added",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, "Notes added", Toast.LENGTH_SHORT).show()
+                }
             }
             if(result) {
                 Toast.makeText(baseContext, "current notes should display in text view", Toast.LENGTH_SHORT).show()
