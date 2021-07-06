@@ -102,6 +102,9 @@ class PayersInput : AppCompatActivity() {
 
         //from here, writing data onto firebase
         button_createrolesforpayers.setOnClickListener {
+            Payersref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
+            Payersref.child(pid.toString()).child("Roles").child("Payers").removeValue()
+            i=1
             val result = checkIfValidAndRead()
             if(result) {
                 Payersref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
@@ -195,8 +198,10 @@ class PayersInput : AppCompatActivity() {
         val payerViewx: View = layoutInflater.inflate(R.layout.row_add_payer, null, false)
         val pnamewrite = payerViewx.findViewById<View>(R.id.edit_payers_name) as EditText
         val pamtwrite = payerViewx.findViewById<View>(R.id.edit_payers_amt) as EditText
-        pnamewrite.hint = readpayersList[x]?.payerName
-        pamtwrite.hint = readpayersList[x]?.payerAmt
+        pnamewrite.setText(readpayersList[x]?.payerName.toString())
+        pamtwrite.setText(readpayersList[x]?.payerAmt.toString())
+//        pnamewrite.hint = readpayersList[x]?.payerName
+//        pamtwrite.hint = readpayersList[x]?.payerAmt
         x++
         val imageClose = payerViewx.findViewById<View>(R.id.image_remove) as ImageView
         imageClose.setOnClickListener { removepayerView(payerViewx) }
@@ -206,26 +211,6 @@ class PayersInput : AppCompatActivity() {
     private fun removepayerView(view: View) {
         layoutList!!.removeView(view) //removeView is an inbuilt func
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //

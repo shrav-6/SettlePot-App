@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
+import com.google.firebase.database.DatabaseReference
 import kotlinx.android.synthetic.main.activity_payers_input_subevents.*
 import java.util.ArrayList
 
@@ -15,9 +16,17 @@ import java.util.ArrayList
 
 class PayersInputSubevents : AppCompatActivity() , View.OnClickListener {
     var layoutList: LinearLayout? = null
+    companion object {
+        var i: Int = 1
+        var payercount_subevents: Int = 1
+        var readpayersList_subevents = ArrayList<Payers?>()
+    }
 
-    var amtList: MutableList<String?> = ArrayList()
     var payersList_subevent = ArrayList<Payers_subevent>()
+    private lateinit var Payersref_subevents: DatabaseReference
+    private lateinit var GetPayersref_subevents: DatabaseReference
+
+    var x: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payers_input_subevents)
