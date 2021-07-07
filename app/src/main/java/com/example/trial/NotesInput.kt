@@ -19,15 +19,13 @@ import kotlin.collections.ArrayList
 class NotesInput : AppCompatActivity() {
 
     companion object {
-        var i: Int = 1
-        var readnotesList = ArrayList<notesclass?>()
+//        var i: Int = 1
+//        var readnotesList = ArrayList<notesclass?>()
         var read_temp_notes_list: MutableList<String> = mutableListOf()
-
-        lateinit var notes: String
-
+        var notes: String? = null
     }
     var listt : ArrayList<String> = arrayListOf()
-    var note: String?= null
+//    var note: String?= null
     var layoutList: LinearLayout? = null
     var n_id: String? = null
     var notesList = ArrayList<notesclass>()
@@ -75,9 +73,8 @@ class NotesInput : AppCompatActivity() {
             var w = z.toString().split(",")
             for(g in w){
                 notes = g.trim('[')
-                notes = notes.trim(']')
-                notes = notes.trim()
-                Log.d("VALUE IS:", notes)
+                notes = notes?.trim(']')
+                notes = notes?.trim()
                 readnotesView()
             }
         }

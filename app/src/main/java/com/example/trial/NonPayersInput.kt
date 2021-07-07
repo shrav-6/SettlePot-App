@@ -46,6 +46,9 @@ class NonPayersInput : AppCompatActivity() {
         GetNonPayersref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events").child(npid.toString()).child("Roles").child("Non Payers")
         var getnonpayersdata = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+//                if(!snapshot.exists()){
+//                    readnonpayersList.clear()
+//                }
                 if (snapshot.exists()) {
                     readnonpayersList.clear()
                     for (counterobj in snapshot.children) {

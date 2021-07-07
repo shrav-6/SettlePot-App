@@ -40,9 +40,9 @@ class NonPayersInputSubevents : AppCompatActivity(){
         var sid: String? = null
         var receiverintent = intent
 
-        if(receiverintent.hasExtra("nonpayerid_subevent - eid")) {
-            eid  = receiverintent.getStringExtra("nonpayerid_subevent - eid")
-            sid  = receiverintent.getStringExtra("nonpayerid_subevent - sid")
+        if(receiverintent.hasExtra("nonpayerid_subevents - eid")) {
+            eid  = receiverintent.getStringExtra("nonpayerid_subevents - eid")
+            sid  = receiverintent.getStringExtra("nonpayerid_subevents - sid")
 
         }
         else if(receiverintent.hasExtra("callerfromboth_subevents - eid")){
@@ -94,15 +94,15 @@ class NonPayersInputSubevents : AppCompatActivity(){
                 child(eid.toString()).child("SubEvents")
                 for (counterobj in 0..nonpayersList_subevents.size - 1) {
                     Nonpayersref_subevents.child(sid.toString()).child("Roles SubEvents").child("Non Payers").
-                    child("Non Payer ${NonPayersInput.i}").setValue(nonpayersList_subevents[counterobj])
+                    child("Non Payer ${i}").setValue(nonpayersList_subevents[counterobj])
                     i++
                 }
             }
             //write to database nonpayer objects before this
             if(result) {
                 val intent = Intent(this, ConfirmRoles_subevent::class.java)
-                intent.putExtra("confirmrolesid_subevent - eid",eid)
-                intent.putExtra("confirmrolesid_subevent - sid",sid)
+                intent.putExtra("confirmrolesid - eid",eid)
+                intent.putExtra("confirmrolesid - sid",sid)
                 startActivity(intent)
                 finish()
             }

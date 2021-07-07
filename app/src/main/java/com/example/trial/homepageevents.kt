@@ -39,8 +39,15 @@ class homepageevents : AppCompatActivity() {
             val intent = Intent(applicationContext, EventActivity::class.java)
             intent.putExtra("neweventid", neweid)
             startActivity(intent)
+            NotesInput.read_temp_notes_list.clear()
+            NotesInput.notes = null
+            NonPayersInput.readnonpayersList.clear()
+            NonPayersInput.nonpayercount = 1
+            PayersInput.readpayersList.clear()
+            PayersInput.payercount = 1
             EventActivity.subeventscounter = 0
             SubeventActivity.subeventnamecounter = 0
+            finish()
         }
 
 

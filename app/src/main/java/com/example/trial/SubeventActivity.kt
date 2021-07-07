@@ -6,8 +6,7 @@ import android.text.TextUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_event_activity.*
 import kotlinx.android.synthetic.main.activity_subevents.*
 
@@ -18,14 +17,15 @@ class SubeventActivity : AppCompatActivity() {
     }
     lateinit var subevent: subevents
     private lateinit var subref: DatabaseReference
+    private lateinit var ReadNameref : DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_subevents)
 
-
+        var subeventobj: subevents?
         var sid: String? = null
         var eid: String? = null
-        var counter:Int = 0
+//        var counter:Int = 0
         val receivesubeventid = intent
         if(receivesubeventid.hasExtra("newsubeventid"))
         {
@@ -33,7 +33,7 @@ class SubeventActivity : AppCompatActivity() {
             sid = receivesubeventid.getStringExtra("newsubeventid")
 //            counter = receivesubeventid.getIntExtra("counterforsubeventname",0)
         }
-        else if(receivesubeventid.hasExtra("Backfromrolestosubevent")) {
+        else if(receivesubeventid.hasExtra("Backfromrolestosubevent eid")) {
                 eid = receivesubeventid.getStringExtra("Backfromrolestosubevent eid")
                 sid = receivesubeventid.getStringExtra("Backfromrolestosubevent sid")
         }
@@ -46,6 +46,24 @@ class SubeventActivity : AppCompatActivity() {
 //        {
 //            subeventnamecounter = 0
 //        }
+
+        ReadNameref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
+                .child(eid.toString()).child("SubEvents").child(sid.toString()).child("SubEvent details")
+        var readsubeventdetails = object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    subeventobj = snapshot.getValue(subevents::class.java)
+                    subevent_name.setText(subeventobj?.sname.toString())
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        }
+        ReadNameref.addValueEventListener(readsubeventdetails)
+
+
 
         backbutton_subevents.setOnClickListener{
             val back_intent=Intent(this, EventActivity::class.java)

@@ -6,8 +6,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_event_activity.*
 
 class EventActivity : AppCompatActivity() {
@@ -17,12 +16,15 @@ class EventActivity : AppCompatActivity() {
     }
     lateinit var event: events
     private lateinit var subeventsreference: DatabaseReference
+    private lateinit var ReadEventNameref: DatabaseReference
     private lateinit var ref: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_event_activity)
 
+
+        var eventobj: events?
         var eid: String? = null
         var receiveidintent = intent
         if(receiveidintent.hasExtra("neweventid")) {
@@ -41,6 +43,27 @@ class EventActivity : AppCompatActivity() {
             eid = receiveidintent.getStringExtra("eventidbackfromsubevent")
             //can receive sid also, commented in Subevent activity back button for now
         }
+
+        ReadEventNameref = FirebaseDatabase.getInstance().getReference("Users")
+            .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
+            .child(eid.toString()).child("Event Details")
+        var readeventdetails = object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    eventobj = snapshot.getValue(events::class.java)
+                    eventName.setText(eventobj?.ename.toString())
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        }
+        ReadEventNameref.addValueEventListener(readeventdetails)
+
+
+
+
 
         eventpagebackbutton.setOnClickListener {
 //            Toast.makeText(baseContext,"Unsaved changes", Toast.LENGTH_SHORT).show()
@@ -88,6 +111,10 @@ class EventActivity : AppCompatActivity() {
 //            addsubeventsintent.putExtra("counterforsubeventname", subeventscounter)
             addsubeventsintent.putExtra("eventforsub_id",eid)
             addsubeventsintent.putExtra("newsubeventid",newsid)
+            PayersInputSubevents.payercount_subevents = 1
+            PayersInputSubevents.readpayersList_subevents.clear()
+            NonPayersInputSubevents.nonpayercount_subevents = 1
+            NonPayersInputSubevents.readnonpayersList_subevents.clear()
             startActivity(addsubeventsintent)
             finish()
         }
