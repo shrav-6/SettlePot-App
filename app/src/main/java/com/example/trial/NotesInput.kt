@@ -153,6 +153,7 @@ class NotesInput : AppCompatActivity() {
         return result
     }
 
+    
     private fun addView() {
         val notesView: View = layoutInflater.inflate(R.layout.row_add_notes, null, false)
         val editText = notesView.findViewById<View>(R.id.edit_notes_data) as EditText

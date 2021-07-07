@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
@@ -20,38 +21,22 @@
         android:background="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/backbutton"
-        android:layout_alignParentLeft="true" />
+        app:srcCompat="@drawable/backbutton" />
 
-    <ImageButton
-        android:id="@+id/editeventprofile"
-        android:layout_width="75dp"
-        android:layout_height="71dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="72dp"
-        android:layout_marginLeft="72dp"
-        android:layout_marginTop="128dp"
-        android:background="@drawable/roundedbutton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/profilebutton" />
 
     <EditText
         android:id="@+id/eventName"
-        android:layout_width="170dp"
+        android:layout_width="210dp"
         android:layout_height="70dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="132dp"
         android:background="@drawable/roundedbutton"
-        android:hint="Enter Event name"
-        android:textColorHint="#ab7a52"
         android:gravity="center"
+        android:hint="Enter Event name"
         android:textColor="#AB7A52"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.137"
-        app:layout_constraintStart_toEndOf="@+id/editeventprofile"
+        android:textColorHint="#ab7a52"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <Button
         android:id="@+id/notesbutton"
@@ -91,7 +76,7 @@
         android:textSize="18dp"
         app:backgroundTint="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editeventprofile" />
+        app:layout_constraintTop_toBottomOf="@+id/eventName" />
 
     <Button
         android:id="@+id/viewsubeventsbutton"
@@ -101,8 +86,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="28dp"
         android:background="@drawable/roundedbutton"
         android:text="View Sub-events"
         android:textAllCaps="false"
@@ -112,77 +97,77 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/viewrolesbutton"
-        app:layout_constraintTop_toBottomOf="@+id/eventName" />
+        app:layout_constraintTop_toBottomOf="@+id/savechangestext" />
 
     <ImageButton
         android:id="@+id/addrolesbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="44dp"
+        android:layout_marginLeft="44dp"
         android:layout_marginBottom="48dp"
         android:background="#a18361"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/addroles"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="44dp" />
+        app:srcCompat="@drawable/addroles" />
 
     <TextView
         android:id="@+id/addrolestext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="52dp"
+        android:layout_marginLeft="52dp"
         android:layout_marginTop="12dp"
         android:text="Add roles"
-        android:textStyle="bold"
         android:textColor="@color/white"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addrolesbutton"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="52dp" />
+        app:layout_constraintTop_toBottomOf="@id/addrolesbutton" />
 
     <ImageButton
         android:id="@+id/addsubeventsbutton"
         android:layout_width="71dp"
         android:layout_height="71dp"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
         android:layout_marginBottom="48dp"
         android:background="#e3bf9b"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/addsubevents"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="32dp" />
+        app:srcCompat="@drawable/addsubevents" />
 
     <TextView
         android:id="@+id/addsubeventstext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         android:text="Add sub-events"
-        android:textStyle="bold"
         android:textColor="#AB7A52"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addsubeventsbutton"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="24dp" />
+        app:layout_constraintTop_toBottomOf="@+id/addsubeventsbutton" />
 
     <Button
-        android:id="@+id/savechangesbutton"
-        android:layout_width="160dp"
-        android:layout_height="63dp"
+        android:id="@+id/closeventbutton"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
         android:layout_marginTop="20dp"
-        android:backgroundTint="#A7D28B"
-        android:text="Save Changes"
+        android:backgroundTint="#A7D28D"
+        android:text="Close Event"
         android:textAllCaps="true"
         android:textColor="#ffffff"
         android:textStyle="bold"
@@ -191,5 +176,32 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/notesbutton" />
+
+    <ImageButton
+        android:id="@+id/savechangesbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="136dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.127"
+        app:layout_constraintStart_toEndOf="@+id/eventName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/savenametick" />
+
+    <TextView
+        android:id="@+id/savechangestext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:text="  Save"
+        android:textColor="#ffffff"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.177"
+        app:layout_constraintStart_toEndOf="@+id/eventName"
+        app:layout_constraintTop_toBottomOf="@+id/savechangesbutton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,7 +15,7 @@ class ConfirmRoles_subevent : AppCompatActivity() {
         Toast.makeText(baseContext,"Roles created successfully", Toast.LENGTH_LONG).show()
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
-            val intent = Intent(this, SubEvents::class.java)
+            val intent = Intent(this, SubeventActivity::class.java)
             startActivity(intent)
         }, 2000)
     }

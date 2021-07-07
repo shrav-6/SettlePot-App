@@ -13,8 +13,10 @@ import kotlinx.android.synthetic.main.activity_event_activity.*
 class EventActivity : AppCompatActivity() {
     companion object{
         var eventnamecounter: Int = 0
+        var subeventscounter: Int = 0
     }
     lateinit var event: events
+    private lateinit var subeventsreference: DatabaseReference
     private lateinit var ref: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +37,10 @@ class EventActivity : AppCompatActivity() {
         else if(receiveidintent.hasExtra("backfromrolesid")){
             eid = receiveidintent.getStringExtra("backfromrolesid")
         }
+        else if(receiveidintent.hasExtra("eventidbackfromsubevent")){
+            eid = receiveidintent.getStringExtra("eventidbackfromsubevent")
+            //can receive sid also, commented in Subevent activity back button for now
+        }
 
         eventpagebackbutton.setOnClickListener {
 //            Toast.makeText(baseContext,"Unsaved changes", Toast.LENGTH_SHORT).show()
@@ -42,12 +48,12 @@ class EventActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
-        editeventprofile.setOnClickListener {
-            val intent = Intent(this, EditEventProfile::class.java)
-            startActivity(intent)
-            finish()
-        }
+//
+//        editeventprofile.setOnClickListener {
+//            val intent = Intent(this, EditEventProfile::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
 
 
         notesbutton.setOnClickListener {
@@ -74,7 +80,14 @@ class EventActivity : AppCompatActivity() {
         }
 
         addsubeventsbutton.setOnClickListener {
-            val addsubeventsintent = Intent(this, SubEvents::class.java)
+            subeventscounter++
+            subeventsreference = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events").child(eid.toString()).child("SubEvents")
+            var newsid = subeventsreference.push().key.toString()
+            Toast.makeText(baseContext,"No of subevents created: $subeventscounter",Toast.LENGTH_SHORT).show()
+            val addsubeventsintent = Intent(this, SubeventActivity::class.java)
+//            addsubeventsintent.putExtra("counterforsubeventname", subeventscounter)
+            addsubeventsintent.putExtra("eventforsub_id",eid)
+            addsubeventsintent.putExtra("newsubeventid",newsid)
             startActivity(addsubeventsintent)
             finish()
         }

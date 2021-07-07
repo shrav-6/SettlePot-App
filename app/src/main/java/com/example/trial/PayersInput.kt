@@ -56,8 +56,6 @@ class PayersInput : AppCompatActivity() {
         }
 
 
-
-
         GetPayersref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events").child(pid.toString()).child("Roles").child("Payers")
         var getpayersdata = object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {

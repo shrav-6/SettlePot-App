@@ -31,7 +31,7 @@ class rolesSubevent : AppCompatActivity() {
         }
 
         backbuttonrolespage_subevent.setOnClickListener{
-            val backbuttonrolespage_intent = Intent(this, SubEvents::class.java)
+            val backbuttonrolespage_intent = Intent(this, SubeventActivity::class.java)
             startActivity(backbuttonrolespage_intent)
             finish()
         }

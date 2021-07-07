@@ -39,6 +39,8 @@ class homepageevents : AppCompatActivity() {
             val intent = Intent(applicationContext, EventActivity::class.java)
             intent.putExtra("neweventid", neweid)
             startActivity(intent)
+            EventActivity.subeventscounter = 0
+            SubeventActivity.subeventnamecounter = 0
         }
 
 

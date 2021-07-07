@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SubEvents"
+    tools:context=".SubeventActivity"
     android:background="@drawable/subevent_finalblur">
 
 
@@ -17,13 +17,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/close_subevent"
-        app:layout_constraintVertical_bias="0.077"
+        app:layout_constraintVertical_bias="0.122"
         app:srcCompat="@drawable/addroles_subevent_brown" />
 
     <EditText
-        android:id="@+id/Subevent_name"
-        android:layout_width="264dp"
-        android:layout_height="81dp"
+        android:id="@+id/subevent_name"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="76dp"
         android:layout_marginTop="200dp"
         android:background="@drawable/brownroundedbutton"
         android:gravity="center"
@@ -31,9 +32,8 @@
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textColorHint="@android:color/white"
+
         android:textSize="19dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.527"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,7 +51,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.527"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Subevent_name" />
+        app:layout_constraintTop_toBottomOf="@+id/subevent_name" />
 
     <Button
         android:id="@+id/close_subevent"
@@ -94,5 +94,31 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addroles_subevents" />
+
+
+    <ImageButton
+        android:id="@+id/savesubeventname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="204dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/subevent_name"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/savesubeventnametick" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:textColor="#ab7a52"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.152"
+        app:layout_constraintStart_toStartOf="@+id/savesubeventname"
+        app:layout_constraintTop_toBottomOf="@+id/savesubeventname" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

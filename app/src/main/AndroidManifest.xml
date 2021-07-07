@@ -37,7 +37,7 @@
         <activity android:name=".NonPayersInputSubevents" />
         <activity android:name=".PayersInputSubevents" />
         <activity android:name=".rolesSubevent" />
-        <activity android:name=".SubEvents" />
+        <activity android:name=".SubeventActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
