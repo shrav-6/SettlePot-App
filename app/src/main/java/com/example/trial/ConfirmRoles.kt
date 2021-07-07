@@ -24,5 +24,3 @@ class ConfirmRoles : AppCompatActivity() {
         }, 2000)
     }
 }
-
-

@@ -33,6 +33,14 @@ class SubeventActivity : AppCompatActivity() {
             sid = receivesubeventid.getStringExtra("newsubeventid")
 //            counter = receivesubeventid.getIntExtra("counterforsubeventname",0)
         }
+        else if(receivesubeventid.hasExtra("Backfromrolestosubevent")) {
+                eid = receivesubeventid.getStringExtra("Backfromrolestosubevent eid")
+                sid = receivesubeventid.getStringExtra("Backfromrolestosubevent sid")
+        }
+        else if(receivesubeventid.hasExtra("backtosubevents - eid")) {
+            eid = receivesubeventid.getStringExtra("backtosubevents - eid")
+            sid = receivesubeventid.getStringExtra("backtosubevents - sid")
+        }
 
 //        if(counter == 1)
 //        {
