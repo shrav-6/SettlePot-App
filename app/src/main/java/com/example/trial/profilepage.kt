@@ -3,19 +3,17 @@ package com.example.trial
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.database
-import com.google.firebase.database.ktx.getValue
-import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_profilepage.*
+import com.example.trial.users as users1
 
 class profilepage : AppCompatActivity() {
 
-    lateinit var cUser : users
+    lateinit var cUser : users1
     private lateinit var database: DatabaseReference
+    private lateinit var readforprofileref: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profilepage)
@@ -30,8 +28,27 @@ class profilepage : AppCompatActivity() {
         }
 
         saveinfo.setOnClickListener{
-            saveUser()                                     //save user deets when edits are made
+            saveUser()
         }
+
+        readforprofileref = FirebaseDatabase.getInstance().getReference("Users")
+            .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Profile info")
+        var readprofileinfo = object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    cUser = snapshot.getValue(users1::class.java)!!
+                    username.setText(cUser?.name.toString())
+                    usermailid.setText(cUser?.mailid.toString())
+                    userphno.setText(cUser?.phoneno.toString())
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        }
+        readforprofileref.addValueEventListener(readprofileinfo)
 
     }
 
@@ -45,7 +62,7 @@ class profilepage : AppCompatActivity() {
         val curuser = FirebaseAuth.getInstance().currentUser
         database = FirebaseDatabase.getInstance().getReference("Users")
         val id = curuser!!.uid
-        val userobj = users(id,uname,umailid,uphoneno)
+        val userobj = users1(id,uname,umailid,uphoneno)
         database.child(id).child("Profile info").setValue(userobj).addOnCompleteListener {
             Toast.makeText(baseContext,"Updated successfully",Toast.LENGTH_SHORT).show()
         }

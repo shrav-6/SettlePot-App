@@ -6,15 +6,13 @@ class users {
     var mailid: String? = null
     var phoneno: String? = null
 
+    constructor(){
+    }
+
     constructor(id: String?, name: String?, mailid: String?, phoneno: String?) {
         this.id = id
         this.name = name
         this.mailid = mailid
         this.phoneno = phoneno
     }
-
-    constructor(){
-    }
-
-
 }
