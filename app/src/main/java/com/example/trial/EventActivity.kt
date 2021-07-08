@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -84,14 +85,15 @@ class EventActivity : AppCompatActivity() {
         notesbutton.setOnClickListener {
 //            Toast.makeText(baseContext,"Notes button pressed!",Toast.LENGTH_LONG).show()
             var notespageintent = Intent(applicationContext, NotesInput::class.java)
-            notespageintent.putExtra("eventid",eid)
+            notespageintent.putExtra("eventid",eid.toString())
+            Log.d("Notes inside clicked event id: ", eid.toString()) //prints the correct notes id
             startActivity(notespageintent)
             finish()
         }
-
-        viewrolesbutton.setOnClickListener {
-            Toast.makeText(baseContext,"View roles button pressed!",Toast.LENGTH_LONG).show()
-        }
+//
+//        viewrolesbutton.setOnClickListener {
+//            Toast.makeText(baseContext,"View roles button pressed!",Toast.LENGTH_LONG).show()
+//        }
 
         viewsubeventsbutton.setOnClickListener {
             Toast.makeText(baseContext,"View Subevents button pressed!",Toast.LENGTH_SHORT).show()
@@ -99,7 +101,7 @@ class EventActivity : AppCompatActivity() {
 
         addrolesbutton.setOnClickListener {
             val addrolesintent = Intent(this, RolesPage::class.java)
-            addrolesintent.putExtra("rolesid",eid)
+            addrolesintent.putExtra("rolesid",eid.toString())
             startActivity(addrolesintent)
             finish()
         }

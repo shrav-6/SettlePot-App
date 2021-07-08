@@ -2,31 +2,53 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintlayouthomepage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/eventbgpage"
     tools:context=".homepageevents">
 
+
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="700dp"
+        android:layout_height="670dp"
         android:background="@drawable/eventbgpage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.028">
+        app:layout_constraintVertical_bias="0.445">
 
         <LinearLayout
             android:id="@+id/layout_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/eventbgpage"
+            android:background="@drawable/scrollpagebg"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingTop="100dp" />
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"/>
+
     </ScrollView>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="75dp"
+        android:background="@drawable/toprounded"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:background="@drawable/bottomrounded"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintlayouthomepage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
     <ImageButton
         android:id="@+id/editprofileicon"
@@ -45,36 +67,36 @@
         android:id="@+id/logoutbutton"
         android:layout_width="68dp"
         android:layout_height="54dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="30dp"
 
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="30dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
 
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/logout" />
+        app:srcCompat="@drawable/logoutbutton" />
 
-            <ImageButton
-                android:id="@+id/addeventbutton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="28dp"
-                android:layout_marginBottom="44dp"
+    <ImageButton
+        android:id="@+id/addeventbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:scaleX="0.85"
+        android:scaleY="0.85"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
 
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/addeventnew" />
 
-                android:background="@android:color/transparent"
-                app:layout_constraintBottom_toBottomOf="parent"
-
-                app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/addeventnew" />
-
-            <TextView
+    <TextView
         android:id="@+id/logouttext"
         android:layout_width="69dp"
         android:layout_height="26dp"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="40dp"
         android:text="Logout"
-        android:textColor="@android:color/black"
+        android:textColor="#ab7a52"
         android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,7 +107,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="20dp"
         android:gravity="center"
         android:text="Add events"
         android:textColor="#AB7A52"

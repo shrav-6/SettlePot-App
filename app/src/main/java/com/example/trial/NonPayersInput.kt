@@ -24,7 +24,7 @@ class NonPayersInput : AppCompatActivity() {
     private lateinit var GetNonPayersref: DatabaseReference
     var nonpayersList = ArrayList<NonPayers>()
 //    var readnonpayersList = ArrayList<NonPayers?>()
-    var x: Int = 0
+    var flag: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nonpayers_input)
@@ -50,11 +50,11 @@ class NonPayersInput : AppCompatActivity() {
 //                    readnonpayersList.clear()
 //                }
                 if (snapshot.exists()) {
-                    readnonpayersList.clear()
-                    for (counterobj in snapshot.children) {
-//                        Toast.makeText(baseContext,"Counterobj val: $counterobj",Toast.LENGTH_LONG).show()
-                        val nonpayerobj: NonPayers? = counterobj.getValue(NonPayers::class.java)
-                        readnonpayersList.add(nonpayerobj)
+                    if(flag==0) {
+                        for (counterobj in snapshot.children) {
+                            val nonpayerobj: NonPayers? = counterobj.getValue(NonPayers::class.java)
+                            readnonpayersView(nonpayerobj)
+                        }
                     }
                 }
             }
@@ -66,10 +66,10 @@ class NonPayersInput : AppCompatActivity() {
         }
         GetNonPayersref.addValueEventListener(getnonpayersdata)
 
-        for(loopobj in readnonpayersList) {
-            Log.d("Values in readnonpayersList are:", "${loopobj?.nonpayerName}")
-            readnonpayersView()
-        }
+//        for(loopobj in readnonpayersList) {
+//            Log.d("Values in readnonpayersList are:", "${loopobj?.nonpayerName}")
+//            readnonpayersView()
+//        }
 
         button_addnonpayers.setOnClickListener {
             addView()
@@ -78,6 +78,7 @@ class NonPayersInput : AppCompatActivity() {
 
 
         button_createrolesfornonpayers.setOnClickListener {
+            flag=1
             Nonpayersref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
             Nonpayersref.child(npid.toString()).child("Roles").child("Non Payers").removeValue()
             i=1
@@ -146,11 +147,11 @@ class NonPayersInput : AppCompatActivity() {
         layoutList!!.removeView(view)
     }
 
-    private fun readnonpayersView() {
+    private fun readnonpayersView(sampleobject: NonPayers?) {
         val nonpayerViewx: View = layoutInflater.inflate(R.layout.row_add_nonpayer, null, false)
         val npnamewrite = nonpayerViewx.findViewById<View>(R.id.edit_nonpayers_name) as EditText
-        npnamewrite.setText(readnonpayersList[x]?.nonpayerName.toString())
-        x++
+        npnamewrite.setText(sampleobject?.nonpayerName.toString())
+//        x++
         val imageClose = nonpayerViewx.findViewById<View>(R.id.image_remove) as ImageView
         imageClose.setOnClickListener { removenonpayerView(nonpayerViewx) }
         layoutList!!.addView(nonpayerViewx) //addView is an inbuilt func - not to be confused w the addView() function we have created

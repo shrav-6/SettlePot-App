@@ -16,7 +16,7 @@ class successfulsign : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed(Runnable {   //handler use is to schedule messages and runnables to be executed at some point in the future
             val mainIntent = Intent(this, homepageevents::class.java)
             startActivity(mainIntent)
-            this.finish()
+            finish()
         }, 5000)
 
     }

@@ -36,25 +36,41 @@ class NotesInput : AppCompatActivity() {
 
     var temp_notes_list: MutableList<String> = mutableListOf()
 //    lateinit var final_notes_list: MutableList<String>
-    var x: Int = 0
+    var flag: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notes_input)
 
         var getidfromeventdeetspageintent = intent
         n_id = getidfromeventdeetspageintent.getStringExtra("eventid")
-
+        Log.d("After entering notes activity event id is: ", n_id.toString())
         layoutList = findViewById(R.id.layout_list)
+
 
         getdbref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).
         child("Events").child(n_id.toString()).child("Notes").child("notesdata")
         var getnotesdata = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    read_temp_notes_list.clear()
-                    read_temp_notes_list = snapshot.getValue() as MutableList<String>
+                    if (flag == 0) {
+                        read_temp_notes_list.clear()
+                        read_temp_notes_list = snapshot.getValue() as MutableList<String>
+                        for (y in read_temp_notes_list) {
+                            listt.add(y)
+                        }
+                        for (z in listt) {
+                            var w = z.split(",")
+                            for (g in w) {
+                                notes = g.trim('[')
+                                notes = notes?.trim(']')
+                                notes = notes?.trim()
+                                readnotesView()
+                            }
+                        }
+//                    Log.d("READING INSIDE LOOP", read_temp_notes_list.toString())
                     }
                 }
+            }
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(baseContext, "Firebase Database Exceptions called - onCancelled(NotesInput)", Toast.LENGTH_SHORT).show()
             }
@@ -63,21 +79,21 @@ class NotesInput : AppCompatActivity() {
 
 
 
-//        Log.d("BEFORE READING", read_temp_notes_list.toString())
+//        Log.d("READING", read_temp_notes_list.toString())
 //        read_temp_notes_list.map { read_temp_notes_list -> String()
 
-        for (y in read_temp_notes_list){
-            listt.add(y)
-        }
-        for (z in listt){
-            var w = z.toString().split(",")
-            for(g in w){
-                notes = g.trim('[')
-                notes = notes?.trim(']')
-                notes = notes?.trim()
-                readnotesView()
-            }
-        }
+//        for (y in read_temp_notes_list){
+//            listt.add(y)
+//        }
+//        for (z in listt){
+//            var w = z.split(",")
+//            for(g in w){
+//                notes = g.trim('[')
+//                notes = notes?.trim(']')
+//                notes = notes?.trim()
+//                readnotesView()
+//            }
+//        }
 //            Log.d("VALUE IS", y) //put in for loop y in read_temp_notes_list - gives one bracket only
 
 //        Toast.makeText(baseContext, "$read_temp_notes_list", Toast.LENGTH_SHORT).show()
@@ -105,6 +121,7 @@ class NotesInput : AppCompatActivity() {
         }
 
         button_savenotes.setOnClickListener {
+            flag=1
             dbref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events").child(n_id.toString())
             dbref.child("Notes").removeValue()
             val result = checkIfValidAndRead()

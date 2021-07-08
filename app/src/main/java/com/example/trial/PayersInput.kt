@@ -30,7 +30,7 @@ class PayersInput : AppCompatActivity() {
     private lateinit var Payersref: DatabaseReference
     private lateinit var GetPayersref: DatabaseReference
     var payersList = ArrayList<Payers>()
-    var x:Int = 0
+    var flag:Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,16 +61,12 @@ class PayersInput : AppCompatActivity() {
         var getpayersdata = object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    readpayersList.clear()
-                    for (counterobj in snapshot.children) {
-//                        Toast.makeText(baseContext,"Counterobj val: $counterobj",Toast.LENGTH_LONG).show()
-                        val payerobj: Payers? = counterobj.getValue(Payers::class.java)
-                        readpayersList.add(payerobj)
-                    } //list readpayerslist contains all the object payers that are written onto firebase so far
-//                    for(j in 0..readpayersList.size-1){
-//                          Toast.makeText(baseContext,"Payer ${j+1}: ${readpayersList[j]?.payerName} Amount: ${readpayersList[j]?.payerAmt}",Toast.LENGTH_SHORT).show()
-//                          //view here
-//                    }
+                    if(flag==0) {
+                        for (counterobj in snapshot.children) {
+                            val payerobj: Payers? = counterobj.getValue(Payers::class.java)
+                            readpayersView(payerobj)
+                        }
+                    }
                 }
             }
             override fun onCancelled(error: DatabaseError) {
@@ -86,11 +82,11 @@ class PayersInput : AppCompatActivity() {
 //        }
 
 
-        for(loopobj in readpayersList) {
-            Log.d("Values in readpayersList are:", "${loopobj?.payerName} and ${loopobj?.payerAmt}")
-            readpayersView()
-//            addPayerView(loopobj)
-        }
+//        for(loopobj in readpayersList) {
+//            Log.d("Values in readpayersList are:", "${loopobj?.payerName} and ${loopobj?.payerAmt}")
+//            readpayersView()
+////            addPayerView(loopobj)
+//        }
 
 
         //read data from firebase above here
@@ -101,6 +97,7 @@ class PayersInput : AppCompatActivity() {
 
         //from here, writing data onto firebase
         button_createrolesforpayers.setOnClickListener {
+            flag=1
             Payersref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
             Payersref.child(pid.toString()).child("Roles").child("Payers").removeValue()
             i=1
@@ -192,15 +189,15 @@ class PayersInput : AppCompatActivity() {
         layoutList!!.removeView(view) //removeView is an inbuilt func
     }
 
-    private fun readpayersView() {
+    private fun readpayersView(sampleobject: Payers?) {
         val payerViewx: View = layoutInflater.inflate(R.layout.row_add_payer, null, false)
         val pnamewrite = payerViewx.findViewById<View>(R.id.edit_payers_name) as EditText
         val pamtwrite = payerViewx.findViewById<View>(R.id.edit_payers_amt) as EditText
-        pnamewrite.setText(readpayersList[x]?.payerName.toString())
-        pamtwrite.setText(readpayersList[x]?.payerAmt.toString())
+        pnamewrite.setText(sampleobject?.payerName.toString())
+        pamtwrite.setText(sampleobject?.payerAmt.toString())
 //        pnamewrite.hint = readpayersList[x]?.payerName
 //        pamtwrite.hint = readpayersList[x]?.payerAmt
-        x++
+//        x++
         val imageClose = payerViewx.findViewById<View>(R.id.image_remove) as ImageView
         imageClose.setOnClickListener { removepayerView(payerViewx) }
         layoutList!!.addView(payerViewx) //addView is an inbuilt func - not to be confused w the addView() function we have created
