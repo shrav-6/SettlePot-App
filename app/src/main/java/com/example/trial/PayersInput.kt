@@ -26,14 +26,12 @@ class PayersInput : AppCompatActivity() {
         var payercount: Int = 1
         var readpayersList = ArrayList<Payers?>()
     }
-
     var layoutList: LinearLayout? = null
     private lateinit var Payersref: DatabaseReference
     private lateinit var GetPayersref: DatabaseReference
     var payersList = ArrayList<Payers>()
-//    var pname: String? = null
-//    var pamt: String? = null
     var x:Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payers_input)
@@ -56,7 +54,10 @@ class PayersInput : AppCompatActivity() {
         }
 
 
-        GetPayersref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events").child(pid.toString()).child("Roles").child("Payers")
+        GetPayersref = FirebaseDatabase.getInstance().getReference("Users")
+            .child(FirebaseAuth.getInstance().currentUser!!.uid)
+            .child("Events").child(pid.toString())
+            .child("Roles").child("Payers")
         var getpayersdata = object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
@@ -111,8 +112,7 @@ class PayersInput : AppCompatActivity() {
                     i++
                 }
             }
-//            Payersref.child(pid.toString()).child("Roles").child("Payers").setValue(payersList)
-            //finish writing payer objects before this
+
             if(result) {
                 if(intentcaller.hasExtra("bothpayerid") ) {
                     val intentcallfrompayersinput = Intent(this, NonPayersInput::class.java)

@@ -42,6 +42,8 @@ class EventActivity : AppCompatActivity() {
         else if(receiveidintent.hasExtra("eventidbackfromsubevent")){
             eid = receiveidintent.getStringExtra("eventidbackfromsubevent")
             //can receive sid also, commented in Subevent activity back button for now
+        } else if(receiveidintent.hasExtra("readeventid")) {
+            eid = receiveidintent.getStringExtra("readeventid")
         }
 
         ReadEventNameref = FirebaseDatabase.getInstance().getReference("Users")

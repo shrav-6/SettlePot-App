@@ -4,9 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".homepageevents"
-    android:background="@drawable/eventbgpage">
+    android:background="@drawable/eventbgpage"
+    tools:context=".homepageevents">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="700dp"
+        android:background="@drawable/eventbgpage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.028">
+
+        <LinearLayout
+            android:id="@+id/layout_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/eventbgpage"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="100dp" />
+    </ScrollView>
 
     <ImageButton
         android:id="@+id/editprofileicon"
@@ -23,8 +43,8 @@
 
     <ImageButton
         android:id="@+id/logoutbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="68dp"
+        android:layout_height="54dp"
         android:layout_marginStart="24dp"
 
         android:layout_marginBottom="40dp"
@@ -32,29 +52,29 @@
         app:layout_constraintBottom_toBottomOf="parent"
 
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/logoutbutton" />
+        app:srcCompat="@drawable/logout" />
 
-    <ImageButton
-        android:id="@+id/addeventbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="44dp"
+            <ImageButton
+                android:id="@+id/addeventbutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="28dp"
+                android:layout_marginBottom="44dp"
 
 
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@android:color/transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/addeventnew" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/addeventnew" />
 
-    <TextView
+            <TextView
         android:id="@+id/logouttext"
         android:layout_width="69dp"
         android:layout_height="26dp"
         android:layout_marginStart="28dp"
         android:text="Logout"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
