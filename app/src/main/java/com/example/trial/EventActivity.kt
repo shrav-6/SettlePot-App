@@ -70,7 +70,6 @@ class EventActivity : AppCompatActivity() {
 
 
 
-
         eventpagebackbutton.setOnClickListener {
 //            Toast.makeText(baseContext,"Unsaved changes", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, homepageevents::class.java)
@@ -122,6 +121,7 @@ class EventActivity : AppCompatActivity() {
             PayersInputSubevents.readpayersList_subevents.clear()
             NonPayersInputSubevents.nonpayercount_subevents = 1
             NonPayersInputSubevents.readnonpayersList_subevents.clear()
+            SubeventActivity.subeventnamecounter = 0
             startActivity(addsubeventsintent)
             finish()
         }
