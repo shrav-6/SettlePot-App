@@ -27,6 +27,7 @@ class EventActivity : AppCompatActivity() {
 
         var eventobj: events?
         var eid: String? = null
+        var ename: String? = null
         var receiveidintent = intent
         if(receiveidintent.hasExtra("neweventid")) {
             eid  = receiveidintent.getStringExtra("neweventid")
@@ -45,6 +46,8 @@ class EventActivity : AppCompatActivity() {
             //can receive sid also, commented in Subevent activity back button for now
         } else if(receiveidintent.hasExtra("readeventid")) {
             eid = receiveidintent.getStringExtra("readeventid")
+        } else if(receiveidintent.hasExtra("eventid from subevents view")) {
+            eid = receiveidintent.getStringExtra("eventid from subevents view")
         }
 
         ReadEventNameref = FirebaseDatabase.getInstance().getReference("Users")
@@ -74,6 +77,14 @@ class EventActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        viewsubeventsbutton.setOnClickListener {
+
+            val intentviewsubevents = Intent(this, SubEventsView::class.java)
+            intentviewsubevents.putExtra("eventid_view",eid.toString())
+            startActivity(intentviewsubevents)
+            finish()
+        }
 //
 //        editeventprofile.setOnClickListener {
 //            val intent = Intent(this, EditEventProfile::class.java)
@@ -90,14 +101,7 @@ class EventActivity : AppCompatActivity() {
             startActivity(notespageintent)
             finish()
         }
-//
-//        viewrolesbutton.setOnClickListener {
-//            Toast.makeText(baseContext,"View roles button pressed!",Toast.LENGTH_LONG).show()
-//        }
 
-        viewsubeventsbutton.setOnClickListener {
-            Toast.makeText(baseContext,"View Subevents button pressed!",Toast.LENGTH_SHORT).show()
-        }
 
         addrolesbutton.setOnClickListener {
             val addrolesintent = Intent(this, RolesPage::class.java)
@@ -112,7 +116,6 @@ class EventActivity : AppCompatActivity() {
             var newsid = subeventsreference.push().key.toString()
             Toast.makeText(baseContext,"No of subevents created: $subeventscounter",Toast.LENGTH_SHORT).show()
             val addsubeventsintent = Intent(this, SubeventActivity::class.java)
-//            addsubeventsintent.putExtra("counterforsubeventname", subeventscounter)
             addsubeventsintent.putExtra("eventforsub_id",eid)
             addsubeventsintent.putExtra("newsubeventid",newsid)
             PayersInputSubevents.payercount_subevents = 1

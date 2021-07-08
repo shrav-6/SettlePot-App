@@ -30,7 +30,7 @@ class PayersInputSubevents : AppCompatActivity() {
     private lateinit var Payersref_subevents: DatabaseReference
     private lateinit var GetPayersref_subevents: DatabaseReference
     var payersList_subevents = ArrayList<Payers_subevent>()
-    var x: Int = 0
+    var flag: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,10 +65,12 @@ class PayersInputSubevents : AppCompatActivity() {
         var getpayersdata_subevents = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    readpayersList_subevents.clear()
-                    for (counterobj in snapshot.children) {
-                        val payerobj_subevents: Payers_subevent? = counterobj.getValue(Payers_subevent::class.java)
-                        readpayersList_subevents.add(payerobj_subevents)
+                    if (flag == 0) {
+                        for (counterobj in snapshot.children) {
+                            val payerobj_subevents: Payers_subevent? =
+                                counterobj.getValue(Payers_subevent::class.java)
+                            readpayersView_subevent(payerobj_subevents)
+                        }
                     }
                 }
             }
@@ -84,20 +86,12 @@ class PayersInputSubevents : AppCompatActivity() {
         GetPayersref_subevents.addValueEventListener(getpayersdata_subevents)
 
 
-
-        for (loopobj in readpayersList_subevents) {
-            Log.d(
-                "Values in readpayersList_subevents are:",
-                "${loopobj?.payerName_subevent} and ${loopobj?.payerAmt_subevent}"
-            )
-            readpayersView_subevent()
-        }
-
         button_addpayers_subevent.setOnClickListener {
             addView()
         }
 
         button_createrolesforpayers_subevent.setOnClickListener {
+            flag = 1
             Payersref_subevents = FirebaseDatabase.getInstance().getReference("Users")
                 .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
                 .child(eid.toString()).child("SubEvents")
@@ -198,13 +192,12 @@ class PayersInputSubevents : AppCompatActivity() {
         layoutList!!.removeView(view) //removeView is an inbuilt func
     }
 
-    private fun readpayersView_subevent() {
+    private fun readpayersView_subevent(sampleobj_subevents: Payers_subevent?) {
         val payerViewx: View = layoutInflater.inflate(R.layout.row_add_payer_subevent, null, false)
         val pnamewrite = payerViewx.findViewById<View>(R.id.edit_payers_name_subevent) as EditText
         val pamtwrite = payerViewx.findViewById<View>(R.id.edit_payers_amt_subevent) as EditText
-        pnamewrite.setText(readpayersList_subevents[x]?.payerName_subevent.toString())
-        pamtwrite.setText(readpayersList_subevents[x]?.payerAmt_subevent.toString())
-        x++
+        pnamewrite.setText(sampleobj_subevents?.payerName_subevent.toString())
+        pamtwrite.setText(sampleobj_subevents?.payerAmt_subevent.toString())
         val imageClose = payerViewx.findViewById<View>(R.id.image_remove_subevent) as ImageView
         imageClose.setOnClickListener { removepayerView(payerViewx) }
         layoutList!!.addView(payerViewx) //addView is an inbuilt func - not to be confused w the addView() function we have created

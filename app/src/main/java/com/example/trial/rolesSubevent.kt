@@ -60,6 +60,5 @@ class rolesSubevent : AppCompatActivity() {
             startActivity(intent1)
             finish()
         }
-
     }
 }

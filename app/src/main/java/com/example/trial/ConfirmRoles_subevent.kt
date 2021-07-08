@@ -26,6 +26,7 @@ class ConfirmRoles_subevent : AppCompatActivity() {
             intent.putExtra("backtosubevents - eid",eid)
             intent.putExtra("backtosubevents - sid",sid)
             startActivity(intent)
+            finish()
         }, 2000)
 
 

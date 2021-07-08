@@ -25,13 +25,11 @@ class SubeventActivity : AppCompatActivity() {
         var subeventobj: subevents?
         var sid: String? = null
         var eid: String? = null
-//        var counter:Int = 0
         val receivesubeventid = intent
         if(receivesubeventid.hasExtra("newsubeventid"))
         {
             eid = receivesubeventid.getStringExtra("eventforsub_id")
             sid = receivesubeventid.getStringExtra("newsubeventid")
-//            counter = receivesubeventid.getIntExtra("counterforsubeventname",0)
         }
         else if(receivesubeventid.hasExtra("Backfromrolestosubevent eid")) {
                 eid = receivesubeventid.getStringExtra("Backfromrolestosubevent eid")
@@ -40,12 +38,10 @@ class SubeventActivity : AppCompatActivity() {
         else if(receivesubeventid.hasExtra("backtosubevents - eid")) {
             eid = receivesubeventid.getStringExtra("backtosubevents - eid")
             sid = receivesubeventid.getStringExtra("backtosubevents - sid")
+        } else if(receivesubeventid.hasExtra("readsubeventidview - eid")) {
+            eid = receivesubeventid.getStringExtra("readsubeventidview - eid")
+            sid = receivesubeventid.getStringExtra("readsubeventidview - sid")
         }
-
-//        if(counter == 1)
-//        {
-//            subeventnamecounter = 0
-//        }
 
         ReadNameref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
                 .child(eid.toString()).child("SubEvents").child(sid.toString()).child("SubEvent details")
@@ -68,7 +64,6 @@ class SubeventActivity : AppCompatActivity() {
         backbutton_subevents.setOnClickListener{
             val back_intent=Intent(this, EventActivity::class.java)
             back_intent.putExtra("eventidbackfromsubevent",eid)
-//            back_intent.putExtra("subeventidbackfromsubevent",sid)
             startActivity(back_intent)
             finish()
         }
@@ -85,9 +80,6 @@ class SubeventActivity : AppCompatActivity() {
                 subref.setValue(subevent).addOnCompleteListener {
                     Toast.makeText(baseContext,"Saved changes successfully!", Toast.LENGTH_LONG).show()
                 }
-        }
-        viewroles_subevents.setOnClickListener {
-            print("roles existing")
         }
 
         addroles_subevents.setOnClickListener {

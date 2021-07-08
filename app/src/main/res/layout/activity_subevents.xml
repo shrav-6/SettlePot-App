@@ -4,20 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SubeventActivity"
-    android:background="@drawable/subevent_finalblur">
+    android:background="@drawable/subevent_finalblur"
+    tools:context=".SubeventActivity">
 
 
     <ImageButton
         android:id="@+id/addroles_subevents"
         android:layout_width="95dp"
         android:layout_height="80dp"
+        android:layout_marginTop="44dp"
         android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/close_subevent"
-        app:layout_constraintVertical_bias="0.122"
+        app:layout_constraintTop_toBottomOf="@+id/subevent_name"
         app:srcCompat="@drawable/addroles_subevent_brown" />
 
     <EditText
@@ -25,7 +24,7 @@
         android:layout_width="200dp"
         android:layout_height="70dp"
         android:layout_marginStart="76dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="208dp"
         android:background="@drawable/brownroundedbutton"
         android:gravity="center"
         android:hint="Sub event name"
@@ -38,38 +37,21 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/viewroles_subevents"
-        android:layout_width="264dp"
-        android:layout_height="81dp"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="#AB7A52"
-        android:text="View Roles"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp"
-        app:cornerRadius="45dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.527"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subevent_name" />
-
-    <Button
         android:id="@+id/close_subevent"
         android:layout_width="wrap_content"
         android:layout_height="80dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="44dp"
         android:backgroundTint="#A7D28B"
         android:text="Close sub-event"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
+
         android:textStyle="bold|italic"
         app:cornerRadius="45dp"
-
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewroles_subevents" />
+        app:layout_constraintTop_toBottomOf="@+id/addrolestext" />
 
     <ImageButton
         android:id="@+id/backbutton_subevents"
@@ -101,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="204dp"
+        android:layout_marginTop="212dp"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

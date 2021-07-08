@@ -11,11 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Trial">
-        <activity android:name=".ActivityNonPayers_subevent"></activity>
+        <activity android:name=".SubEventsView"></activity>
+        <activity android:name=".ActivityNonPayers_subevent" />
         <activity android:name=".PayersInput" />
         <activity android:name=".ConfirmEventProfile" />
-        <activity android:name=".ActivityNotes"/>
-        <activity android:name=".ActivityPayers_subevent"/>
+        <activity android:name=".ActivityNotes" />
+        <activity android:name=".ActivityPayers_subevent" />
         <activity android:name=".EditEventProfile" />
         <activity android:name=".ConfirmRoles" />
         <activity android:name=".NonPayersInput" />
@@ -27,7 +28,7 @@
         <activity android:name=".profilepage" />
         <activity android:name=".phonesignin" />
         <activity android:name=".login" />
-        <activity android:name=".NotesInput"/>
+        <activity android:name=".NotesInput" />
         <activity android:name=".googlesignin" />
         <activity android:name=".successfulsign" />
         <activity android:name=".signup" />

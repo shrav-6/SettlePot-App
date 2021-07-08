@@ -17,6 +17,7 @@ class ConfirmEventProfile : AppCompatActivity() {
         handler.postDelayed({
             val intent = Intent(this,EventActivity::class.java)
             startActivity(intent)
+            finish()
         }, 1500)
 
     }

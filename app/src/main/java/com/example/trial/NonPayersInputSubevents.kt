@@ -27,7 +27,7 @@ class NonPayersInputSubevents : AppCompatActivity(){
     private lateinit var GetNonPayersref_subevents: DatabaseReference
     var nonpayersList_subevents = ArrayList<NonPayers_subevent>()
 
-    var x: Int = 0
+    var flag: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +39,6 @@ class NonPayersInputSubevents : AppCompatActivity(){
         var eid: String? = null
         var sid: String? = null
         var receiverintent = intent
-
         if(receiverintent.hasExtra("nonpayerid_subevents - eid")) {
             eid  = receiverintent.getStringExtra("nonpayerid_subevents - eid")
             sid  = receiverintent.getStringExtra("nonpayerid_subevents - sid")
@@ -59,10 +58,13 @@ class NonPayersInputSubevents : AppCompatActivity(){
         var getnonpayersdata_subevents = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    readnonpayersList_subevents.clear()
-                    for (counterobj in snapshot.children) {
-                        val nonpayerobj_subevent: NonPayers_subevent? = counterobj.getValue(NonPayers_subevent::class.java)
-                        readnonpayersList_subevents.add(nonpayerobj_subevent)
+                    if (flag == 0) {
+                        readnonpayersList_subevents.clear()
+                        for (counterobj in snapshot.children) {
+                            val nonpayerobj_subevent: NonPayers_subevent? =
+                                counterobj.getValue(NonPayers_subevent::class.java)
+                            readnonpayersView_subevent(nonpayerobj_subevent)
+                        }
                     }
                 }
             }
@@ -72,16 +74,14 @@ class NonPayersInputSubevents : AppCompatActivity(){
         }
         GetNonPayersref_subevents.addValueEventListener(getnonpayersdata_subevents)
 
-        for(loopobj in readnonpayersList_subevents) {
-            Log.d("Values in readnonpayersList_subevents are:", "${loopobj?.nonpayerName_subevent}")
-            readnonpayersView_subevent()
-        }
+
 
         button_addnonpayers_subevent.setOnClickListener {
             addView_subevent()
         }
 
         button_createrolesfornonpayers_subevent.setOnClickListener {
+            flag = 1
             Nonpayersref_subevents = FirebaseDatabase.getInstance().getReference("Users").
             child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events").
             child(eid.toString()).child("SubEvents")
@@ -159,11 +159,10 @@ class NonPayersInputSubevents : AppCompatActivity(){
         layoutList!!.removeView(view)
     }
 
-    private fun readnonpayersView_subevent() {
+    private fun readnonpayersView_subevent(sampleobject_subevent: NonPayers_subevent?) {
         val nonpayerViewx_subevent: View = layoutInflater.inflate(R.layout.row_add_nonpayer_subevent, null, false)
         val npnamewrite_subevent = nonpayerViewx_subevent.findViewById<View>(R.id.edit_nonpayers_name_subevent) as EditText
-        npnamewrite_subevent.setText(readnonpayersList_subevents[x]?.nonpayerName_subevent.toString())
-        x++
+        npnamewrite_subevent.setText(sampleobject_subevent?.nonpayerName_subevent.toString())
         val imageClose_subevent = nonpayerViewx_subevent.findViewById<View>(R.id.image_remove_nonpayers_subevent) as ImageView
         imageClose_subevent.setOnClickListener { removenonpayerView_subevent(nonpayerViewx_subevent) }
         layoutList!!.addView(nonpayerViewx_subevent) //addView is an inbuilt func - not to be confused w the addView() function we have created

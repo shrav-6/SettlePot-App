@@ -75,20 +75,6 @@ class PayersInput : AppCompatActivity() {
         }
         GetPayersref.addValueEventListener(getpayersdata)
 
-
-//        for(k in 0..readpayersList.size-1) {
-//            Log.d("Values in readpayersList are:", "${readpayersList[k]?.payerName} and ${readpayersList[k]?.payerAmt}")
-//            addPayerView(readpayersList[k])
-//        }
-
-
-//        for(loopobj in readpayersList) {
-//            Log.d("Values in readpayersList are:", "${loopobj?.payerName} and ${loopobj?.payerAmt}")
-//            readpayersView()
-////            addPayerView(loopobj)
-//        }
-
-
         //read data from firebase above here
         button_addpayers.setOnClickListener {
             addView()
@@ -195,9 +181,6 @@ class PayersInput : AppCompatActivity() {
         val pamtwrite = payerViewx.findViewById<View>(R.id.edit_payers_amt) as EditText
         pnamewrite.setText(sampleobject?.payerName.toString())
         pamtwrite.setText(sampleobject?.payerAmt.toString())
-//        pnamewrite.hint = readpayersList[x]?.payerName
-//        pamtwrite.hint = readpayersList[x]?.payerAmt
-//        x++
         val imageClose = payerViewx.findViewById<View>(R.id.image_remove) as ImageView
         imageClose.setOnClickListener { removepayerView(payerViewx) }
         layoutList!!.addView(payerViewx) //addView is an inbuilt func - not to be confused w the addView() function we have created

@@ -16,7 +16,7 @@ class homepageevents : AppCompatActivity() {
     companion object {
 
         var eventscounter: Int = 0
-        var readeventslist = ArrayList<events?>()
+        //var readeventslist = ArrayList<events?>()
 
     }
 
