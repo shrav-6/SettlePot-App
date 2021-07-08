@@ -10,9 +10,9 @@
 
     <ImageButton
         android:id="@+id/addroles_subevents"
-        android:layout_width="95dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="44dp"
+        android:layout_width="111dp"
+        android:layout_height="86dp"
+        android:layout_marginTop="52dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,8 +23,8 @@
         android:id="@+id/subevent_name"
         android:layout_width="200dp"
         android:layout_height="70dp"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="208dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="224dp"
         android:background="@drawable/brownroundedbutton"
         android:gravity="center"
         android:hint="Sub event name"
@@ -49,9 +49,12 @@
 
         android:textStyle="bold|italic"
         app:cornerRadius="45dp"
+
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addrolestext" />
+        app:layout_constraintTop_toBottomOf="@+id/addrolestext"
+        app:layout_constraintVertical_bias="0.022" />
 
     <ImageButton
         android:id="@+id/backbutton_subevents"
@@ -65,25 +68,25 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/backbutton" />
 
+
     <TextView
         android:id="@+id/addrolestext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Add Roles"
+        android:text="View/Add Roles"
         android:textColor="#AB7A52"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addroles_subevents" />
 
-
     <ImageButton
         android:id="@+id/savesubeventname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="72dp"
+        android:layout_height="70dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="212dp"
+        android:layout_marginTop="224dp"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -98,7 +101,7 @@
         android:textColor="#ab7a52"
         android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.152"
+        app:layout_constraintHorizontal_bias="0.263"
         app:layout_constraintStart_toStartOf="@+id/savesubeventname"
         app:layout_constraintTop_toBottomOf="@+id/savesubeventname" />
 

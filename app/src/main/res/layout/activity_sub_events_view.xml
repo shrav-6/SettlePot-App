@@ -5,7 +5,7 @@
     android:id="@+id/constraintlayouthomepage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SubEventsView">
+    >
 
 
     <ScrollView
@@ -21,15 +21,24 @@
         app:layout_constraintVertical_bias="0.984">
 
         <LinearLayout
-            android:id="@+id/layout_list_subevents"
+            android:id="@+id/outer_layout_list_subevents"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/scrollpagebg"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingTop="100dp"
-            android:paddingBottom="20dp">
+            android:paddingTop="20dp"
+            tools:context=".SubEventsView">
 
+
+            <LinearLayout
+                android:id="@+id/layout_list_subevents"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/eventname_subevents" />
 
             <Button
                 android:id="@+id/backbutton_subeventsview"
