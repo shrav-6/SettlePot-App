@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RatioSplitmainpage">
+
+    <View
+        android:id="@+id/ratiosplitbgview"
+        android:layout_width="400dp"
+        android:layout_height="820dp"
+        android:background="@drawable/ratiosplitmainbg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="75dp"
+        android:background="@drawable/toprounded"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:layout_width="265dp"
+        android:layout_height="wrap_content"
+        android:text="The RatioSplit feature allows bills to be
+split according to a given ratio. For instance,
+let's say an evening at a restaurant has a 15% discount on the entire bill.
+It includes 2 categories: 5 Alcoholic drinkers and
+5 Non Alcoholic drinkers. If split equally among 10,
+then the Non Alcoholic drinkers would have to pay
+extra, amounting to an unfair split.
+Given the highest pay per Alcoholic drinker
+(highest dish price + highest drink price)
+and the highest pay per Non Alcoholic drinker
+(highest dish price + highest non alcoholic drink/extras price)
+this algorithm helps in splitting the total amount into the given prices' ratio
+and thus giving an approximate average of how much the split
+for each category should be."
+        android:textColor="#ab7a52"
+        android:textSize="16dp"
+
+        app:layout_constraintBottom_toTopOf="@+id/addnewbutton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.664" />
+
+    <ImageButton
+        android:id="@+id/addnewbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:layout_marginBottom="176dp"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/addratiosplitactivity" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Split new"
+        android:textColor="#ab7a52"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addnewbutton" />
+
+    <ImageButton
+        android:id="@+id/backtohomepagebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/backbutton" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -42,6 +42,7 @@
 
 
     <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:background="@drawable/bottomrounded"
@@ -89,6 +90,37 @@
 
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/addeventnew" />
+
+
+    <ImageButton
+        android:id="@+id/ratiosplitbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="12dp"
+        android:background="@android:color/transparent"
+        android:scaleX="1"
+        android:scaleY="1"
+        app:layout_constraintBottom_toBottomOf="@id/ratiosplittext"
+        app:layout_constraintEnd_toStartOf="@+id/addeventbutton"
+        app:layout_constraintHorizontal_bias="0.539"
+        app:layout_constraintStart_toEndOf="@+id/logoutbutton"
+        app:srcCompat="@drawable/ratiospliticon" />
+
+
+    <TextView
+        android:id="@+id/ratiosplittext"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:text=" RatioSplit"
+        android:textColor="#ab7a52"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/addeventtext"
+        app:layout_constraintBottom_toBottomOf="@id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/logouttext"
+        app:layout_constraintTop_toBottomOf="@+id/ratiosplitbutton" />
+
 
     <TextView
         android:id="@+id/logouttext"

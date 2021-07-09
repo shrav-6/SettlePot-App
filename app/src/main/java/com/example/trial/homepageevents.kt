@@ -3,8 +3,7 @@ package com.example.trial
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -65,6 +64,13 @@ class homepageevents : AppCompatActivity() {
         GetEventsref.addValueEventListener(geteventsdata)
 
 
+        ratiosplitbutton.setOnClickListener {
+            val ratiosplitintent = Intent(this, RatioSplitmainpage::class.java)
+            startActivity(ratiosplitintent)
+            customType(this, "left-to-right")
+            finish()
+        }
+
 
 
         editprofileicon.setOnClickListener {
@@ -74,6 +80,7 @@ class homepageevents : AppCompatActivity() {
             finish()
         }
         logoutbutton.setOnClickListener {
+            MainActivity.flag = 0
             FirebaseAuth.getInstance().signOut()
             Toast.makeText(baseContext, "Logged out successfully", Toast.LENGTH_SHORT).show()
             val logoutIntent = Intent(this, MainActivity::class.java)
@@ -81,6 +88,7 @@ class homepageevents : AppCompatActivity() {
             startActivity(logoutIntent)
             customType(this, "fadein-to-fadeout")
             finish()
+
         }
         addeventbutton.setOnClickListener {
             eventscounter++
@@ -129,5 +137,12 @@ class homepageevents : AppCompatActivity() {
             customType(this, "bottom-to-top")
             finish()
         }
+
+    }
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        super.onSaveInstanceState(outState, outPersistentState)
+        outState.putInt("userstatusflag",MainActivity.flag)
+        outPersistentState.putInt("userstatusflag",MainActivity.flag)
+        Log.d("Inside onsaveinstance: ", MainActivity.flag.toString())
     }
 }
