@@ -12,6 +12,7 @@ import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
 import kotlinx.android.synthetic.main.activity_notes_input.*
 import kotlinx.android.synthetic.main.row_add_notes.*
+import maes.tech.intentanim.CustomIntent.customType
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -78,44 +79,6 @@ class NotesInput : AppCompatActivity() {
         getdbref.addValueEventListener(getnotesdata)
 
 
-
-//        Log.d("READING", read_temp_notes_list.toString())
-//        read_temp_notes_list.map { read_temp_notes_list -> String()
-
-//        for (y in read_temp_notes_list){
-//            listt.add(y)
-//        }
-//        for (z in listt){
-//            var w = z.split(",")
-//            for(g in w){
-//                notes = g.trim('[')
-//                notes = notes?.trim(']')
-//                notes = notes?.trim()
-//                readnotesView()
-//            }
-//        }
-//            Log.d("VALUE IS", y) //put in for loop y in read_temp_notes_list - gives one bracket only
-
-//        Toast.makeText(baseContext, "$read_temp_notes_list", Toast.LENGTH_SHORT).show()
-//        Log.d("BEFORE READING", read_temp_notes_list.elementAt(0).toString())
-//        for(y in read_temp_notes_list)
-//        {
-//            note = y
-//            readnotesView()
-//        }
-//        notesvaluelist = listOf(read_temp_notes_list)
-//        for(x in 0..(notesvaluelist.count()-1)){
-//            readnotesView()
-//        } //works but shows all notes as one list, the way it is stores on firebase
-
-
-
-//        Toast.makeText(baseContext,"$notesvaluelist",Toast.LENGTH_SHORT).show()
-
-
-//        Toast.makeText(baseContext,"$read_temp_notes_list",Toast.LENGTH_SHORT).show()    //prints [] although same code works in line51
-
-
         button_addnotes.setOnClickListener {
             addView()
         }
@@ -141,6 +104,7 @@ class NotesInput : AppCompatActivity() {
             var backtoeventdeetspageintent = Intent(this, EventActivity::class.java)
             backtoeventdeetspageintent.putExtra("eventnotesid",n_id)
             startActivity(backtoeventdeetspageintent)
+            customType(this, "right-to-left")
             finish()
         }
     }

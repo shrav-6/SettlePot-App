@@ -7,6 +7,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_profilepage.*
+import maes.tech.intentanim.CustomIntent.customType
 import com.example.trial.users as users1
 
 class profilepage : AppCompatActivity() {
@@ -18,12 +19,12 @@ class profilepage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profilepage)
 
-        //readUser()
 
         backtohomepage.setOnClickListener{
             Toast.makeText(baseContext,"Unsaved changes", Toast.LENGTH_SHORT).show()
             val backtohomeintent = Intent(this, homepageevents::class.java)
             startActivity(backtohomeintent)
+            customType(this,"bottom-to-top")
             finish()
         }
 
@@ -49,10 +50,7 @@ class profilepage : AppCompatActivity() {
             }
         }
         readforprofileref.addValueEventListener(readprofileinfo)
-
     }
-
-
 
 
     private fun saveUser() {
@@ -67,6 +65,5 @@ class profilepage : AppCompatActivity() {
             Toast.makeText(baseContext,"Updated successfully",Toast.LENGTH_SHORT).show()
         }
     }
-
 
 }

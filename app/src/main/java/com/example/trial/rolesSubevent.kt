@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_roles_subevent.*
+import maes.tech.intentanim.CustomIntent
+import maes.tech.intentanim.CustomIntent.customType
 
 class rolesSubevent : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +36,7 @@ class rolesSubevent : AppCompatActivity() {
             backbuttonrolespage_intent.putExtra("Backfromrolestosubevent eid",eid)
             backbuttonrolespage_intent.putExtra("Backfromrolestosubevent sid",sid)
             startActivity(backbuttonrolespage_intent)
+            customType(this, "right-to-left")
             finish()
         }
 
@@ -42,6 +45,7 @@ class rolesSubevent : AppCompatActivity() {
             payers_intent.putExtra("payerid_subevents - eid",eid)
             payers_intent.putExtra("payerid_subevents - sid",sid)
             startActivity(payers_intent)
+            customType(this, "left-to-right")
             finish()
         }
 
@@ -50,6 +54,7 @@ class rolesSubevent : AppCompatActivity() {
             nonpayers_intent.putExtra("nonpayerid_subevents - eid",eid)
             nonpayers_intent.putExtra("nonpayerid_subevents - sid",sid)
             startActivity(nonpayers_intent)
+            customType(this, "left-to-right")
             finish()
         }
 
@@ -58,6 +63,7 @@ class rolesSubevent : AppCompatActivity() {
             intent1.putExtra("callerfromboth_subevents - eid", eid)
             intent1.putExtra("callerfromboth_subevents - sid", sid)
             startActivity(intent1)
+            customType(this, "left-to-right")
             finish()
         }
     }

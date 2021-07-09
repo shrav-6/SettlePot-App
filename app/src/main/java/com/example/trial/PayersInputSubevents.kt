@@ -3,7 +3,6 @@ package com.example.trial
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -11,9 +10,9 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.activity_payers_input.*
 import kotlinx.android.synthetic.main.activity_payers_input_subevents.*
-import kotlinx.android.synthetic.main.activity_roles_subevent.*
+import maes.tech.intentanim.CustomIntent
+import maes.tech.intentanim.CustomIntent.customType
 import java.util.ArrayList
 
 
@@ -117,6 +116,7 @@ class PayersInputSubevents : AppCompatActivity() {
                     intentcallfrompayersinput.putExtra("callerfromboth_subevents - eid", eid)
                     intentcallfrompayersinput.putExtra("callerfromboth_subevents - sid", sid)
                     startActivity(intentcallfrompayersinput)
+                    customType(this, "left-to-right")
                     finish()
 
                 } else if (intentcaller.hasExtra("backbothpayerid_subevents - eid")) {
@@ -125,6 +125,7 @@ class PayersInputSubevents : AppCompatActivity() {
                     intentcallfrompayersinput.putExtra("bothpayerid_subevents - eid", eid)
                     intentcallfrompayersinput.putExtra("bothpayerid_subevents - sid", sid)
                     startActivity(intentcallfrompayersinput)
+                    customType(this, "left-to-right")
                     finish()
 
                 } else {
@@ -142,6 +143,7 @@ class PayersInputSubevents : AppCompatActivity() {
             intent.putExtra("backtorolespid - eid", eid)
             intent.putExtra("backtorolespid - sid", sid)
             startActivity(intent)
+            customType(this, "right-to-left")
             finish()
         }
     }

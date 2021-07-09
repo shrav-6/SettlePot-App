@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_roles_page.*
+import maes.tech.intentanim.CustomIntent.customType
 
 class RolesPage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -11,7 +12,7 @@ class RolesPage : AppCompatActivity() {
         setContentView(R.layout.activity_roles_page)
         var rid: String? = null
         var receiveidfromrolespageintent = intent
-        if(receiveidfromrolespageintent.hasExtra("rolesid")) {             //from eventactivity
+        if(receiveidfromrolespageintent.hasExtra("rolesid")) {
             rid  = receiveidfromrolespageintent.getStringExtra("rolesid")
         }
         else if(receiveidfromrolespageintent.hasExtra("backtorolesnpid")){
@@ -26,6 +27,7 @@ class RolesPage : AppCompatActivity() {
             val intent = Intent(this,EventActivity::class.java)
             intent.putExtra("backfromrolesid",rid)
             startActivity(intent)
+            customType(this,"right-to-left")
             finish()
         }
 
@@ -33,6 +35,7 @@ class RolesPage : AppCompatActivity() {
             val payersintentfromrolespage = Intent(this, PayersInput::class.java)
             payersintentfromrolespage.putExtra("payerid",rid)
             startActivity(payersintentfromrolespage)
+            customType(this,"left-to-right")
             finish()
         }
 
@@ -40,6 +43,7 @@ class RolesPage : AppCompatActivity() {
             val nonpayersintentfromrolespage = Intent(this, NonPayersInput::class.java)
             nonpayersintentfromrolespage.putExtra("nonpayerid",rid)
             startActivity(nonpayersintentfromrolespage)
+            customType(this,"left-to-right")
             finish()
         }
 
@@ -47,6 +51,7 @@ class RolesPage : AppCompatActivity() {
             val intent1 = Intent(this, PayersInput::class.java)
             intent1.putExtra("bothpayerid", rid)
             startActivity(intent1)
+            customType(this,"left-to-right")
             finish()
         }
     }

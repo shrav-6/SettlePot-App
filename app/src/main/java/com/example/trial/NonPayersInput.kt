@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_nonpayers_input.*
+import maes.tech.intentanim.CustomIntent
+import maes.tech.intentanim.CustomIntent.customType
 import java.util.*
 
 
@@ -98,11 +100,13 @@ class NonPayersInput : AppCompatActivity() {
                 val intentcallfromnonpayersinput = Intent(this, PayersInput::class.java)
                 intentcallfromnonpayersinput.putExtra("backbothpayerid", npid)
                 startActivity(intentcallfromnonpayersinput)
+                customType(this, "right-to-left")
                 finish()
             } else {
                 val intent = Intent(this, RolesPage::class.java)
                 intent.putExtra("backtorolesnpid",npid)
                 startActivity(intent)
+                customType(this, "right-to-left")
                 finish()
             }
         }

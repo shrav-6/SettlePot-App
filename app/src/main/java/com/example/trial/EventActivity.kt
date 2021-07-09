@@ -9,6 +9,8 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_event_activity.*
+import maes.tech.intentanim.CustomIntent
+import maes.tech.intentanim.CustomIntent.customType
 
 class EventActivity : AppCompatActivity() {
     companion object{
@@ -74,6 +76,7 @@ class EventActivity : AppCompatActivity() {
 //            Toast.makeText(baseContext,"Unsaved changes", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, homepageevents::class.java)
             startActivity(intent)
+            customType(this, "right-to-left")
             finish()
         }
 
@@ -82,6 +85,7 @@ class EventActivity : AppCompatActivity() {
             val intentviewsubevents = Intent(this, SubEventsView::class.java)
             intentviewsubevents.putExtra("eventid_view",eid.toString())
             startActivity(intentviewsubevents)
+            customType(this,"left-to-right")
             finish()
         }
 //
@@ -96,8 +100,9 @@ class EventActivity : AppCompatActivity() {
 //            Toast.makeText(baseContext,"Notes button pressed!",Toast.LENGTH_LONG).show()
             var notespageintent = Intent(applicationContext, NotesInput::class.java)
             notespageintent.putExtra("eventid",eid.toString())
-            Log.d("Notes inside clicked event id: ", eid.toString()) //prints the correct notes id
+            Log.d("Notes inside clicked event id: ", eid.toString())//prints the correct notes id
             startActivity(notespageintent)
+            customType(this,"left-to-right")
             finish()
         }
 
@@ -106,6 +111,7 @@ class EventActivity : AppCompatActivity() {
             val addrolesintent = Intent(this, RolesPage::class.java)
             addrolesintent.putExtra("rolesid",eid.toString())
             startActivity(addrolesintent)
+            customType(this,"left-to-right")
             finish()
         }
 
@@ -123,6 +129,7 @@ class EventActivity : AppCompatActivity() {
             NonPayersInputSubevents.readnonpayersList_subevents.clear()
             SubeventActivity.subeventnamecounter = 0
             startActivity(addsubeventsintent)
+            customType(this,"left-to-right")
             finish()
         }
 

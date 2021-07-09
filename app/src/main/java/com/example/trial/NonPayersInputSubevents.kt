@@ -12,6 +12,8 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_nonpayers_input_subevent.*
+import maes.tech.intentanim.CustomIntent
+import maes.tech.intentanim.CustomIntent.customType
 import java.util.ArrayList
 
 class NonPayersInputSubevents : AppCompatActivity(){
@@ -115,6 +117,7 @@ class NonPayersInputSubevents : AppCompatActivity(){
                 intentcallfromnonpayersinput_subevents.putExtra("callerfromboth_subevents - eid", eid)
                 intentcallfromnonpayersinput_subevents.putExtra("callerfromboth_subevents - sid", sid)
                 startActivity(intentcallfromnonpayersinput_subevents)
+                customType(this, "right-to-left")
                 finish()
 
             } else {
@@ -122,6 +125,7 @@ class NonPayersInputSubevents : AppCompatActivity(){
                 intent.putExtra("backtorolesnpid_subevent - eid",eid)
                 intent.putExtra("backtorolesnpid_subevent - sid",sid)
                 startActivity(intent)
+                customType(this, "right-to-left")
                 finish()
             }
         }

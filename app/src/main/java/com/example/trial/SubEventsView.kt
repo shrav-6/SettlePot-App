@@ -12,6 +12,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_sub_events_view.*
+import maes.tech.intentanim.CustomIntent
+import maes.tech.intentanim.CustomIntent.customType
 
 class SubEventsView : AppCompatActivity() {
 
@@ -76,6 +78,7 @@ class SubEventsView : AppCompatActivity() {
             val backfromsubeventsview = Intent(this,EventActivity::class.java)
             backfromsubeventsview.putExtra("eventid from subevents view",eid)
             startActivity(backfromsubeventsview)
+            customType(this, "right-to-left")
             finish()
         }
 
@@ -99,6 +102,7 @@ class SubEventsView : AppCompatActivity() {
             PayersInputSubevents.payercount_subevents = 1
             NonPayersInputSubevents.nonpayercount_subevents = 1
             startActivity(subeventstartintent)
+            customType(this, "left-to-right")
             finish()
         }
     }

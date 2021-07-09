@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_payers_input.*
 import kotlinx.android.synthetic.main.row_add_payer.*
+import maes.tech.intentanim.CustomIntent.customType
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -101,12 +102,14 @@ class PayersInput : AppCompatActivity() {
                     val intentcallfrompayersinput = Intent(this, NonPayersInput::class.java)
                     intentcallfrompayersinput.putExtra("bothpayerid", pid)
                     startActivity(intentcallfrompayersinput)
+                    customType(this, "left-to-right")
                     finish()
                 }
                 else if(intentcaller.hasExtra("backbothpayerid")){
                     val intentcallfrompayersinput = Intent(this, NonPayersInput::class.java)
                     intentcallfrompayersinput.putExtra("bothpayerid", pid)
                     startActivity(intentcallfrompayersinput)
+                    customType(this, "left-to-right")
                     finish()
                 }
                 else {
@@ -122,6 +125,7 @@ class PayersInput : AppCompatActivity() {
             val intent = Intent(this, RolesPage::class.java)
             intent.putExtra("backtorolespid", pid)
             startActivity(intent)
+            customType(this, "right-to-left")
             finish()
         }
 
@@ -189,18 +193,5 @@ class PayersInput : AppCompatActivity() {
     private fun removepayerView(view: View) {
         layoutList!!.removeView(view) //removeView is an inbuilt func
     }
-
-
-//
-//    private fun addPayerView(payersampleobj: Payers?) {
-//        val payerViewx: View = layoutInflater.inflate(R.layout.row_add_payer, null, false)
-//        edit_payers_name.setText("")
-//        edit_payers_amt.setText("")
-//        edit_payers_name.hint = payersampleobj?.payerName
-//        edit_payers_amt.hint = payersampleobj?.payerAmt
-//        val imageClose = payerViewx.findViewById<View>(R.id.image_remove) as ImageView
-//        imageClose.setOnClickListener { removeView(payerViewx) }
-//        layoutList!!.addView(payerViewx)
-//    }
 
 }

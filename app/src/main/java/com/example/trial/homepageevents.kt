@@ -11,6 +11,8 @@ import android.widget.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_homepageevents.*
+import maes.tech.intentanim.CustomIntent
+import maes.tech.intentanim.CustomIntent.customType
 
 class homepageevents : AppCompatActivity() {
     companion object {
@@ -51,9 +53,7 @@ class homepageevents : AppCompatActivity() {
                         val eventsobj: events? = counterobj.child("Event Details").getValue(events::class.java)
 //                        readeventslist.add(eventsobj)
                         readeventsView(eventsobj)
-                        //Log.d("Values in readeventslist are:", "${readeventslist[i]?.eid} and ${readeventslist[i]?.ename}")
-                        //i++
-//                        Log.d("entered homepageevents", "eid: ${eventsobj?.eid}, ename:${eventsobj?.ename}")
+
                     }
                 }
             }
@@ -65,44 +65,12 @@ class homepageevents : AppCompatActivity() {
         GetEventsref.addValueEventListener(geteventsdata)
 
 
-//        Log.d("Before entering loop to call views", readeventslist.toString())
-
-
-
-//        for(i in 0..(eventsbutton.size)-1){
-//            Log.d("Button name", eventsbutton[i].text.toString())
-//            Log.d("Button tag", eventsbutton[i].getTag() as String)
-//        }
-
-//        for(i in 0..(eventsbutton?.size!!)-1) {
-
-//            eventsbutton?.get(i)?.setOnClickListener {
-//                val intent = Intent(this, EventActivity::class.java)
-//                intent.putExtra("readeventid", "${eventsbutton!![i].tag}")
-//                startActivity(intent)
-//                NotesInput.read_temp_notes_list.clear()
-//                NotesInput.notes = null
-//                NonPayersInput.readnonpayersList.clear()
-//                NonPayersInput.nonpayercount = 1
-//                PayersInput.readpayersList.clear()
-//                PayersInput.payercount = 1
-//                EventActivity.subeventscounter = 0
-//                SubeventActivity.subeventnamecounter = 0
-//                finish()
-//            }
-//        }
-
-//        enamewrite.setOnClickListener {
-//            val intent = Intent(this,EventActivity::class.java)
-//            intent.putExtra("neweventid","${enamewrite.tag}")
-//            startActivity(intent)
-//            finish()
-//        }
 
 
         editprofileicon.setOnClickListener {
             val profileintent = Intent(this, profilepage::class.java)
             startActivity(profileintent)
+            customType(this, "fadein-to-fadeout")
             finish()
         }
         logoutbutton.setOnClickListener {
@@ -111,6 +79,7 @@ class homepageevents : AppCompatActivity() {
             val logoutIntent = Intent(this, MainActivity::class.java)
             logoutIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(logoutIntent)
+            customType(this, "fadein-to-fadeout")
             finish()
         }
         addeventbutton.setOnClickListener {
@@ -134,24 +103,14 @@ class homepageevents : AppCompatActivity() {
 
 
     }
-//    private fun onsuccesscall(){
-//        for (loopobj in readeventslist) {
-//            Log.d("Values in readeventslist are:", "${loopobj?.eid} and ${loopobj?.ename}")
-//            readeventsView()
-//        }
-//    }
 
     private fun readeventsView(sampleobject: events?) {
         val eventView: View = layoutInflater.inflate(R.layout.row_add_events, null, false)
         val eventwrite = eventView.findViewById<View>(R.id.events_name) as Button
-//        Log.d("in view function, event name", readeventslist[x]?.ename.toString())
         eventwrite.setText(sampleobject?.ename.toString())
         eventwrite.setTag(sampleobject?.eid.toString())
-//        eventwrite.id = x
-//        eventsbutton.add(eventwrite)
         Log.d("Inside readevents view - Name ", eventwrite.text.toString())
         Log.d("Inside readevents view - Id ", eventwrite.getTag().toString())
-//        x++
         layoutList!!.addView(eventView)
 
 
@@ -167,73 +126,8 @@ class homepageevents : AppCompatActivity() {
             EventActivity.subeventscounter = 0
             SubeventActivity.subeventnamecounter = 0
             startActivity(eventstartintent)
+            customType(this, "bottom-to-top")
             finish()
         }
-
-//    private fun readeventsView() {
-//        val eventView: View = layoutInflater.inflate(R.layout.row_add_events, null, false)
-//        val eventwrite = eventView.findViewById<View>(R.id.events_name) as Button
-//        Log.d("in view function, event name", readeventslist[x]?.ename.toString())
-//        eventwrite.setText(readeventslist[x]?.ename.toString())
-//        eventwrite.setTag(readeventslist[x]?.eid.toString())
-////        eventwrite.id = x
-////        eventsbutton.add(eventwrite)
-//        Log.d("Inside readevents view - Name ", eventwrite.text.toString())
-//        Log.d("Inside readevents view - Id ", eventwrite.getTag().toString())
-//        x++
-//        layoutList!!.addView(eventView)
-//
-//
-//        eventwrite.setOnClickListener {
-//            val eventstartintent = Intent(this,EventActivity::class.java)
-//            eventstartintent.putExtra("readeventid", eventwrite.getTag().toString())
-//            NotesInput.read_temp_notes_list.clear()
-//            NotesInput.notes = null
-//            NonPayersInput.readnonpayersList.clear()
-//            NonPayersInput.nonpayercount = 1
-//            PayersInput.readpayersList.clear()
-//            PayersInput.payercount = 1
-//            EventActivity.subeventscounter = 0
-//            SubeventActivity.subeventnamecounter = 0
-//            startActivity(eventstartintent)
-//            finish()
-//        }
-
-//        for(i in 0..(eventsbutton!!.size) - 1) {
-//            eventsbutton?.get(i)?.setOnClickListener {
-//                val intent = Intent(this, EventActivity::class.java)
-//                intent.putExtra("readeventid", "${eventsbutton!![i].tag}")
-//                startActivity(intent)
-//                NotesInput.read_temp_notes_list.clear()
-//                NotesInput.notes = null
-//                NonPayersInput.readnonpayersList.clear()
-//                NonPayersInput.nonpayercount = 1
-//                PayersInput.readpayersList.clear()
-//                PayersInput.payercount = 1
-//                EventActivity.subeventscounter = 0
-//                SubeventActivity.subeventnamecounter = 0
-//                finish()
-//            }
-//        }
-
-
-//        enamewrite.setOnClickListener {
-//            val intent = Intent(this,EventActivity::class.java)
-//            intent.putExtra("readeventid","${enamewrite.tag}")
-//            startActivity(intent)
-//            NotesInput.read_temp_notes_list.clear()
-//            NotesInput.notes = null
-//            NonPayersInput.readnonpayersList.clear()
-//            NonPayersInput.nonpayercount = 1
-//            PayersInput.readpayersList.clear()
-//            PayersInput.payercount = 1
-//            EventActivity.subeventscounter = 0
-//            SubeventActivity.subeventnamecounter = 0
-//            finish()
-//        }
     }
-//    fun sample() {
-//        Log.d("Sample: ","Entered Sample")
-//    }
-
 }
