@@ -103,6 +103,9 @@ class SubeventActivity : AppCompatActivity() {
 
         close_subevent.setOnClickListener {
             //flag = 1
+            val animationintent = Intent(this,CloseAnimation::class.java)
+            startActivity(animationintent)
+            finish()
             print("calling close subevent function")
             readpayerslistfun(object : FirebaseCallbackforpayers {
                 override fun onCallbackp(payersdata: ArrayList<Payers_subevent?>?) {
