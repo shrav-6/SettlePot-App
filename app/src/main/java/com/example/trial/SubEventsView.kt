@@ -1,13 +1,16 @@
 package com.example.trial
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -18,11 +21,13 @@ import maes.tech.intentanim.CustomIntent.customType
 class SubEventsView : AppCompatActivity() {
 
     private lateinit var GetSubEventsref: DatabaseReference
+    private lateinit var GetDeleteSubEventsref: DatabaseReference
     lateinit var getsubeventsdata : ValueEventListener
     private lateinit var readdataforeventname: DatabaseReference
     var eventobj: events? = null
     var eid: String? = null
     var ename: String? = null
+    var deletesubeventflag: Int = 0
     var layoutList_subevents: LinearLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +67,9 @@ class SubEventsView : AppCompatActivity() {
                 if (snapshot.exists()) {
                     for (counterobj in snapshot.children) {
                         val subeventsobj: subevents? = counterobj.child("SubEvent details").getValue(subevents::class.java)
-                        readsubeventsView(subeventsobj)
+                        if(deletesubeventflag == 0) {
+                            readsubeventsView(subeventsobj)
+                        }
                     }
                 }
             }
@@ -84,11 +91,47 @@ class SubEventsView : AppCompatActivity() {
 
     }
 
+    private fun removeView(view: View) {
+        layoutList_subevents!!.removeView(view) //removeView is an inbuilt func
+    }
+
     private fun readsubeventsView(sampleobject: subevents?) {
         val subeventView: View = layoutInflater.inflate(R.layout.row_add_subevents, null, false)
         val subeventwrite = subeventView.findViewById<View>(R.id.subevents_name) as Button
         subeventwrite.setText(sampleobject?.sname.toString())
         subeventwrite.setTag(sampleobject?.sid.toString())
+
+
+        val deletesubevent = subeventView.findViewById<View>(R.id.delete_subevents) as ImageButton
+        deletesubevent.setOnClickListener {
+
+            var builder = AlertDialog.Builder(this)
+            builder.setMessage("Are you sure?")
+                .setTitle("Confirm Delete")
+                .setPositiveButton(R.string.positive, DialogInterface.OnClickListener { dialog, id ->
+                    // CONFIRM
+
+                    deletesubeventflag = 1
+
+                    GetDeleteSubEventsref = FirebaseDatabase.getInstance().getReference("Users")
+                        .child(FirebaseAuth.getInstance().currentUser!!.uid)
+                        .child("Events").child(eid.toString()).child("SubEvents")
+                    GetDeleteSubEventsref.child(sampleobject?.sid.toString()).removeValue()
+
+                    removeView(subeventView)
+                    dialog.cancel()
+                })
+                .setNegativeButton(R.string.negative, DialogInterface.OnClickListener { dialog, id ->
+                    // CANCEL
+                    dialog.cancel()
+                })
+            // Create the AlertDialog object and return it
+            var alert = builder.create()
+            alert.show()
+
+        }
+
+
 
         Log.d("Inside readsubevents view - Name ", subeventwrite.text.toString())
         Log.d("Inside readsubevents view - Id ", subeventwrite.getTag().toString())

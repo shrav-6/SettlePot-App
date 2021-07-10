@@ -14,7 +14,8 @@
         <activity android:name=".SubEventsView"/>
         <activity android:name=".PayersInput" />
         <activity android:name=".ConfirmEventProfile" />
-        <activity android:name=".EditEventProfile" />
+        <activity android:name=".RatioSplitmainpage" />
+        <activity android:name=".RatioSplitInput"/>
         <activity android:name=".ConfirmRoles" />
         <activity android:name=".NonPayersInput" />
         <activity android:name=".RolesPage" />

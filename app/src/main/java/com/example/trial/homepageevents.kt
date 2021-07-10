@@ -1,5 +1,6 @@
 package com.example.trial
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_homepageevents.*
@@ -25,8 +27,10 @@ class homepageevents : AppCompatActivity() {
     private lateinit var reference: DatabaseReference
     var layoutList: LinearLayout? = null
     private lateinit var GetEventsref: DatabaseReference
+    private lateinit var GetDeleteEventsref: DatabaseReference
     var x: Int = 0
     var i: Int = 0
+    var deleteventflag: Int = 0
     lateinit var geteventsdata : ValueEventListener
 //    var enamewrite = Button(this);
 
@@ -50,8 +54,9 @@ class homepageevents : AppCompatActivity() {
 
                     for (counterobj in snapshot.children) {
                         val eventsobj: events? = counterobj.child("Event Details").getValue(events::class.java)
-//                        readeventslist.add(eventsobj)
-                        readeventsView(eventsobj)
+                      if(deleteventflag == 0) {
+                            readeventsView(eventsobj)
+                        }
 
                     }
                 }
@@ -112,13 +117,48 @@ class homepageevents : AppCompatActivity() {
 
     }
 
+    private fun removeView(view: View) {
+        layoutList!!.removeView(view) //removeView is an inbuilt func
+    }
+
     private fun readeventsView(sampleobject: events?) {
         val eventView: View = layoutInflater.inflate(R.layout.row_add_events, null, false)
         val eventwrite = eventView.findViewById<View>(R.id.events_name) as Button
         eventwrite.setText(sampleobject?.ename.toString())
         eventwrite.setTag(sampleobject?.eid.toString())
+
+        val deleteevent = eventView.findViewById<View>(R.id.delete_events) as ImageButton
+        deleteevent.setOnClickListener {
+
+            var builder = AlertDialog.Builder(this)
+            builder.setMessage("Are you sure?")
+                .setTitle("Confirm Delete")
+                .setPositiveButton(R.string.positive, DialogInterface.OnClickListener { dialog, id ->
+                    // CONFIRM
+
+                    deleteventflag = 1
+
+                    GetDeleteEventsref = FirebaseDatabase.getInstance().getReference("Users")
+                        .child(FirebaseAuth.getInstance().currentUser!!.uid)
+                        .child("Events")
+                    GetDeleteEventsref.child(sampleobject?.eid.toString()).removeValue()
+
+                    removeView(eventView)
+                    dialog.cancel()
+                })
+                .setNegativeButton(R.string.negative, DialogInterface.OnClickListener { dialog, id ->
+                    // CANCEL
+                    dialog.cancel()
+                })
+            // Create the AlertDialog object and return it
+            var alert = builder.create()
+            alert.show()
+
+        }
+
         Log.d("Inside readevents view - Name ", eventwrite.text.toString())
         Log.d("Inside readevents view - Id ", eventwrite.getTag().toString())
+
         layoutList!!.addView(eventView)
 
 
@@ -137,8 +177,9 @@ class homepageevents : AppCompatActivity() {
             customType(this, "bottom-to-top")
             finish()
         }
-
     }
+
+
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
         super.onSaveInstanceState(outState, outPersistentState)
         outState.putInt("userstatusflag",MainActivity.flag)

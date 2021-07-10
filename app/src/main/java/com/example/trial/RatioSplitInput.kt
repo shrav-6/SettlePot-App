@@ -71,8 +71,8 @@ class RatioSplitInput : AppCompatActivity() {
 //        println("Split for catgory 2: $splitforcat2")
 
 
-        cat1perpay.setText(splitforcat1.toString())
-        cat2perpay.setText(splitforcat2.toString())
+        cat1perpay.setText(String.format("%.2f",splitforcat1))
+        cat2perpay.setText(String.format("%.2f",splitforcat2))
 
         backtoratiosplitinputpage.setOnClickListener {
             val backtoratiosplitinputpageintent = Intent(this, RatioSplitInput::class.java)
