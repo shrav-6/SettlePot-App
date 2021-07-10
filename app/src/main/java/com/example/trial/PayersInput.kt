@@ -85,12 +85,13 @@ class PayersInput : AppCompatActivity() {
         //from here, writing data onto firebase
         button_createrolesforpayers.setOnClickListener {
             flag=1
-            Payersref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
-            Payersref.child(pid.toString()).child("Roles").child("Payers").removeValue()
+//            Payersref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
+//            Payersref.child(pid.toString()).child("Roles").child("Payers").removeValue()
             i=1
             val result = checkIfValidAndRead()
             if(result) {
                 Payersref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
+                Payersref.child(pid.toString()).child("Roles").child("Payers").removeValue()
                 for (counterobj in 0..payersList.size - 1) {
                     Payersref.child(pid.toString()).child("Roles").child("Payers").child("Payer $i").setValue(payersList[counterobj])
                     i++
@@ -146,6 +147,15 @@ class PayersInput : AppCompatActivity() {
                 payer.payerName = "Payer $payercount"
 //                Toast.makeText(baseContext, payer.payerName, Toast.LENGTH_SHORT).show()
                 payercount++
+            }
+            for(j in 0 until i)
+            {
+                if(compareValues(payer.payerName, payersList[j].payerName)==0)
+                {
+                    Toast.makeText(baseContext,"Invalid. Differentiate same names with unique extra character(s)",Toast.LENGTH_LONG).show()
+                    Log.d("Payersinput","Same name")
+                    return false
+                }
             }
             if (editPayersAmt.text.toString() != "") {
                 payer.payerAmt = editPayersAmt.text.toString()

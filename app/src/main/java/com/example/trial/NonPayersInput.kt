@@ -74,12 +74,13 @@ class NonPayersInput : AppCompatActivity() {
 
         button_createrolesfornonpayers.setOnClickListener {
             flag=1
-            Nonpayersref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
-            Nonpayersref.child(npid.toString()).child("Roles").child("Non Payers").removeValue()
+//            Nonpayersref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
+//            Nonpayersref.child(npid.toString()).child("Roles").child("Non Payers").removeValue()
             i=1
             val result = checkIfValidAndRead()
             if(result) {
                 Nonpayersref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
+                Nonpayersref.child(npid.toString()).child("Roles").child("Non Payers").removeValue()
                 for (counterobj in 0..nonpayersList.size - 1) {
                     Nonpayersref.child(npid.toString()).child("Roles").child("Non Payers").child("Non Payer $i").setValue(nonpayersList[counterobj])
                     i++
@@ -128,6 +129,15 @@ class NonPayersInput : AppCompatActivity() {
                 nonpayer.nonpayerName = "NonPayer $nonpayercount"
                 Toast.makeText(baseContext, nonpayer.nonpayerName, Toast.LENGTH_SHORT).show()
                 nonpayercount++
+            }
+            for(j in 0 until i)
+            {
+                if(compareValues(nonpayer.nonpayerName, nonpayersList[j].nonpayerName)==0)
+                {
+                    Toast.makeText(baseContext,"Invalid. Differentiate same names with unique extra character(s)",Toast.LENGTH_LONG).show()
+                    Log.d("NonPayersinput","Same name")
+                    return false
+                }
             }
             nonpayersList.add(nonpayer)
         }

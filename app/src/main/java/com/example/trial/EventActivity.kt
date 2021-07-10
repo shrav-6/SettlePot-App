@@ -9,7 +9,6 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_event_activity.*
-import maes.tech.intentanim.CustomIntent
 import maes.tech.intentanim.CustomIntent.customType
 
 class EventActivity : AppCompatActivity() {
@@ -20,7 +19,10 @@ class EventActivity : AppCompatActivity() {
 
     var readpList: MutableList<Payers?>? = mutableListOf()
     var readnpList: MutableList<NonPayers?>? = mutableListOf()
+    var readsubplist: MutableList<Payers_subevent?>? = mutableListOf()
+    var readsubnplist: MutableList<NonPayers_subevent?>? = mutableListOf()
     var splitforeachevents: MutableList<SplitForEach_events?> = mutableListOf()
+
 
     //class has members name and amt
     var x: Long = 0
@@ -169,20 +171,30 @@ class EventActivity : AppCompatActivity() {
             var pcount: Long = 0
             GetPayersref = FirebaseDatabase.getInstance().getReference("Users")
                 .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
-                .child(eid.toString()).child("Roles").child("Payers")
+                .child(eid.toString()) //.child("Roles").child("Payers")
             var getpayersdata = object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
                         x = 0
                         readpList?.clear()
-                        pcount = (snapshot.childrenCount)
-                        for (counterobj in snapshot.children) {
+                        pcount = snapshot.child("Roles").child("Payers").childrenCount
+                        for (counterobj in snapshot.child("Roles").child("Payers").children) {
                             var payerobj: Payers? = counterobj.getValue(Payers::class.java)
-                            readplist(payerobj, pcount)
-                            Log.d(
-                                "Reading payerslist : Name and pcount is:  ",
-                                "${payerobj?.payerName.toString()} and $pcount"
-                            )
+                            readpList?.add(payerobj)
+                        }
+                        x = pcount
+                        for (countnumberpobj in snapshot.child("SubEvents").children) {
+                            pcount += countnumberpobj.child("Roles SubEvents")
+                                .child("Payers").childrenCount
+                        }
+
+                        for (anothercounterobj in snapshot.child("SubEvents").children) {
+                            for (innerotherobject in anothercounterobj.child("Roles SubEvents")
+                                .child("Payers").children) {
+                                var sub_pobj: Payers_subevent? =
+                                    innerotherobject.getValue(Payers_subevent::class.java)
+                                readplist(sub_pobj, pcount)
+                            }
                         }
                     }
                 }
@@ -198,37 +210,47 @@ class EventActivity : AppCompatActivity() {
             GetPayersref.addValueEventListener(getpayersdata)
         }
     }
+//    private fun readplist_events(samplepobjevent: Payers?){
+//        readpList?.add(samplepobjevent)
+//    }
 
-    private fun readplist(samplepobj: Payers?, pc: Long) {
+    private fun readplist(samplepobject: Payers_subevent?, pc: Long) {
 
-        readpList?.add(samplepobj)
-        Log.d(
-            "Added sampleobj to readpayerslist",
-            "${readpList?.get(x.toInt())?.payerName}"
-        )
-
-        x++
+        readsubplist?.add(samplepobject)
+        ++x
         Log.d("inside readplist", "Value of x after ++X is: $x")
 
         if (x == pc) {
             var npcount: Long = 0
             GetNonPayersref = FirebaseDatabase.getInstance().getReference("Users")
                 .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
-                .child(eid.toString()).child("Roles").child("Non Payers")
+                .child(eid.toString()) //.child("Roles").child("Non Payers")
             val getnonpayersdata = object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
-                        y=0
+                        y = 0
                         readnpList?.clear()
-                        npcount = snapshot.childrenCount
-                        for (counterobj in snapshot.children) {
+                        npcount = snapshot.child("Roles").child("Non Payers").childrenCount
+                        for (counterobj in snapshot.child("Roles").child("Non Payers").children) {
                             val nonpayerobj: NonPayers? = counterobj.getValue(NonPayers::class.java)
-                            readnplist(nonpayerobj, npcount)
-                            Log.d(
-                                "Reading nonpayerslist : Name and npcount is:  ",
-                                "${nonpayerobj?.nonpayerName.toString()} and $npcount"
-                            )
-
+                            readnpList?.add(nonpayerobj)
+                        }
+                        y = npcount
+                        for (countnumberobj in snapshot.child("SubEvents").children) //returns keys as sIDs
+                        {
+                            npcount += countnumberobj.child("Roles SubEvents")
+                                .child("Non Payers").childrenCount
+                        }
+                        for (anothercounterobj in snapshot.child("SubEvents").children) //sIDs
+                        {
+                            for (innerotherobject in anothercounterobj.child("Roles SubEvents")
+                                .child("Non Payers").children) {
+                                var sub_npobj: NonPayers_subevent? =
+                                    innerotherobject.getValue(NonPayers_subevent::class.java)
+                                readnplist(sub_npobj, npcount)
+                            }
+//                            var nonpayerobj_sub: NonPayers_subevent? = anothercounterobj.child("Roles SubEvents").child("Non Payers").getValue(NonPayers_subevent::class.java)
+//                            readnplist(nonpayerobj_sub,npcount)
                         }
                     }
                 }
@@ -246,28 +268,19 @@ class EventActivity : AppCompatActivity() {
         }
     }
 
-    private fun readnplist(samplenpobj: NonPayers?, npc: Long) {
+    private fun readnplist(samplenpobj: NonPayers_subevent?, npc: Long) {
 
-        Log.d(
-            "Reading nonpayerslist : Name is:  ",
-            "${samplenpobj?.nonpayerName.toString()} "
-        )
-        readnpList?.add(samplenpobj)
-        Log.d(
-            "Added sampleobj to readnonpayerslist",
-            "${readnpList?.get(y.toInt())?.nonpayerName}"
-        )
-        y++
+        readsubnplist?.add(samplenpobj)
+        ++y
 
-        Log.d("inside readnplist", "Value of y after ++y is: $y")
+//        Log.d("inside readnplist", "Value of y after ++y is: $y")
 
         if (y == npc) {
 //
-            Log.d(
-                "Line 188, inside y==npc in readplist: PAYERSLIST",
-                "${readpList.toString()}"
-            )
-            Log.d("Line 188, inside y==npc in readnplist", "${readnpList.toString()}")
+//            Log.d("Line 188, inside y==npc in readplist: PAYERSLIST", readpList.toString())
+//            Log.d("Line 188, inside y==npc in readnplist", readnpList.toString())
+//            Log.d("Subpayers", readsubplist.toString())
+//            Log.d("Subnonpayers", readsubnplist.toString())
             closeevent()
         }
 
@@ -276,61 +289,176 @@ class EventActivity : AppCompatActivity() {
 
     private fun closeevent() {
 
-        var amountsum: Float = 0.0F
-
-        for (payer in readpList!!) {
-            amountsum += (payer?.payerAmt).toString().toFloat()
+        var uncleanarray: MutableList<SplitForEach_events> = mutableListOf()
+        for (p_count in 0 until (readpList!!.size)) {
+            var samplepobj = SplitForEach_events(readpList!!.get(p_count)?.payerName.toString(), readpList!!.get(p_count)?.payerAmt.toString().toFloat())
+            uncleanarray.add(samplepobj)
         }
-
-        var totalmembers = (readpList!!.size) + (readnpList!!.size)
-
-
-        var split = amountsum / totalmembers
-
-        for (pcount in 0 until (readpList!!.size)) {
-            Log.d("line 225 inside for loop: ", "pcount $pcount")
-            var samplepobj = SplitForEach_events(
-                readpList!!.get(pcount)?.payerName.toString(),
-                split - (readpList!!.get(pcount)?.payerAmt.toString()
-                    .toFloat())
-            )
-            splitforeachevents.add(samplepobj)
-
+        for (p_count in 0 until readsubplist!!.size) {
+            var samplesubpobj = SplitForEach_events(readsubplist!!.get(p_count)?.payerName_subevent.toString(), readsubplist!!.get(p_count)?.payerAmt_subevent.toString().toFloat())
+            uncleanarray.add(samplesubpobj)
         }
 
         for (randomvariable in 0 until (readnpList!!.size)) {
-            var samplenpobj = SplitForEach_events(
-                readnpList!!.get(randomvariable)?.nonpayerName.toString(),
-                split
-            )
-            splitforeachevents.add(samplenpobj)
+            var samplenpobj = SplitForEach_events(readnpList!!.get(randomvariable)?.nonpayerName.toString(), 0.0F)
+            uncleanarray.add(samplenpobj)
         }
+        for (randomsubvariable in 0 until readsubnplist!!.size) {
+            var samplesubnpobj = SplitForEach_events(readsubnplist!!.get(randomsubvariable)?.nonpayerName_subevent.toString(), 0.0F)
+            uncleanarray.add(samplesubnpobj)
+        }
+
+
+        var samenameitem: String?
+        for (outerloopvar in 0 until uncleanarray.size)
+        {
+            samenameitem = uncleanarray[outerloopvar].e_name
+            for (innerloopvar in (outerloopvar + 1) until uncleanarray.size)
+            {
+                if (compareValues(uncleanarray[innerloopvar].e_name.trim(), samenameitem.trim()) == 0)
+                {
+                    uncleanarray[outerloopvar].e_amt += uncleanarray[innerloopvar].e_amt
+                    uncleanarray[innerloopvar].e_amt = 0F
+                    uncleanarray[innerloopvar].e_name = ""
+                }
+            }
+        }
+
+        var cleanarray : MutableList<SplitForEach_events> = mutableListOf()
+        for (i in uncleanarray)
+        {
+            if(i.e_amt == 0F && i.e_name=="")
+            {
+                continue
+            }
+            else
+                cleanarray.add(i)
+        }
+
+        //cleaned array above
+
+
+        var amountsum: Float = 0.0F
+
+        for (amountobject in cleanarray) {
+            amountsum += amountobject.e_amt.toString().toFloat()
+        }
+
+
+        Log.d("Total amount for event", amountsum.toString())
+
+        var totalmembers = cleanarray!!.size
+
+        Log.d("Total number of members for event", totalmembers.toString())
+
+        var split = amountsum / totalmembers
+
+        for(unsplitobject in cleanarray)
+        {
+            unsplitobject.e_amt = split - unsplitobject.e_amt
+            splitforeachevents.add(unsplitobject)
+        }
+
 
         var topay_events: MutableList<SplitForEach_events> = mutableListOf()
         var toreceive_events: MutableList<SplitForEach_events> = mutableListOf()
+
         Log.d("Splitforeach: ", "$splitforeachevents")
-        for (i in 0..(splitforeachevents.size) - 1) {
+
+        for (i in 0 until (splitforeachevents.size)) {
             if (splitforeachevents.get(i)?.e_amt!! < 0F) {
                 toreceive_events.add(splitforeachevents.get(i)!!)
-                println(
-                    "To Receive: Name: ${splitforeachevents[i]?.e_name.toString()} Amount: ${
-                        Math.abs(
-                            splitforeachevents[i]?.e_amt!!.toFloat()
-                        )
-                    }"
-                )
+                println("To Receive: Name: ${splitforeachevents[i]?.e_name.toString()} Amount: ${Math.abs(splitforeachevents[i]?.e_amt!!.toFloat())}")
             } else if (splitforeachevents.get(i)?.e_amt!! > 0F) {
                 topay_events.add(splitforeachevents.get(i)!!)
-                println(
-                    "To Pay: Name: ${splitforeachevents[i]?.e_name.toString()} Amount: ${
-                        Math.abs(
-                            splitforeachevents[i]?.e_amt!!.toFloat()
-                        )
-                    }"
-                )
+                println("To Pay: Name: ${splitforeachevents[i]?.e_name.toString()} Amount: ${Math.abs(splitforeachevents[i]?.e_amt!!.toFloat())}")
             } else if (splitforeachevents.get(i)?.e_amt == 0F) {
                 println("Majaaa maadi ${splitforeachevents[i]?.e_name.toString()}")
             }
         }
     }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//    //to remove same name entries within events and subevents
+//    for(outerloopvar in 0 until splitforeachevents!!.size)
+//    {
+//        var samenameitem = splitforeachevents.get(outerloopvar)!!.e_name
+//        for(innerloopvar in outerloopvar until splitforeachevents!!.size)
+//        {
+//            if(compareValues(splitforeachevents.get(innerloopvar)!!.e_name,samenameitem)==0)
+//            {
+//                splitforeachevents.get(outerloopvar)!!.e_amt += splitforeachevents.get(innerloopvar)!!.e_amt
+//                splitforeachevents.removeAt(innerloopvar)
+//            }
+//        }
+//    }
+
+
+//    for(outerloopvar in 0 until splitforeachevents!!.size)
+//    {
+//        var samenameitem = splitforeachevents.get(outerloopvar).e_name
+//        for(innerloopvar in outerloopvar until splitforeachevents!!.size)
+//        {
+//            if(compareValues(splitforeachevents.get(innerloopvar).e_name,samenameitem)==0)
+//            {
+//                splitforeachevents.removeAt(innerloopvar)
+//            }
+//        }
+//    }
+
+    //code wrong from here
+//        for (p_count in 0 until (readpList!!.size)) {
+////            Log.d("line 225 inside for loop: ", "pcount $pcount")
+//            var samplepobj = SplitForEach_events(
+//                readpList!!.get(p_count)?.payerName.toString(),
+//                split - (readpList!!.get(p_count)?.payerAmt.toString().toFloat())
+//            )
+//            splitforeachevents.add(samplepobj)
+//        }
+//        for (p_count in 0 until readsubplist!!.size) {
+//            var samplesubpobj = SplitForEach_events(
+//                readsubplist!!.get(p_count)?.payerName_subevent.toString(),
+//                split - (readsubplist!!.get(p_count)?.payerAmt_subevent.toString().toFloat())
+//            )
+//            splitforeachevents.add(samplesubpobj)
+//        }
+//
+//        for (randomvariable in 0 until (readnpList!!.size)) {
+//            var samplenpobj = SplitForEach_events(
+//                readnpList!!.get(randomvariable)?.nonpayerName.toString(),
+//                split
+//            )
+//            splitforeachevents.add(samplenpobj)
+//        }
+//        for (randomsubvariable in 0 until readsubnplist!!.size) {
+//            var samplesubnpobj = SplitForEach_events(
+//                readsubnplist!!.get(randomsubvariable)?.nonpayerName_subevent.toString(),
+//                split
+//            )
+//            splitforeachevents.add(samplesubnpobj)
+//        }
+
+
+
+
+
+

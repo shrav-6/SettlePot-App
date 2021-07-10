@@ -80,6 +80,12 @@ class RatioSplitInput : AppCompatActivity() {
             customType(this,"left-to-right")
             finish()
         }
+        homebutton.setOnClickListener {
+            val backtohompageRSintent = Intent(this, homepageevents::class.java)
+            startActivity(backtohompageRSintent)
+            customType(this,"left-to-right")
+            finish()
+        }
     }
 
 }

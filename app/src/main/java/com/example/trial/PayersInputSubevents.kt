@@ -3,6 +3,7 @@ package com.example.trial
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -91,16 +92,17 @@ class PayersInputSubevents : AppCompatActivity() {
 
         button_createrolesforpayers_subevent.setOnClickListener {
             flag = 1
-            Payersref_subevents = FirebaseDatabase.getInstance().getReference("Users")
-                .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
-                .child(eid.toString()).child("SubEvents")
-            Payersref_subevents.child(sid.toString()).child("Roles SubEvents").child("Payers").removeValue()
+//            Payersref_subevents = FirebaseDatabase.getInstance().getReference("Users")
+//                .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
+//                .child(eid.toString()).child("SubEvents")
+//            Payersref_subevents.child(sid.toString()).child("Roles SubEvents").child("Payers").removeValue()
             i = 1
             val result = checkIfValidAndRead()
             if (result) {
                 Payersref_subevents = FirebaseDatabase.getInstance().getReference("Users")
                     .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
                     .child(eid.toString()).child("SubEvents")
+                Payersref_subevents.child(sid.toString()).child("Roles SubEvents").child("Payers").removeValue()
                 for (counterobj in 0..payersList_subevents.size - 1) {
                     Payersref_subevents.child(sid.toString()).child("Roles SubEvents").child("Payers")
                         .child("Payer ${i}").setValue(payersList_subevents[counterobj])
@@ -161,6 +163,15 @@ class PayersInputSubevents : AppCompatActivity() {
             } else {
                 payer_subevent.payerName_subevent = "Payer ${payercount_subevents}"
                 payercount_subevents++
+            }
+            for(j in 0 until i)
+            {
+                if(compareValues(payer_subevent.payerName_subevent, payersList_subevents[j].payerName_subevent)==0)
+                {
+                    Toast.makeText(baseContext,"Invalid. Differentiate same names with unique extra character(s)",Toast.LENGTH_LONG).show()
+                    Log.d("Payersinputsubevents","Same name")
+                    return false
+                }
             }
             if (editPayersAmt_subevents.text.toString() != "") {
                 payer_subevent.payerAmt_subevent = editPayersAmt_subevents.text.toString()

@@ -84,16 +84,17 @@ class NonPayersInputSubevents : AppCompatActivity(){
 
         button_createrolesfornonpayers_subevent.setOnClickListener {
             flag = 1
-            Nonpayersref_subevents = FirebaseDatabase.getInstance().getReference("Users").
-            child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events").
-            child(eid.toString()).child("SubEvents")
-            Nonpayersref_subevents.child(sid.toString()).child("Roles SubEvents").child("Non Payers").removeValue()
+//            Nonpayersref_subevents = FirebaseDatabase.getInstance().getReference("Users").
+//            child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events").
+//            child(eid.toString()).child("SubEvents")
+//            Nonpayersref_subevents.child(sid.toString()).child("Roles SubEvents").child("Non Payers").removeValue()
             i =1
             val result = checkIfValidAndRead()
             if(result) {
                 Nonpayersref_subevents = FirebaseDatabase.getInstance().getReference("Users").
                 child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events").
                 child(eid.toString()).child("SubEvents")
+                Nonpayersref_subevents.child(sid.toString()).child("Roles SubEvents").child("Non Payers").removeValue()
                 for (counterobj in 0..nonpayersList_subevents.size - 1) {
                     Nonpayersref_subevents.child(sid.toString()).child("Roles SubEvents").child("Non Payers").
                     child("Non Payer ${i}").setValue(nonpayersList_subevents[counterobj])
@@ -146,6 +147,15 @@ class NonPayersInputSubevents : AppCompatActivity(){
                 nonpayer_subevent.nonpayerName_subevent= "NonPayer $nonpayercount_subevents"
                 Toast.makeText(baseContext, nonpayer_subevent.nonpayerName_subevent, Toast.LENGTH_SHORT).show()
                 nonpayercount_subevents++
+            }
+            for(j in 0 until i)
+            {
+                if(compareValues(nonpayer_subevent.nonpayerName_subevent, nonpayersList_subevents[j].nonpayerName_subevent)==0)
+                {
+                    Toast.makeText(baseContext,"Invalid. Differentiate same names with unique extra character(s)",Toast.LENGTH_LONG).show()
+                    Log.d("NonPayersinput","Same name")
+                    return false
+                }
             }
             nonpayersList_subevents.add(nonpayer_subevent)
         }
