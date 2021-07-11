@@ -6,17 +6,18 @@
     android:paddingTop="5dp"
     android:paddingBottom="5dp">
 
-    <EditText
+    <TextView
         android:id="@+id/transaction_heading"
-        android:layout_width="370dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_width="304dp"
+        android:layout_height="43dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:gravity="center"
         android:layout_weight="1"
         android:background="@drawable/rounded_edge"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:textColor="@color/black"
-        android:textSize="14sp" />
+        android:textSize="25dp" />
 
 </LinearLayout>
