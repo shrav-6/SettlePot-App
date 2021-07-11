@@ -99,10 +99,11 @@ class homepageevents : AppCompatActivity() {
             eventscounter++
             reference = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
             var neweid = reference.push().key.toString()
-            Toast.makeText(baseContext, "No. of events created: $eventscounter", Toast.LENGTH_LONG).show()
+//            Toast.makeText(baseContext, "No. of events created: $eventscounter", Toast.LENGTH_LONG).show()
             val intent = Intent(applicationContext, EventActivity::class.java)
             intent.putExtra("neweventid", neweid)
             startActivity(intent)
+            EventActivity.buttonflag=0
             NotesInput.read_temp_notes_list.clear()
             NotesInput.notes = null
             NonPayersInput.readnonpayersList.clear()
@@ -167,6 +168,7 @@ class homepageevents : AppCompatActivity() {
             eventstartintent.putExtra("readeventid", eventwrite.getTag().toString())
             NotesInput.read_temp_notes_list.clear()
             NotesInput.notes = null
+            EventActivity.buttonflag=1
             NonPayersInput.readnonpayersList.clear()
             NonPayersInput.nonpayercount = 1
             PayersInput.readpayersList.clear()

@@ -16,9 +16,7 @@ class SubeventActivity : AppCompatActivity() {
 
     companion object{
         var subeventnamecounter: Int = 0
-//        var readpayersList_subevents: ArrayList<Payers_subevent?>? = null
-//        var readnonpayersList_subevents: ArrayList<NonPayers_subevent?>? = null
-
+        var subbuttonflag = 0
     }
     var readpList_subevents: MutableList<Payers_subevent?>? = mutableListOf()
     var readnpList_subevents: MutableList<NonPayers_subevent?>? = mutableListOf()
@@ -82,7 +80,8 @@ class SubeventActivity : AppCompatActivity() {
             finish()
         }
 
-        savesubeventname.setOnClickListener {             //name of the event
+        savesubeventname.setOnClickListener {
+            subbuttonflag = 1
             subref = FirebaseDatabase.getInstance().getReference("Users")
                 .child(FirebaseAuth.getInstance().currentUser!!.uid)
                 .child("Events").child(eid.toString()).child("SubEvents").child(sid.toString())
@@ -99,39 +98,51 @@ class SubeventActivity : AppCompatActivity() {
         }
 
         addroles_subevents.setOnClickListener {
-            val addrolessubevents_intent = Intent(this, rolesSubevent::class.java)
-            addrolessubevents_intent.putExtra("Currenteventid", eid)
-            addrolessubevents_intent.putExtra("Currentsubeventid", sid)
-            startActivity(addrolessubevents_intent)
-            customType(this, "left-to-right")
-            finish()
+            if (subbuttonflag == 1) {
+                val addrolessubevents_intent = Intent(this, rolesSubevent::class.java)
+                addrolessubevents_intent.putExtra("Currenteventid", eid)
+                addrolessubevents_intent.putExtra("Currentsubeventid", sid)
+                startActivity(addrolessubevents_intent)
+                customType(this, "left-to-right")
+                finish()
+            }
+            else
+                Toast.makeText(baseContext,"Save SubEvent name first to reference it later!",Toast.LENGTH_SHORT).show()
         }
 
         close_subevent.setOnClickListener {
 
-            var pcount: Long = 0
-            GetPayersref_subevents = FirebaseDatabase.getInstance().getReference("Users")
-                .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
-                .child(eid.toString()).child("SubEvents").child(sid.toString()).child("Roles SubEvents").child("Payers")
-            val getpayersdata_subevents = object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()) {
-                        x=0
-                        readpList_subevents?.clear()
-                        pcount = (snapshot.childrenCount)
-                        for (counterobj in snapshot.children) {
-                            val payerobj_subevents: Payers_subevent? = counterobj.getValue(Payers_subevent::class.java)
-                            readplist(payerobj_subevents,pcount)
+            if (subbuttonflag == 1) {
+
+                var pcount: Long = 0
+                GetPayersref_subevents = FirebaseDatabase.getInstance().getReference("Users")
+                        .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
+                        .child(eid.toString()).child("SubEvents").child(sid.toString()).child("Roles SubEvents").child("Payers")
+                val getpayersdata_subevents = object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+                            x = 0
+                            readpList_subevents?.clear()
+                            pcount = (snapshot.childrenCount)
+                            for (counterobj in snapshot.children) {
+                                val payerobj_subevents: Payers_subevent? = counterobj.getValue(Payers_subevent::class.java)
+                                readplist(payerobj_subevents, pcount)
 //                            Log.d("Reading payerslist : Name and pcount is:  ", "${payerobj_subevents?.payerName_subevent.toString()} and $pcount")
+                            }
+                        } else if (!snapshot.exists()) {
+                            Toast.makeText(baseContext, "Enter valid roles with atleast one payer indicating the total amount", Toast.LENGTH_LONG).show()
                         }
                     }
-                }
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(baseContext, "Firebase Database Exceptions called - onCancelled(PayersInputSubEvents)", Toast.LENGTH_SHORT).show()
-                }
-            }
-            GetPayersref_subevents.addValueEventListener(getpayersdata_subevents)
 
+                    override fun onCancelled(error: DatabaseError) {
+                        Toast.makeText(baseContext, "Firebase Database Exceptions called - onCancelled(PayersInputSubEvents)", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                GetPayersref_subevents.addValueEventListener(getpayersdata_subevents)
+
+            }
+            else
+                Toast.makeText(baseContext,"Save SubEvent name first to reference it later!",Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -144,7 +155,7 @@ class SubeventActivity : AppCompatActivity() {
         x++
         Log.d("inside readplist","Value of x after ++X is: $x")
 
-        if (x== pc) {
+        if (x==pc) {
             var npcount: Long = 0
             GetNonPayersref_subevents = FirebaseDatabase.getInstance().getReference("Users")
                 .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
@@ -165,6 +176,10 @@ class SubeventActivity : AppCompatActivity() {
 
                         }
                     }
+                    else{
+                        closesubevent()
+                    }
+
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -205,6 +220,7 @@ class SubeventActivity : AppCompatActivity() {
             amountsum += (payer?.payerAmt_subevent).toString().toFloat()
         }
 
+        println("Size of readnplist: ${readnpList_subevents!!.size}")
         var totalmembers_subevent = (readpList_subevents!!.size) + (readnpList_subevents!!.size)
 
 

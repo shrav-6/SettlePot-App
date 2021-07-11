@@ -15,6 +15,7 @@ class EventActivity : AppCompatActivity() {
     companion object {
         var eventnamecounter: Int = 0
         var subeventscounter: Int = 0
+        var buttonflag: Int =0
     }
 
     var readpList: MutableList<Payers?>? = mutableListOf()
@@ -27,6 +28,7 @@ class EventActivity : AppCompatActivity() {
     //class has members name and amt
     var x: Long = 0
     var y: Long = 0
+
 
     lateinit var event: events
     private lateinit var subeventsreference: DatabaseReference
@@ -92,12 +94,16 @@ class EventActivity : AppCompatActivity() {
         }
 
         viewsubeventsbutton.setOnClickListener {
-
-            val intentviewsubevents = Intent(this, SubEventsView::class.java)
-            intentviewsubevents.putExtra("eventid_view", eid.toString())
-            startActivity(intentviewsubevents)
-            customType(this, "left-to-right")
-            finish()
+            if(buttonflag==1) {
+                SubeventActivity.subbuttonflag = 1
+                val intentviewsubevents = Intent(this, SubEventsView::class.java)
+                intentviewsubevents.putExtra("eventid_view", eid.toString())
+                startActivity(intentviewsubevents)
+                customType(this, "left-to-right")
+                finish()
+            }
+            else
+                Toast.makeText(baseContext,"Save Event name first to reference it later!",Toast.LENGTH_SHORT).show()
         }
 //
 //        editeventprofile.setOnClickListener {
@@ -108,50 +114,59 @@ class EventActivity : AppCompatActivity() {
 
 
         notesbutton.setOnClickListener {
-//            Toast.makeText(baseContext,"Notes button pressed!",Toast.LENGTH_LONG).show()
-            var notespageintent = Intent(applicationContext, NotesInput::class.java)
-            notespageintent.putExtra("eventid", eid.toString())
-            Log.d("Notes inside clicked event id: ", eid.toString())//prints the correct notes id
-            startActivity(notespageintent)
-            customType(this, "left-to-right")
-            finish()
+            if (buttonflag == 1) {
+                var notespageintent = Intent(applicationContext, NotesInput::class.java)
+                notespageintent.putExtra("eventid", eid.toString())
+                Log.d("Notes inside clicked event id: ", eid.toString())//prints the correct notes id
+                startActivity(notespageintent)
+                customType(this, "left-to-right")
+                finish()
+            }
+            else
+                Toast.makeText(baseContext,"Save Event name first to reference it later!",Toast.LENGTH_SHORT).show()
         }
 
 
         addrolesbutton.setOnClickListener {
-            val addrolesintent = Intent(this, RolesPage::class.java)
-            addrolesintent.putExtra("rolesid", eid.toString())
-            startActivity(addrolesintent)
-            customType(this, "left-to-right")
-            finish()
+            if (buttonflag == 1) {
+                val addrolesintent = Intent(this, RolesPage::class.java)
+                addrolesintent.putExtra("rolesid", eid.toString())
+                startActivity(addrolesintent)
+                customType(this, "left-to-right")
+                finish()
+            }
+            else
+                Toast.makeText(baseContext,"Save Event name first to reference it later!",Toast.LENGTH_SHORT).show()
+
         }
 
         addsubeventsbutton.setOnClickListener {
-            subeventscounter++
-            subeventsreference = FirebaseDatabase.getInstance().getReference("Users")
-                .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
-                .child(eid.toString()).child("SubEvents")
-            var newsid = subeventsreference.push().key.toString()
-            Toast.makeText(
-                baseContext,
-                "No of subevents created: $subeventscounter",
-                Toast.LENGTH_SHORT
-            ).show()
-            val addsubeventsintent = Intent(this, SubeventActivity::class.java)
-            addsubeventsintent.putExtra("eventforsub_id", eid)
-            addsubeventsintent.putExtra("newsubeventid", newsid)
-            PayersInputSubevents.payercount_subevents = 1
-            PayersInputSubevents.readpayersList_subevents.clear()
-            NonPayersInputSubevents.nonpayercount_subevents = 1
-            NonPayersInputSubevents.readnonpayersList_subevents.clear()
-            SubeventActivity.subeventnamecounter = 0
-            startActivity(addsubeventsintent)
-            customType(this, "left-to-right")
-            finish()
+            if (buttonflag == 1) {
+                subeventscounter++
+                subeventsreference = FirebaseDatabase.getInstance().getReference("Users")
+                        .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
+                        .child(eid.toString()).child("SubEvents")
+                var newsid = subeventsreference.push().key.toString()
+                val addsubeventsintent = Intent(this, SubeventActivity::class.java)
+                addsubeventsintent.putExtra("eventforsub_id", eid)
+                addsubeventsintent.putExtra("newsubeventid", newsid)
+                SubeventActivity.subbuttonflag = 0
+                PayersInputSubevents.payercount_subevents = 1
+                PayersInputSubevents.readpayersList_subevents.clear()
+                NonPayersInputSubevents.nonpayercount_subevents = 1
+                NonPayersInputSubevents.readnonpayersList_subevents.clear()
+                SubeventActivity.subeventnamecounter = 0
+                startActivity(addsubeventsintent)
+                customType(this, "left-to-right")
+                finish()
+            }
+            else
+                Toast.makeText(baseContext,"Save Event name first to reference it later!",Toast.LENGTH_SHORT).show()
         }
 
 
-        savechangesbutton.setOnClickListener {                //name of the event
+        savechangesbutton.setOnClickListener { //name of the event
+            buttonflag = 1
             ref = FirebaseDatabase.getInstance().getReference("Users")
                 .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
             var eventename = eventName.text.toString().trim()
@@ -168,51 +183,68 @@ class EventActivity : AppCompatActivity() {
 
 
         closeventbutton.setOnClickListener {
-            var pcount: Long = 0
-            GetPayersref = FirebaseDatabase.getInstance().getReference("Users")
-                .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
-                .child(eid.toString()) //.child("Roles").child("Payers")
-            var getpayersdata = object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()) {
-                        x = 0
-                        readpList?.clear()
-                        pcount = snapshot.child("Roles").child("Payers").childrenCount
-                        for (counterobj in snapshot.child("Roles").child("Payers").children) {
-                            var payerobj: Payers? = counterobj.getValue(Payers::class.java)
-                            readpList?.add(payerobj)
-                        }
-                        x = pcount
-                        for (countnumberpobj in snapshot.child("SubEvents").children) {
-                            pcount += countnumberpobj.child("Roles SubEvents")
-                                .child("Payers").childrenCount
-                        }
-
-                        for (anothercounterobj in snapshot.child("SubEvents").children) {
-                            for (innerotherobject in anothercounterobj.child("Roles SubEvents")
-                                .child("Payers").children) {
-                                var sub_pobj: Payers_subevent? =
-                                    innerotherobject.getValue(Payers_subevent::class.java)
-                                readplist(sub_pobj, pcount)
+            if (buttonflag == 1) {
+                var pcount: Long = 0
+                var pcounter: Long = 0
+                GetPayersref = FirebaseDatabase.getInstance().getReference("Users")
+                        .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
+                        .child(eid.toString())
+                var getpayersdata = object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+                            x = 0
+                            readpList?.clear()
+                            if (snapshot.child("Roles").child("Payers").exists()) {
+                                pcount = snapshot.child("Roles").child("Payers").childrenCount
+                                for (counterobj in snapshot.child("Roles").child("Payers").children) {
+                                    var payerobj: Payers? = counterobj.getValue(Payers::class.java)
+                                    readpList?.add(payerobj)
+                                }
+                                pcounter = pcount
                             }
-                        }
+                            Log.d("PAYERS EVENT LIST : ", readpList.toString())
+
+                            for (countnumberpobj in snapshot.child("SubEvents").children) {
+                                if (countnumberpobj.child("Roles SubEvents").child("Payers").exists())
+                                    pcount += countnumberpobj.child("Roles SubEvents").child("Payers").childrenCount
+                            }//saves the count of payers in all subevents under pcount
+
+
+                            if (snapshot.child("SubEvents").exists()) {
+                                x = pcounter
+                                for (anothercounterobj in snapshot.child("SubEvents").children) {
+                                    if (anothercounterobj.child("Roles SubEvents").child("Payers").exists()) {
+
+                                        for (innerotherobject in anothercounterobj.child("Roles SubEvents").child("Payers").children) {
+                                            var sub_pobj: Payers_subevent? = innerotherobject.getValue(Payers_subevent::class.java)
+                                            readplist(sub_pobj, pcount)
+                                        }
+                                    }
+                                }
+                            }
+                            if (pcounter == pcount) {
+                                readplist(Payers_subevent("", "0F"), x + 1)
+                            }
+                        } else
+                            Toast.makeText(baseContext, "No data found", Toast.LENGTH_LONG).show()
+
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        Toast.makeText(
+                                baseContext,
+                                "Firebase Database Exceptions called - onCancelled(PayersInputSubEvents)",
+                                Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
-
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(
-                        baseContext,
-                        "Firebase Database Exceptions called - onCancelled(PayersInputSubEvents)",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                GetPayersref.addValueEventListener(getpayersdata)
             }
-            GetPayersref.addValueEventListener(getpayersdata)
+            else
+                Toast.makeText(baseContext,"Save Event name first to reference it later!",Toast.LENGTH_SHORT).show()
         }
     }
-//    private fun readplist_events(samplepobjevent: Payers?){
-//        readpList?.add(samplepobjevent)
-//    }
+
 
     private fun readplist(samplepobject: Payers_subevent?, pc: Long) {
 
@@ -221,7 +253,9 @@ class EventActivity : AppCompatActivity() {
         Log.d("inside readplist", "Value of x after ++X is: $x")
 
         if (x == pc) {
+            x=0//check
             var npcount: Long = 0
+            var npcounter : Long = 0
             GetNonPayersref = FirebaseDatabase.getInstance().getReference("Users")
                 .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
                 .child(eid.toString()) //.child("Roles").child("Non Payers")
@@ -230,29 +264,43 @@ class EventActivity : AppCompatActivity() {
                     if (snapshot.exists()) {
                         y = 0
                         readnpList?.clear()
-                        npcount = snapshot.child("Roles").child("Non Payers").childrenCount
-                        for (counterobj in snapshot.child("Roles").child("Non Payers").children) {
-                            val nonpayerobj: NonPayers? = counterobj.getValue(NonPayers::class.java)
-                            readnpList?.add(nonpayerobj)
+                        if (snapshot.child("Roles").child("Non Payers").exists()) {
+                            npcount = snapshot.child("Roles").child("Non Payers").childrenCount
+                            for (counterobj in snapshot.child("Roles").child("Non Payers").children) {
+                                val nonpayerobj: NonPayers? = counterobj.getValue(NonPayers::class.java)
+                                readnpList?.add(nonpayerobj)
+                            }
+                            npcounter = npcount
                         }
-                        y = npcount
+                        Log.d("PAYERS EVENT LIST : ", readnpList.toString())
+
                         for (countnumberobj in snapshot.child("SubEvents").children) //returns keys as sIDs
                         {
-                            npcount += countnumberobj.child("Roles SubEvents")
-                                .child("Non Payers").childrenCount
-                        }
-                        for (anothercounterobj in snapshot.child("SubEvents").children) //sIDs
-                        {
-                            for (innerotherobject in anothercounterobj.child("Roles SubEvents")
-                                .child("Non Payers").children) {
-                                var sub_npobj: NonPayers_subevent? =
-                                    innerotherobject.getValue(NonPayers_subevent::class.java)
-                                readnplist(sub_npobj, npcount)
+                            if (countnumberobj.child("Roles SubEvents").child("Non Payers").exists()) {
+                                npcount += countnumberobj.child("Roles SubEvents").child("Non Payers").childrenCount
                             }
-//                            var nonpayerobj_sub: NonPayers_subevent? = anothercounterobj.child("Roles SubEvents").child("Non Payers").getValue(NonPayers_subevent::class.java)
-//                            readnplist(nonpayerobj_sub,npcount)
+                        }//saves the count of nonpayers in all subevents under npcount
+
+                        if (snapshot.child("SubEvents").exists())
+                        {
+                            y=npcounter
+                            for (anothercounterobj in snapshot.child("SubEvents").children) //sIDs
+                            {
+                                if (anothercounterobj.child("Roles SubEvents").child("Non Payers").exists()) {
+                                    for (innerotherobject in anothercounterobj.child("Roles SubEvents").child("Non Payers").children) {
+                                        var sub_npobj: NonPayers_subevent? = innerotherobject.getValue(NonPayers_subevent::class.java)
+                                        readnplist(sub_npobj, npcount)
+                                    }
+                                }
+                            }
                         }
+                        if (npcounter == npcount) {
+                            readnplist(NonPayers_subevent(""), y+1)
+                        }
+
                     }
+                    else
+                        Toast.makeText(baseContext,"No data found",Toast.LENGTH_LONG).show()
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -273,7 +321,7 @@ class EventActivity : AppCompatActivity() {
         readsubnplist?.add(samplenpobj)
         ++y
 
-//        Log.d("inside readnplist", "Value of y after ++y is: $y")
+        Log.d("inside readnplist", "Value of y after ++y is: $y")
 
         if (y == npc) {
 //
@@ -295,8 +343,12 @@ class EventActivity : AppCompatActivity() {
             uncleanarray.add(samplepobj)
         }
         for (p_count in 0 until readsubplist!!.size) {
-            var samplesubpobj = SplitForEach_events(readsubplist!!.get(p_count)?.payerName_subevent.toString(), readsubplist!!.get(p_count)?.payerAmt_subevent.toString().toFloat())
-            uncleanarray.add(samplesubpobj)
+            if ((readsubplist!![p_count]?.payerName_subevent == "") && (readsubplist!![p_count]?.payerAmt_subevent == "0F"))
+                continue
+            else {
+                var samplesubpobj = SplitForEach_events(readsubplist!!.get(p_count)?.payerName_subevent.toString(), readsubplist!!.get(p_count)?.payerAmt_subevent.toString().toFloat())
+                uncleanarray.add(samplesubpobj)
+            }
         }
 
         for (randomvariable in 0 until (readnpList!!.size)) {
@@ -304,9 +356,17 @@ class EventActivity : AppCompatActivity() {
             uncleanarray.add(samplenpobj)
         }
         for (randomsubvariable in 0 until readsubnplist!!.size) {
-            var samplesubnpobj = SplitForEach_events(readsubnplist!!.get(randomsubvariable)?.nonpayerName_subevent.toString(), 0.0F)
-            uncleanarray.add(samplesubnpobj)
+            if (readsubnplist!![randomsubvariable]?.nonpayerName_subevent == "")
+                continue
+            else {
+                var samplesubnpobj = SplitForEach_events(readsubnplist!!.get(randomsubvariable)?.nonpayerName_subevent.toString(), 0.0F)
+                uncleanarray.add(samplesubnpobj)
+            }
         }
+
+
+        for(a in 0 until uncleanarray!!.size)
+            Log.d("unclean array elements", "${uncleanarray[a].e_name} and ${uncleanarray[a].e_amt}")
 
 
         var samenameitem: String?
@@ -334,6 +394,10 @@ class EventActivity : AppCompatActivity() {
             else
                 cleanarray.add(i)
         }
+
+        for(a in 0 until cleanarray!!.size)
+            Log.d("clean array elements", "${cleanarray[a].e_name} and ${cleanarray[a].e_amt}")
+
 
         //cleaned array above
 

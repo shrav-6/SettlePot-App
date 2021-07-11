@@ -30,27 +30,41 @@ class RatioSplitInput : AppCompatActivity() {
             {
                 activityname = LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL))
             }
-            if(category1number.text.toString().isNullOrBlank() || category1number.text.toString().toInt() == 0)
+            if(category1number.text.toString().isEmpty())
                 flag=1
-            if(category2number.text.toString().isNullOrBlank() || category2number.text.toString().toInt() == 0)
-                flag=1
-            if(category1price.text.toString().isNullOrBlank() || category1price.text.toString().toFloat() == 0F)
-                flag=1
-            if(category2price.text.toString().isNullOrBlank() || category2price.text.toString().toFloat() == 0F)
-                flag=1
-            if(totalprice.text.toString().isNullOrBlank() || totalprice.text.toString().toFloat() == 0F)
+            else if(category1number.text.toString().toInt() ==0)
                 flag=1
 
-            var cat1no = category1number.text.toString().toInt()
-            var cat2no = category2number.text.toString().toInt()
-            var cat1price = category1price.text.toString().toFloat()
-            var cat2price = category2price.text.toString().toFloat()
-            var totprice = totalprice.text.toString().toFloat()
+            if(category2number.text.toString().isEmpty() )
+                flag=1
+            else if(category2number.text.toString().toInt() == 0)
+                flag=1
+
+            if(category1price.text.toString().isBlank())
+                flag=1
+            else if(category1price.text.toString().toFloat() == 0F)
+                flag=1
+
+            if(category2price.text.toString().isBlank())
+                flag=1
+            else if(category2price.text.toString().toFloat() == 0F)
+                flag=1
+
+            if(totalprice.text.toString().isBlank())
+                flag=1
+            else if(totalprice.text.toString().toFloat() == 0F)
+                flag=1
+
 
             if(flag==0) {
+                var cat1no = category1number.text.toString().toInt()
+                var cat2no = category2number.text.toString().toInt()
+                var cat1price = category1price.text.toString().toFloat()
+                var cat2price = category2price.text.toString().toFloat()
+                var totprice = totalprice.text.toString().toFloat()
                 computeRatioSplit(activityname, cat1no, cat2no, cat1price, cat2price, totprice)
             }
-            else
+            else if(flag==1)
                 Toast.makeText(baseContext,"Enter valid non-zero details",Toast.LENGTH_SHORT).show()
 
         }

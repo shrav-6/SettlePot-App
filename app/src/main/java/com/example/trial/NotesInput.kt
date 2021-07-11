@@ -95,9 +95,6 @@ class NotesInput : AppCompatActivity() {
                     Toast.makeText(baseContext, "Notes added", Toast.LENGTH_SHORT).show()
                 }
             }
-            if(result) {
-                Toast.makeText(baseContext, "current notes should display in text view", Toast.LENGTH_SHORT).show()
-            }
         }
 
         backbutton_notesinput.setOnClickListener {

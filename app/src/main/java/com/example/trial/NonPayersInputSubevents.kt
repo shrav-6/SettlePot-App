@@ -145,7 +145,6 @@ class NonPayersInputSubevents : AppCompatActivity(){
                 nonpayer_subevent.nonpayerName_subevent = editNonPayersName_subevent.text.toString()
             } else {
                 nonpayer_subevent.nonpayerName_subevent= "NonPayer $nonpayercount_subevents"
-                Toast.makeText(baseContext, nonpayer_subevent.nonpayerName_subevent, Toast.LENGTH_SHORT).show()
                 nonpayercount_subevents++
             }
             for(j in 0 until i)

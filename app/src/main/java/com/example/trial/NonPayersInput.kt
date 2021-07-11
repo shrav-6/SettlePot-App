@@ -127,7 +127,6 @@ class NonPayersInput : AppCompatActivity() {
                 nonpayer.nonpayerName = editNonPayersName.text.toString()
             } else {
                 nonpayer.nonpayerName = "NonPayer $nonpayercount"
-                Toast.makeText(baseContext, nonpayer.nonpayerName, Toast.LENGTH_SHORT).show()
                 nonpayercount++
             }
             for(j in 0 until i)
