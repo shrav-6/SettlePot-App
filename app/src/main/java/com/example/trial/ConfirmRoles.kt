@@ -12,11 +12,12 @@ class ConfirmRoles : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_confirm_roles)
         var confirm_id:String? = null
-        var receiverolesidintent = intent
+        var receiverolesidintent = intent //caller intent
+
         confirm_id = receiverolesidintent.getStringExtra("confirmrolesid")
         Toast.makeText(baseContext,"Roles created successfully",Toast.LENGTH_LONG).show()
         val handler = Handler(Looper.getMainLooper())
-        handler.postDelayed({
+        handler.postDelayed({ //delay to display gif
             val intent = Intent(this, EventActivity::class.java)
             intent.putExtra("backtoeventid",confirm_id)
             startActivity(intent)

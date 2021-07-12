@@ -13,16 +13,20 @@ import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
 class RatioSplitInput : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ratio_split_input)
 
+        //go to ratio split main page activity
         computepreviousbutton.setOnClickListener {
             var gotoRatioSplitmainpageintent = Intent(this, RatioSplitmainpage::class.java)
             startActivity(gotoRatioSplitmainpageintent)
             customType(this, "right-to-left")
             finish()
         }
+
+        //receive data from user
         computenextbutton.setOnClickListener {
             var flag=0
             var activityname = ratiosplitactivityname.text.toString()
@@ -70,6 +74,7 @@ class RatioSplitInput : AppCompatActivity() {
         }
     }
 
+    //compute ratio split from given user's info
     private fun computeRatioSplit(dummyactivityname: String, xno: Int, yno: Int, x: Float, y: Float, t: Float) {
         setContentView(R.layout.ratiosplitbill)
         tv_ratiosplitactivityname.setText(dummyactivityname)
@@ -77,23 +82,22 @@ class RatioSplitInput : AppCompatActivity() {
         var datandtimeratiosplit = LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL, FormatStyle.MEDIUM))
         tv_ratiosplitdateandday.setText(datandtimeratiosplit)
 
-
         var ratio = x/y
         var splitforcat2 = t/((xno*ratio)+(yno))
         var splitforcat1 = (t - (yno*splitforcat2)) / xno
-//        println("Split for category 1: $splitforcat1")
-//        println("Split for catgory 2: $splitforcat2")
-
 
         cat1perpay.setText(String.format("%.2f",splitforcat1))
         cat2perpay.setText(String.format("%.2f",splitforcat2))
 
+        //go to the previous page
         backtoratiosplitinputpage.setOnClickListener {
             val backtoratiosplitinputpageintent = Intent(this, RatioSplitInput::class.java)
             startActivity(backtoratiosplitinputpageintent)
             customType(this,"left-to-right")
             finish()
         }
+
+        //go to home page activity
         homebutton.setOnClickListener {
             val backtohompageRSintent = Intent(this, homepageevents::class.java)
             startActivity(backtohompageRSintent)

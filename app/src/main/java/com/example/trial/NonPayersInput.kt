@@ -21,12 +21,13 @@ class NonPayersInput : AppCompatActivity() {
         var readnonpayersList = ArrayList<NonPayers?>()
     }
 
+    //global variables
     var layoutList: LinearLayout? = null
     private lateinit var Nonpayersref: DatabaseReference
     private lateinit var GetNonPayersref: DatabaseReference
     var nonpayersList = ArrayList<NonPayers>()
-//    var readnonpayersList = ArrayList<NonPayers?>()
     var flag: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nonpayers_input)
@@ -37,6 +38,8 @@ class NonPayersInput : AppCompatActivity() {
         val intentcaller = intent
         var npid: String? = null
         var receiverintent = intent
+
+        //get data from caller activity
         if(receiverintent.hasExtra("nonpayerid")) {        //from roles page (rid) = eid
             npid  = receiverintent.getStringExtra("nonpayerid")
         }
@@ -45,6 +48,7 @@ class NonPayersInput : AppCompatActivity() {
         }
 
 
+        //read nonpayers data from firebase database
         GetNonPayersref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events").child(npid.toString()).child("Roles").child("Non Payers")
         var getnonpayersdata = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -57,8 +61,6 @@ class NonPayersInput : AppCompatActivity() {
                     }
                 }
             }
-
-
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(baseContext,"Firebase Database Exceptions called - onCancelled(Non PayersInput)",Toast.LENGTH_SHORT).show()
             }
@@ -66,16 +68,14 @@ class NonPayersInput : AppCompatActivity() {
         GetNonPayersref.addValueEventListener(getnonpayersdata)
 
 
+        //add new row to save non-payer data
         button_addnonpayers.setOnClickListener {
             addView()
         }
 
-
-
+        //save roles created for nonpayers
         button_createrolesfornonpayers.setOnClickListener {
             flag=1
-//            Nonpayersref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
-//            Nonpayersref.child(npid.toString()).child("Roles").child("Non Payers").removeValue()
             i=1
             val result = checkIfValidAndRead()
             if(result) {
@@ -95,6 +95,7 @@ class NonPayersInput : AppCompatActivity() {
             }
         }
 
+        //go to roles page or payers input activity
         backbutton_nonpayersinput.setOnClickListener {
 
             if(intentcaller.hasExtra("bothpayerid")) {
@@ -111,10 +112,9 @@ class NonPayersInput : AppCompatActivity() {
                 finish()
             }
         }
-
     }
 
-
+    //check if the data read is valid or not
     private fun checkIfValidAndRead(): Boolean {
         nonpayersList.clear()
         var result = true
@@ -143,16 +143,20 @@ class NonPayersInput : AppCompatActivity() {
         return result
     }
 
+    //add row on clicking add new role
     private fun addView() {
         val nonpayerView: View = layoutInflater.inflate(R.layout.row_add_nonpayer, null, false)
         val imageClose = nonpayerView.findViewById<View>(R.id.image_remove) as ImageView
         imageClose.setOnClickListener { removeView(nonpayerView) }
         layoutList!!.addView(nonpayerView)
     }
+
+    //delete row added in view on clicking cross button
     private fun removeView(view: View) {
         layoutList!!.removeView(view)
     }
 
+    //edit nonpayers name and edit nonpayers data
     private fun readnonpayersView(sampleobject: NonPayers?) {
         val nonpayerViewx: View = layoutInflater.inflate(R.layout.row_add_nonpayer, null, false)
         val npnamewrite = nonpayerViewx.findViewById<View>(R.id.edit_nonpayers_name) as EditText
@@ -162,6 +166,7 @@ class NonPayersInput : AppCompatActivity() {
         layoutList!!.addView(nonpayerViewx) //addView is an inbuilt func - not to be confused w the addView() function we have created
     }
 
+    //remove nonpayer view
     private fun removenonpayerView(view: View) {
         layoutList!!.removeView(view) //removeView is an inbuilt func
     }

@@ -5,6 +5,7 @@ class NonPayers {
 
 
     constructor() {}
+    //save non-payername for events
     constructor(nonpayerName: String?) {
         this.nonpayerName = nonpayerName
 

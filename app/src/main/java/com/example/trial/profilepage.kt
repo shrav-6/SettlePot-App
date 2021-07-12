@@ -15,23 +15,25 @@ class profilepage : AppCompatActivity() {
     lateinit var cUser : users1
     private lateinit var database: DatabaseReference
     private lateinit var readforprofileref: DatabaseReference
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profilepage)
 
-
+        //go to home page activity
         backtohomepage.setOnClickListener{
-            Toast.makeText(baseContext,"Unsaved changes", Toast.LENGTH_SHORT).show()
             val backtohomeintent = Intent(this, homepageevents::class.java)
             startActivity(backtohomeintent)
             customType(this,"bottom-to-top")
             finish()
         }
 
+        //save user information
         saveinfo.setOnClickListener{
             saveUser()
         }
 
+        //read previously saved user's information from firebase database
         readforprofileref = FirebaseDatabase.getInstance().getReference("Users")
             .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Profile info")
         var readprofileinfo = object : ValueEventListener{
@@ -41,10 +43,8 @@ class profilepage : AppCompatActivity() {
                     username.setText(cUser?.name.toString())
                     usermailid.setText(cUser?.mailid.toString())
                     userphno.setText(cUser?.phoneno.toString())
-
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
@@ -52,7 +52,7 @@ class profilepage : AppCompatActivity() {
         readforprofileref.addValueEventListener(readprofileinfo)
     }
 
-
+    //save user info
     private fun saveUser() {
         var uname = username.text.toString().trim()
         var umailid = usermailid.text.toString().trim()

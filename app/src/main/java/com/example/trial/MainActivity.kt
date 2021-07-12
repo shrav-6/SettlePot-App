@@ -1,11 +1,4 @@
-package com.example.trial //contains Kotlin source code files
-//com.example.<projname> (androidTest) - put all tests that run on an android device
-//com.example.<projname> (test) - unit tests that don't need an android device to run
-//res folder - all resources for the app (images, layout files, strings, icons, styling)
-    //drawable: Images
-    //Layout: UI layout files
-    //mipmap: Launcher icons for app
-    //values: Resources like strings, colors, etc
+package com.example.trial
 
 import android.content.Intent
 import android.os.Bundle
@@ -22,7 +15,6 @@ class MainActivity : AppCompatActivity() {
         var flag: Int = 0
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -32,11 +24,10 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-
+        //go to homepage activity after displaying "SettlePot" gif
         Handler(Looper.getMainLooper()).postDelayed(Runnable {   //handler use is to schedule messages and runnables to be executed at some point in the future
             if (flag == 1) {
                 val gotohomepageintentt = Intent(this, homepageevents::class.java)
-//                gotohomepageintentt.putExtra("existinguserid", userid)
                 startActivity(gotohomepageintentt)
                 finish()
             } else if (flag == 0) {

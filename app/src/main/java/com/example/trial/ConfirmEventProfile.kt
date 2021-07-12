@@ -14,7 +14,7 @@ class ConfirmEventProfile : AppCompatActivity() {
 
         Toast.makeText(baseContext,"Event Profile Updated!!", Toast.LENGTH_LONG).show()
         val handler = Handler(Looper.getMainLooper())
-        handler.postDelayed({
+        handler.postDelayed({ //delay to display gif
             val intent = Intent(this,EventActivity::class.java)
             startActivity(intent)
             finish()

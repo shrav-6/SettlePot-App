@@ -43,6 +43,7 @@ class otpconfirm : AppCompatActivity() {
             }
         }
     }
+
     // verifies if the code matches sent by firebase
     // if success start the new activity in our case it is main Activity
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {

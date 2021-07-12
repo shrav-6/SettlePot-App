@@ -16,14 +16,13 @@ import maes.tech.intentanim.CustomIntent
 import maes.tech.intentanim.CustomIntent.customType
 
 class homepageevents : AppCompatActivity() {
+
+    //static variables
     companion object {
-
         var eventscounter: Int = 0
-        //var readeventslist = ArrayList<events?>()
-
     }
 
-    //    private lateinit var eventsbutton : ArrayList<Button>
+    //global variables
     private lateinit var reference: DatabaseReference
     var layoutList: LinearLayout? = null
     private lateinit var GetEventsref: DatabaseReference
@@ -32,8 +31,6 @@ class homepageevents : AppCompatActivity() {
     var i: Int = 0
     var deleteventflag: Int = 0
     lateinit var geteventsdata : ValueEventListener
-//    var enamewrite = Button(this);
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,24 +41,21 @@ class homepageevents : AppCompatActivity() {
         layoutList!!.clearAnimation()
 
 
+        //read events data to display in homepage
         GetEventsref = FirebaseDatabase.getInstance().getReference("Users")
                 .child(FirebaseAuth.getInstance().currentUser!!.uid)
                 .child("Events")
         geteventsdata = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-//                    readeventslist.clear()
-
                     for (counterobj in snapshot.children) {
                         val eventsobj: events? = counterobj.child("Event Details").getValue(events::class.java)
                       if(deleteventflag == 0) {
                             readeventsView(eventsobj)
                         }
-
                     }
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(baseContext, "Firebase Database Exceptions called - onCancelled(PayersInput)", Toast.LENGTH_SHORT).show()
             }
@@ -69,6 +63,7 @@ class homepageevents : AppCompatActivity() {
         GetEventsref.addValueEventListener(geteventsdata)
 
 
+        //ratio split activity is called
         ratiosplitbutton.setOnClickListener {
             val ratiosplitintent = Intent(this, RatioSplitmainpage::class.java)
             startActivity(ratiosplitintent)
@@ -76,14 +71,15 @@ class homepageevents : AppCompatActivity() {
             finish()
         }
 
-
-
+        //edit user profile info activity is called
         editprofileicon.setOnClickListener {
             val profileintent = Intent(this, profilepage::class.java)
             startActivity(profileintent)
             customType(this, "fadein-to-fadeout")
             finish()
         }
+
+        //logout from SettlePot
         logoutbutton.setOnClickListener {
             MainActivity.flag = 0
             FirebaseAuth.getInstance().signOut()
@@ -95,11 +91,12 @@ class homepageevents : AppCompatActivity() {
             finish()
 
         }
+
+        //Add events activity is called
         addeventbutton.setOnClickListener {
             eventscounter++
             reference = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
             var neweid = reference.push().key.toString()
-//            Toast.makeText(baseContext, "No. of events created: $eventscounter", Toast.LENGTH_LONG).show()
             val intent = Intent(applicationContext, EventActivity::class.java)
             intent.putExtra("neweventid", neweid)
             startActivity(intent)
@@ -114,14 +111,14 @@ class homepageevents : AppCompatActivity() {
             SubeventActivity.subeventnamecounter = 0
             finish()
         }
-
-
     }
 
+    //remove event view when clicked on delete
     private fun removeView(view: View) {
         layoutList!!.removeView(view) //removeView is an inbuilt func
     }
 
+    //view the events data read
     private fun readeventsView(sampleobject: events?) {
         val eventView: View = layoutInflater.inflate(R.layout.row_add_events, null, false)
         val eventwrite = eventView.findViewById<View>(R.id.events_name) as Button
@@ -131,6 +128,7 @@ class homepageevents : AppCompatActivity() {
         val deleteevent = eventView.findViewById<View>(R.id.delete_events) as ImageButton
         deleteevent.setOnClickListener {
 
+            //show alert message before deleting
             var builder = AlertDialog.Builder(this)
             builder.setMessage("Are you sure?")
                 .setTitle("Confirm Delete")
@@ -163,6 +161,7 @@ class homepageevents : AppCompatActivity() {
         layoutList!!.addView(eventView)
 
 
+        //when a read event is clicked, event activity is called
         eventwrite.setOnClickListener {
             val eventstartintent = Intent(this,EventActivity::class.java)
             eventstartintent.putExtra("readeventid", eventwrite.getTag().toString())
@@ -181,7 +180,7 @@ class homepageevents : AppCompatActivity() {
         }
     }
 
-
+    //save user's activity when the app is sent to the background
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
         super.onSaveInstanceState(outState, outPersistentState)
         outState.putInt("userstatusflag",MainActivity.flag)

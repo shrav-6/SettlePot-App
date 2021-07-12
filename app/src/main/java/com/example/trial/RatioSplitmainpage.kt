@@ -15,12 +15,15 @@ class RatioSplitmainpage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ratio_splitmainpage)
 
+        //go to home page activity
         backtohomepagebutton.setOnClickListener {
             val backtohomepageintent = Intent(this, homepageevents::class.java)
             startActivity(backtohomepageintent)
             customType(this,"right-to-left")
             finish()
         }
+
+        //go to ratio split input activity
         addnewbutton.setOnClickListener {
             val computenewRatioSplitintent = Intent(this, RatioSplitInput::class.java)
             startActivity(computenewRatioSplitintent)

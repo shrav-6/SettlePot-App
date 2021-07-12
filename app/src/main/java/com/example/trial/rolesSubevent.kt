@@ -17,6 +17,8 @@ class rolesSubevent : AppCompatActivity() {
         var sid:String? = null
 
         var callerintent = intent
+
+        //receive data from caller intent
         if(callerintent.hasExtra("Currenteventid")) {             //from eventactivity
             eid  = callerintent.getStringExtra("Currenteventid")
             sid  = callerintent.getStringExtra("Currentsubeventid")
@@ -30,7 +32,7 @@ class rolesSubevent : AppCompatActivity() {
             sid = callerintent.getStringExtra("backtorolesnpid_subevent - sid")
         }
 
-
+        //go to the previous page
         backbuttonrolespage_subevent.setOnClickListener{
             val backbuttonrolespage_intent = Intent(this, SubeventActivity::class.java)
             backbuttonrolespage_intent.putExtra("Backfromrolestosubevent eid",eid)
@@ -40,6 +42,7 @@ class rolesSubevent : AppCompatActivity() {
             finish()
         }
 
+        //go to payers input for subevents
         payers_subevent.setOnClickListener {
             val payers_intent = Intent(this, PayersInputSubevents::class.java)
             payers_intent.putExtra("payerid_subevents - eid",eid)
@@ -49,6 +52,7 @@ class rolesSubevent : AppCompatActivity() {
             finish()
         }
 
+        //go to nonpayers input for subevents
         nonpayers_subevent.setOnClickListener {
             val nonpayers_intent = Intent(this, NonPayersInputSubevents::class.java)
             nonpayers_intent.putExtra("nonpayerid_subevents - eid",eid)
@@ -58,6 +62,7 @@ class rolesSubevent : AppCompatActivity() {
             finish()
         }
 
+        //go to payers input for subevents
         both_subevent.setOnClickListener {
             val intent1 = Intent(this, PayersInputSubevents::class.java)
             intent1.putExtra("callerfromboth_subevents - eid", eid)

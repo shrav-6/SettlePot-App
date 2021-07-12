@@ -28,12 +28,14 @@ import java.io.FileOutputStream
 import java.util.*
 
 class EventActivity : AppCompatActivity() {
+    //static variables
     companion object {
         var eventnamecounter: Int = 0
         var subeventscounter: Int = 0
         var buttonflag: Int =0
     }
 
+    //global variable declaration
     var readpList: MutableList<Payers?>? = mutableListOf()
     var readnpList: MutableList<NonPayers?>? = mutableListOf()
     var readsubplist: MutableList<Payers_subevent?>? = mutableListOf()
@@ -73,6 +75,8 @@ class EventActivity : AppCompatActivity() {
 
         var ename: String? = null
         var receiveidintent = intent
+
+        //receive data from caller activity
         if (receiveidintent.hasExtra("neweventid")) {
             eid = receiveidintent.getStringExtra("neweventid")
         } else if (receiveidintent.hasExtra("eventnotesid")) {
@@ -83,7 +87,6 @@ class EventActivity : AppCompatActivity() {
             eid = receiveidintent.getStringExtra("backfromrolesid")
         } else if (receiveidintent.hasExtra("eventidbackfromsubevent")) {
             eid = receiveidintent.getStringExtra("eventidbackfromsubevent")
-            //can receive sid also, commented in Subevent activity back button for now
         } else if (receiveidintent.hasExtra("readeventid")) {
             eid = receiveidintent.getStringExtra("readeventid")
         } else if (receiveidintent.hasExtra("eventid from subevents view")) {
@@ -92,6 +95,7 @@ class EventActivity : AppCompatActivity() {
             eid = receiveidintent.getStringExtra("fromtransactionpage")
         }
 
+        //read event name from firebase database using eid
         ReadEventNameref = FirebaseDatabase.getInstance().getReference("Users")
             .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
             .child(eid.toString()).child("Event Details")
@@ -113,14 +117,15 @@ class EventActivity : AppCompatActivity() {
 
 
 
+        //go to homepage
         eventpagebackbutton.setOnClickListener {
-//            Toast.makeText(baseContext,"Unsaved changes", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, homepageevents::class.java)
             startActivity(intent)
             customType(this, "right-to-left")
             finish()
         }
 
+        //go to subeventsview
         viewsubeventsbutton.setOnClickListener {
             if(buttonflag==1) {
                 SubeventActivity.subbuttonflag = 1
@@ -133,14 +138,9 @@ class EventActivity : AppCompatActivity() {
             else
                 Toast.makeText(baseContext,"Save Event name first to reference it later!",Toast.LENGTH_SHORT).show()
         }
-//
-//        editeventprofile.setOnClickListener {
-//            val intent = Intent(this, EditEventProfile::class.java)
-//            startActivity(intent)
-//            finish()
-//        }
 
 
+        //go to notes page
         notesbutton.setOnClickListener {
             if (buttonflag == 1) {
                 var notespageintent = Intent(applicationContext, NotesInput::class.java)
@@ -155,6 +155,7 @@ class EventActivity : AppCompatActivity() {
         }
 
 
+        //go to roles page
         addrolesbutton.setOnClickListener {
             if (buttonflag == 1) {
                 val addrolesintent = Intent(this, RolesPage::class.java)
@@ -168,6 +169,7 @@ class EventActivity : AppCompatActivity() {
 
         }
 
+        //go to sub-events activity
         addsubeventsbutton.setOnClickListener {
             if (buttonflag == 1) {
                 subeventscounter++
@@ -193,7 +195,8 @@ class EventActivity : AppCompatActivity() {
         }
 
 
-        savechangesbutton.setOnClickListener { //name of the event
+        //save event name
+        savechangesbutton.setOnClickListener {
             buttonflag = 1
             ref = FirebaseDatabase.getInstance().getReference("Users")
                 .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
@@ -209,11 +212,13 @@ class EventActivity : AppCompatActivity() {
 
         }
 
-
+        //close events - read data and then call close events view
         closeventbutton.setOnClickListener {
             if (buttonflag == 1) {
                 var pcount: Long = 0
                 var pcounter: Long = 0
+
+                //read payers data for events and subevents
                 GetPayersref = FirebaseDatabase.getInstance().getReference("Users")
                         .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
                         .child(eid.toString())
@@ -273,7 +278,7 @@ class EventActivity : AppCompatActivity() {
         }
     }
 
-
+    //read non-payers data for events and subevents
     private fun readplist(samplepobject: Payers_subevent?, pc: Long) {
 
         readsubplist?.add(samplepobject)
@@ -281,7 +286,7 @@ class EventActivity : AppCompatActivity() {
         Log.d("inside readplist", "Value of x after ++X is: $x")
 
         if (x == pc) {
-            x=0//check
+            x=0 //check
             var npcount: Long = 0
             var npcounter : Long = 0
             GetNonPayersref = FirebaseDatabase.getInstance().getReference("Users")
@@ -340,10 +345,10 @@ class EventActivity : AppCompatActivity() {
                 }
             }
             GetNonPayersref.addValueEventListener(getnonpayersdata)
-
         }
     }
 
+    //calling closeevent() only if the data exists
     private fun readnplist(samplenpobj: NonPayers_subevent?, npc: Long) {
 
         readsubnplist?.add(samplenpobj)
@@ -352,17 +357,13 @@ class EventActivity : AppCompatActivity() {
         Log.d("inside readnplist", "Value of y after ++y is: $y")
 
         if (y == npc) {
-//
-//            Log.d("Line 188, inside y==npc in readplist: PAYERSLIST", readpList.toString())
-//            Log.d("Line 188, inside y==npc in readnplist", readnpList.toString())
-//            Log.d("Subpayers", readsubplist.toString())
-//            Log.d("Subnonpayers", readsubnplist.toString())
             closeevent()
         }
 
     }
 
 
+    //clean the data received and calculate topay and toreceive
     private fun closeevent() {
 
         var uncleanarray: MutableList<SplitForEach_events> = mutableListOf()
@@ -427,8 +428,7 @@ class EventActivity : AppCompatActivity() {
             Log.d("clean array elements", "${cleanarray[a].e_name} and ${cleanarray[a].e_amt}")
 
 
-        //cleaned array above
-
+        //cleaned data used to calculate the settling transactions to be made
 
         var amountsum: Float = 0.0F
 
@@ -451,10 +451,6 @@ class EventActivity : AppCompatActivity() {
             splitforeachevents.add(unsplitobject)
         }
 
-
-//        var topay_events: MutableList<SplitForEach_events> = mutableListOf()
-//        var toreceive_events: MutableList<SplitForEach_events> = mutableListOf()
-
         Log.d("Splitforeach: ", "$splitforeachevents")
 
         for (i in 0 until (splitforeachevents.size)) {
@@ -474,6 +470,8 @@ class EventActivity : AppCompatActivity() {
             closeanimation()
         }
     }
+
+    //settlepot animation before displaying transactions to be made
     private fun closeanimation() {
         setContentView(R.layout.activity_closinganimation)
         val handler = Handler(Looper.getMainLooper())
@@ -482,6 +480,7 @@ class EventActivity : AppCompatActivity() {
         }, 1500)
     }
 
+    //displaying transactions to be made
     private fun closeeventview(){
         setContentView(R.layout.activity_transaction_page)
 
@@ -522,7 +521,7 @@ class EventActivity : AppCompatActivity() {
             finish()
         }
 
-        //share as pdf
+        //share as pdf function called
         shareaspdf.setOnClickListener {
             //minimum sdk version required for writing on external storage(phone)
             if(Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
@@ -539,15 +538,17 @@ class EventActivity : AppCompatActivity() {
         }
     }
 
+    //set heading as event name
     private fun snameView() {
         val snameview: View = layoutInflater.inflate(R.layout.row_add_heading_transactionpage,null,false)
-        val sname = snameview.findViewById<View>(R.id.transaction_heading) as TextView
-        sname.setText(enametext)
-        sname.setTextColor(Color.rgb(171,120,82))
-        sname.setTypeface(null, Typeface. BOLD)
+        val ename = snameview.findViewById<View>(R.id.transaction_heading) as TextView
+        ename.setText(enametext)
+        ename.setTextColor(Color.rgb(171,120,82))
+        ename.setTypeface(null, Typeface. BOLD)
         layoutList!!.addView(snameview)
     }
 
+    //set "to pay" and "to receive" headings
     private fun headingView() {
         val headingview: View = layoutInflater.inflate(R.layout.row_add_heading_transactionpage,null,false)
         val headingname = headingview.findViewById<View>(R.id.transaction_heading) as TextView
@@ -561,6 +562,7 @@ class EventActivity : AppCompatActivity() {
         layoutList!!.addView(headingview)
     }
 
+    //add members name and amount row wise
     private fun membersView(member: SplitForEach_events) {
         val membersview: View = layoutInflater.inflate(R.layout.row_add_member_nameamt,null,false)
         val membersname = membersview.findViewById<View>(R.id.edit_membername) as TextView
@@ -571,9 +573,11 @@ class EventActivity : AppCompatActivity() {
         layoutList!!.addView(membersview)
     }
 
+    //writing topay and toreceive data in pdf
     private fun savePDF() {
 
         try {
+            //make a document in a4 page size
             val mDoc = Document(PageSize.A4, 5f, 5f, 5f, 5f)
             val fntSize: Float
             val fntSizesubheading = 14f
@@ -581,7 +585,7 @@ class EventActivity : AppCompatActivity() {
             fntSize = 16f
             lineSpacing = 10f
 
-            //get date
+            //get current date
             val c = Calendar.getInstance()
             val year = c.get(Calendar.YEAR)
             val month = c.get(Calendar.MONTH)
@@ -594,12 +598,11 @@ class EventActivity : AppCompatActivity() {
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
                     .toString() + "/" + mFileName + ".pdf"
 
-
+            //instantiate a pdf writer
             PdfWriter.getInstance(mDoc, FileOutputStream(mFilePath))
             mDoc.open()
 
-
-            //add logo
+            //add settlepot logo
             val d = resources.getDrawable(R.drawable.settlepotlogo)
             val bitDw = d as BitmapDrawable
             val bmp = bitDw.bitmap
@@ -610,9 +613,7 @@ class EventActivity : AppCompatActivity() {
             mDoc.add(Paragraph("\n\n\n"))
             mDoc.add(image)
 
-
-            //val doc = Document()
-
+            //add paragraph with heading "transaction page"
             val p = Paragraph(
                 Phrase(
                     lineSpacing, "\n\nTransaction page for $enametext\n\n",
@@ -623,8 +624,7 @@ class EventActivity : AppCompatActivity() {
             mDoc.add(p)
 
 
-
-            //to pay list
+            //to pay heading is added
             if(topay.size != 0) {
                 val pp = Paragraph(
                     Phrase(
@@ -636,7 +636,7 @@ class EventActivity : AppCompatActivity() {
                 mDoc.add(pp)
             }
 
-
+            //to pay transaction table added using PdfPTable inbuilt method using cells
             val tablepay = PdfPTable(2) // 2 columns.
             tablepay.setWidthPercentage(45F)
             tablepay.setSpacingBefore(10F)
@@ -653,7 +653,7 @@ class EventActivity : AppCompatActivity() {
             }
             mDoc.add(tablepay)
 
-            //to receive list
+            //to receive heading is added
             if(toreceive.size != 0) {
                 val rr = Paragraph(
                     Phrase(
@@ -665,7 +665,8 @@ class EventActivity : AppCompatActivity() {
                 mDoc.add(rr)
             }
 
-            val tablereceive = PdfPTable(2) // 2 columns.
+            //to receive transaction table added using PdfPTable inbuilt method using cells
+            val tablereceive = PdfPTable(2)
             tablereceive.setWidthPercentage(45F)
             tablereceive.setSpacingBefore(10F)
             tablereceive.setWidths(columnWidths)
@@ -679,7 +680,10 @@ class EventActivity : AppCompatActivity() {
             }
             mDoc.add(tablereceive)
 
+            //close document
             mDoc.close()
+
+            //pdf generated toast
             Toast.makeText(
                 this,
                 "Transaction page: $mFileName.pdf\n is created to \n$mFilePath",
@@ -690,6 +694,8 @@ class EventActivity : AppCompatActivity() {
             Log.e("error", "$e")
         }
     }
+
+    //request permission from user to allow access to file manager
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -705,7 +711,6 @@ class EventActivity : AppCompatActivity() {
             }
         }
     }
-
 }
 
 

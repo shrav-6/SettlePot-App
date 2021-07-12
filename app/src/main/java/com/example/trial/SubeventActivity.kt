@@ -32,6 +32,7 @@ import com.itextpdf.text.pdf.PdfWriter
 
 class SubeventActivity : AppCompatActivity() {
 
+    //global variables
     companion object{
         var subeventnamecounter: Int = 0
         var subbuttonflag = 0
@@ -48,12 +49,11 @@ class SubeventActivity : AppCompatActivity() {
     private lateinit var ReadNameref : DatabaseReference
     private lateinit var GetPayersref_subevents: DatabaseReference
     private lateinit var GetNonPayersref_subevents: DatabaseReference
-
     lateinit var layoutList: LinearLayout
     lateinit var headingdata: String
     var snametext: String? = null
     var status = 1
-    private val STORAGE_CODE=1001
+    private val STORAGE_CODE=1001 //storage code for save pdf method used in permission access to file manager
     private var topay: MutableList<SplitForEach_subevents> = mutableListOf()
     private var toreceive: MutableList<SplitForEach_subevents> = mutableListOf()
 
@@ -64,6 +64,8 @@ class SubeventActivity : AppCompatActivity() {
         var subeventobj: subevents?
 
         val receivesubeventid = intent
+
+        //receive data from caller activity
         if (receivesubeventid.hasExtra("newsubeventid")) {
             eid = receivesubeventid.getStringExtra("eventforsub_id")
             sid = receivesubeventid.getStringExtra("newsubeventid")
@@ -78,6 +80,7 @@ class SubeventActivity : AppCompatActivity() {
             sid = receivesubeventid.getStringExtra("readsubeventidview - sid")
         }
 
+        //read subevents data from firebase database
         ReadNameref = FirebaseDatabase.getInstance().getReference("Users")
             .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
             .child(eid.toString()).child("SubEvents").child(sid.toString())
@@ -90,15 +93,13 @@ class SubeventActivity : AppCompatActivity() {
                     snametext = subeventobj?.sname.toString()
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
         }
         ReadNameref.addValueEventListener(readsubeventdetails)
 
-
-
+        //to to event activity page
         backbutton_subevents.setOnClickListener {
             val back_intent = Intent(this, EventActivity::class.java)
             back_intent.putExtra("eventidbackfromsubevent", eid)
@@ -107,6 +108,7 @@ class SubeventActivity : AppCompatActivity() {
             finish()
         }
 
+        //write data to firebase database on clicking save
         savesubeventname.setOnClickListener {
             subbuttonflag = 1
             subref = FirebaseDatabase.getInstance().getReference("Users")
@@ -124,6 +126,7 @@ class SubeventActivity : AppCompatActivity() {
             }
         }
 
+        //add roles for subevents
         addroles_subevents.setOnClickListener {
             if (subbuttonflag == 1) {
                 val addrolessubevents_intent = Intent(this, rolesSubevent::class.java)
@@ -137,11 +140,13 @@ class SubeventActivity : AppCompatActivity() {
                 Toast.makeText(baseContext,"Save SubEvent name first to reference it later!",Toast.LENGTH_SHORT).show()
         }
 
+        //close subevents reads data from firebase database and calls view
         close_subevent.setOnClickListener {
 
             if (subbuttonflag == 1) {
 
                 var pcount: Long = 0
+                //read payers data for subevents
                 GetPayersref_subevents = FirebaseDatabase.getInstance().getReference("Users")
                         .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
                         .child(eid.toString()).child("SubEvents").child(sid.toString()).child("Roles SubEvents").child("Payers")
@@ -154,26 +159,23 @@ class SubeventActivity : AppCompatActivity() {
                             for (counterobj in snapshot.children) {
                                 val payerobj_subevents: Payers_subevent? = counterobj.getValue(Payers_subevent::class.java)
                                 readplist(payerobj_subevents, pcount)
-//                            Log.d("Reading payerslist : Name and pcount is:  ", "${payerobj_subevents?.payerName_subevent.toString()} and $pcount")
                             }
                         } else if (!snapshot.exists()) {
                             Toast.makeText(baseContext, "Enter valid roles with atleast one payer indicating the total amount", Toast.LENGTH_LONG).show()
                         }
                     }
-
                     override fun onCancelled(error: DatabaseError) {
                         Toast.makeText(baseContext, "Firebase Database Exceptions called - onCancelled(PayersInputSubEvents)", Toast.LENGTH_SHORT).show()
                     }
                 }
                 GetPayersref_subevents.addValueEventListener(getpayersdata_subevents)
-
             }
             else
                 Toast.makeText(baseContext,"Save SubEvent name first to reference it later!",Toast.LENGTH_SHORT).show()
         }
-
     }
 
+    //read non-payers data from database for subevents
     private fun readplist(samplepobj: Payers_subevent?, pc: Long) {
 
 
@@ -199,7 +201,7 @@ class SubeventActivity : AppCompatActivity() {
                             val nonpayerobj_subevents: NonPayers_subevent? =
                                 counterobj.getValue(NonPayers_subevent::class.java)
                             readnplist(nonpayerobj_subevents, npcount)
-//                            Log.d("Reading nonpayerslist : Name and npcount is:  ", "${nonpayerobj_subevents?.nonpayerName_subevent.toString()} and $npcount")
+                            Log.d("Reading nonpayerslist : Name and npcount is:  ", "${nonpayerobj_subevents?.nonpayerName_subevent.toString()} and $npcount")
 
                         }
                     }
@@ -218,27 +220,18 @@ class SubeventActivity : AppCompatActivity() {
         }
     }
 
+    //save read data for subevents
     private fun readnplist(samplenpobj: NonPayers_subevent?, npc: Long) {
 
-//        Log.d("Reading nonpayerslist : Name is:  ", "${samplenpobj?.nonpayerName_subevent.toString()} ")
         readnpList_subevents?.add(samplenpobj)
-//        Log.d("Added sampleobj to readnonpayerslist","${readnpList_subevents?.get(y.toInt())?.nonpayerName_subevent}")
         y++
-
-//        Log.d("inside readnplist","Value of y after ++y is: $y")
-
         if(y==npc)
         {
-//
-//            Log.d("Line 188, inside y==npc in readnplist: PAYERSLIST","${readpList_subevents.toString()}")
-//            Log.d("Line 188, inside y==npc in readnplist","${readnpList_subevents.toString()}")
             closesubevent()
         }
-
     }
 
-
-
+    //calculate the split for each for subevents
     private fun closesubevent() {
 
         var amountsum : Float = 0.0F
@@ -254,7 +247,6 @@ class SubeventActivity : AppCompatActivity() {
         var split_subevent = amountsum/totalmembers_subevent
 
         for(pcount_sub in 0 until (readpList_subevents!!.size)) {
-//            Log.d("line 225 inside for loop: ", "pcount $pcount_sub")
             var samplepobj = SplitForEach_subevents(readpList_subevents!!.get(pcount_sub)?.payerName_subevent.toString() , split_subevent - (readpList_subevents!!.get(pcount_sub)?.payerAmt_subevent.toString().toFloat()))
             splitforeach.add(samplepobj)
 
@@ -288,6 +280,7 @@ class SubeventActivity : AppCompatActivity() {
         }
     }
 
+    //show settlepot settling bills animation
     private fun closeanimation() {
         setContentView(R.layout.activity_closinganimation)
         val handler = Handler(Looper.getMainLooper())
@@ -296,6 +289,7 @@ class SubeventActivity : AppCompatActivity() {
         }, 1500)
     }
 
+    //show to pay and to receive from the pot transactions
     private fun closesubeventview(){
         setContentView(R.layout.activity_transaction_page)
 
@@ -353,6 +347,7 @@ class SubeventActivity : AppCompatActivity() {
         }
     }
 
+    //read row to show subevent name
     private fun snameView() {
         val snameview: View = layoutInflater.inflate(R.layout.row_add_heading_transactionpage,null,false)
         val sname = snameview.findViewById<View>(R.id.transaction_heading) as TextView
@@ -362,6 +357,7 @@ class SubeventActivity : AppCompatActivity() {
         layoutList!!.addView(snameview)
     }
 
+    //show to pay and to receive from the pot heading
     private fun headingView() {
         val headingview: View = layoutInflater.inflate(R.layout.row_add_heading_transactionpage,null,false)
         val headingname = headingview.findViewById<View>(R.id.transaction_heading) as TextView
@@ -375,6 +371,7 @@ class SubeventActivity : AppCompatActivity() {
         layoutList!!.addView(headingview)
     }
 
+    //show members name and amount
     private fun membersView(member: SplitForEach_subevents) {
         val membersview: View = layoutInflater.inflate(R.layout.row_add_member_nameamt,null,false)
         val membersname = membersview.findViewById<View>(R.id.edit_membername) as TextView
@@ -385,6 +382,7 @@ class SubeventActivity : AppCompatActivity() {
         layoutList!!.addView(membersview)
     }
 
+    //writing transactions to be made in pdf
     private fun savePDF() {
 
         try {
@@ -450,7 +448,7 @@ class SubeventActivity : AppCompatActivity() {
                 mDoc.add(pp)
             }
 
-
+            //create table for to pay to the pot members list
             val tablepay = PdfPTable(2) // 2 columns.
             tablepay.setWidthPercentage(45F)
             tablepay.setSpacingBefore(10F)
@@ -479,6 +477,7 @@ class SubeventActivity : AppCompatActivity() {
                 mDoc.add(rr)
             }
 
+            //create table for to receive from the pot
             val tablereceive = PdfPTable(2) // 2 columns.
             tablereceive.setWidthPercentage(45F)
             tablereceive.setSpacingBefore(10F)
@@ -504,6 +503,8 @@ class SubeventActivity : AppCompatActivity() {
             Log.e("error", "$e")
         }
     }
+
+    //request permissions to access file manager
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -514,7 +515,7 @@ class SubeventActivity : AppCompatActivity() {
                 if(grantResults.isNotEmpty()  &&  grantResults[0]== PackageManager.PERMISSION_GRANTED){
                     savePDF()
                 }else{
-                    Toast.makeText(this,"Permission denied!!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"Permissions denied!!", Toast.LENGTH_SHORT).show()
                 }
             }
         }

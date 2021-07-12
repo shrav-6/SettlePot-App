@@ -20,6 +20,7 @@ import maes.tech.intentanim.CustomIntent.customType
 
 class SubEventsView : AppCompatActivity() {
 
+    //global variables
     private lateinit var GetSubEventsref: DatabaseReference
     private lateinit var GetDeleteSubEventsref: DatabaseReference
     lateinit var getsubeventsdata : ValueEventListener
@@ -42,6 +43,7 @@ class SubEventsView : AppCompatActivity() {
         layoutList_subevents = findViewById(R.id.layout_list_subevents)
         layoutList_subevents!!.clearAnimation()
 
+        //read subevents data from database to set subevents name
         readdataforeventname = FirebaseDatabase.getInstance().getReference("Users")
             .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
             .child(eid.toString()).child("Event Details")
@@ -59,6 +61,7 @@ class SubEventsView : AppCompatActivity() {
         readdataforeventname.addValueEventListener(readeventdetails)
 
 
+        //read subevents data from database to add rows
         GetSubEventsref = FirebaseDatabase.getInstance().getReference("Users")
             .child(FirebaseAuth.getInstance().currentUser!!.uid)
             .child("Events").child(eid.toString()).child("SubEvents")
@@ -80,7 +83,7 @@ class SubEventsView : AppCompatActivity() {
         }
         GetSubEventsref.addValueEventListener(getsubeventsdata)
 
-
+        //go to previous page
         backbutton_subeventsview.setOnClickListener {
             val backfromsubeventsview = Intent(this,EventActivity::class.java)
             backfromsubeventsview.putExtra("eventid from subevents view",eid)
@@ -91,10 +94,12 @@ class SubEventsView : AppCompatActivity() {
 
     }
 
+    //remove subevent row
     private fun removeView(view: View) {
         layoutList_subevents!!.removeView(view) //removeView is an inbuilt func
     }
 
+    //add subevent row after reading from firebase database
     private fun readsubeventsView(sampleobject: subevents?) {
         val subeventView: View = layoutInflater.inflate(R.layout.row_add_subevents, null, false)
         val subeventwrite = subeventView.findViewById<View>(R.id.subevents_name) as Button
@@ -105,6 +110,7 @@ class SubEventsView : AppCompatActivity() {
         val deletesubevent = subeventView.findViewById<View>(R.id.delete_subevents) as ImageButton
         deletesubevent.setOnClickListener {
 
+            //show pop up message to confirm the delete of sub-events
             var builder = AlertDialog.Builder(this)
             builder.setMessage("Are you sure?")
                 .setTitle("Confirm Delete")
@@ -131,13 +137,12 @@ class SubEventsView : AppCompatActivity() {
 
         }
 
-
-
         Log.d("Inside readsubevents view - Name ", subeventwrite.text.toString())
         Log.d("Inside readsubevents view - Id ", subeventwrite.getTag().toString())
         layoutList_subevents!!.addView(subeventView)
 
 
+        //go to subevent activity if clicked on a sub event button
         subeventwrite.setOnClickListener {
             val subeventstartintent = Intent(this,SubeventActivity::class.java)
             subeventstartintent.putExtra("readsubeventidview - eid", eid.toString())

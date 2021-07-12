@@ -20,24 +20,20 @@ import kotlin.collections.ArrayList
 class NotesInput : AppCompatActivity() {
 
     companion object {
-//        var i: Int = 1
-//        var readnotesList = ArrayList<notesclass?>()
         var read_temp_notes_list: MutableList<String> = mutableListOf()
         var notes: String? = null
     }
+    //global variables
     var listt : ArrayList<String> = arrayListOf()
-//    var note: String?= null
     var layoutList: LinearLayout? = null
     var n_id: String? = null
     var notesList = ArrayList<notesclass>()
-    lateinit var notesvaluelist : List<String>
     private lateinit var dbref : DatabaseReference
     private lateinit var getdbref : DatabaseReference
-    var notesobject: notesclass? = null
 
     var temp_notes_list: MutableList<String> = mutableListOf()
-//    lateinit var final_notes_list: MutableList<String>
     var flag: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notes_input)
@@ -48,6 +44,7 @@ class NotesInput : AppCompatActivity() {
         layoutList = findViewById(R.id.layout_list)
 
 
+        //read notes data from database under event id
         getdbref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).
         child("Events").child(n_id.toString()).child("Notes").child("notesdata")
         var getnotesdata = object : ValueEventListener {
@@ -68,7 +65,6 @@ class NotesInput : AppCompatActivity() {
                                 readnotesView()
                             }
                         }
-//                    Log.d("READING INSIDE LOOP", read_temp_notes_list.toString())
                     }
                 }
             }
@@ -79,10 +75,12 @@ class NotesInput : AppCompatActivity() {
         getdbref.addValueEventListener(getnotesdata)
 
 
+        //add row on clicking add note
         button_addnotes.setOnClickListener {
             addView()
         }
 
+        //write to firebase database on clicking save notes
         button_savenotes.setOnClickListener {
             flag=1
             dbref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events").child(n_id.toString())
@@ -97,6 +95,7 @@ class NotesInput : AppCompatActivity() {
             }
         }
 
+        //go back to event activity
         backbutton_notesinput.setOnClickListener {
             var backtoeventdeetspageintent = Intent(this, EventActivity::class.java)
             backtoeventdeetspageintent.putExtra("eventnotesid",n_id)
@@ -107,6 +106,7 @@ class NotesInput : AppCompatActivity() {
     }
 
 
+    //check is the notes data enter is valid or not (should not be null)
     private fun checkIfValidAndRead(): Boolean {
         notesList.clear()
         temp_notes_list.clear()
@@ -121,14 +121,13 @@ class NotesInput : AppCompatActivity() {
                 result = false
                 Toast.makeText(baseContext, "Enter a valid note!", Toast.LENGTH_SHORT).show()
             }
-//            notesList.add(notes)
         }
         notes.n_id = n_id
         notes.notesdata = temp_notes_list
         return result
     }
 
-    
+    //add view for new note
     private fun addView() {
         val notesView: View = layoutInflater.inflate(R.layout.row_add_notes, null, false)
         val editText = notesView.findViewById<View>(R.id.edit_notes_data) as EditText
@@ -137,10 +136,12 @@ class NotesInput : AppCompatActivity() {
         layoutList!!.addView(notesView)
     }
 
+    //remove view for note
     private fun removeView(view: View) {
         layoutList!!.removeView(view)
     }
 
+    //add view for read data
     private fun readnotesView() {
         val notesViewx: View = layoutInflater.inflate(R.layout.row_add_notes, null, false)
         val noteswrite = notesViewx.findViewById<View>(R.id.edit_notes_data) as EditText
@@ -150,8 +151,8 @@ class NotesInput : AppCompatActivity() {
         layoutList!!.addView(notesViewx)
     }
 
+    //remove view for read data
     private fun removenotesView(view: View) {
         layoutList!!.removeView(view)
     }
-
 }

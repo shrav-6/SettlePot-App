@@ -15,12 +15,12 @@ class ConfirmRoles_subevent : AppCompatActivity() {
         var eid:String? = null
         var sid:String? = null
 
-        var receiverolesidintent = intent
+        var receiverolesidintent = intent //caller intent
         eid = receiverolesidintent.getStringExtra("confirmrolesid - eid")
         sid = receiverolesidintent.getStringExtra("confirmrolesid - sid")
 
         Toast.makeText(baseContext,"Roles created successfully", Toast.LENGTH_LONG).show()
-        val handler = Handler(Looper.getMainLooper())
+        val handler = Handler(Looper.getMainLooper()) //delay to display gif
         handler.postDelayed({
             val intent = Intent(this, SubeventActivity::class.java)
             intent.putExtra("backtosubevents - eid",eid)

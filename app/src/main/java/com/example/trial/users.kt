@@ -9,6 +9,7 @@ class users {
     constructor(){
     }
 
+    //store user name, id, email, phone number
     constructor(id: String?, name: String?, mailid: String?, phoneno: String?) {
         this.id = id
         this.name = name

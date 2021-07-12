@@ -20,6 +20,7 @@ import java.util.ArrayList
 
 class PayersInputSubevents : AppCompatActivity() {
 
+    //global variables
     companion object {
         var i: Int = 1
         var payercount_subevents: Int = 1
@@ -44,6 +45,7 @@ class PayersInputSubevents : AppCompatActivity() {
         var sid: String? = null
         var receiveintent = intent
 
+        //get data from caller activity
         if (receiveintent.hasExtra("payerid_subevents - eid")) {        //from roles page (rid) = eid
             eid = receiveintent.getStringExtra("payerid_subevents - eid")
             sid = receiveintent.getStringExtra("payerid_subevents - sid")
@@ -57,7 +59,7 @@ class PayersInputSubevents : AppCompatActivity() {
             sid = receiveintent.getStringExtra("callerfromboth_subevents - sid")
         }
 
-
+        //read payers data for subevents from firebase database
         GetPayersref_subevents = FirebaseDatabase.getInstance().getReference("Users")
             .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
             .child(eid.toString()).child("SubEvents").child(sid.toString()).child("Roles SubEvents")
@@ -74,7 +76,6 @@ class PayersInputSubevents : AppCompatActivity() {
                     }
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(
                     baseContext,
@@ -86,16 +87,14 @@ class PayersInputSubevents : AppCompatActivity() {
         GetPayersref_subevents.addValueEventListener(getpayersdata_subevents)
 
 
+        //add new row
         button_addpayers_subevent.setOnClickListener {
             addView()
         }
 
+        //write data to firebase database on confirm roles
         button_createrolesforpayers_subevent.setOnClickListener {
             flag = 1
-//            Payersref_subevents = FirebaseDatabase.getInstance().getReference("Users")
-//                .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
-//                .child(eid.toString()).child("SubEvents")
-//            Payersref_subevents.child(sid.toString()).child("Roles SubEvents").child("Payers").removeValue()
             i = 1
             val result = checkIfValidAndRead()
             if (result) {
@@ -140,6 +139,7 @@ class PayersInputSubevents : AppCompatActivity() {
             }
         }
 
+        //go to roles subevent activity
         backbutton_payersinput_subevent.setOnClickListener {
             val intent = Intent(this, rolesSubevent::class.java)
             intent.putExtra("backtorolespid - eid", eid)
@@ -150,6 +150,7 @@ class PayersInputSubevents : AppCompatActivity() {
         }
     }
 
+    //check if the data entered is valid or not
     private fun checkIfValidAndRead(): Boolean {
         payersList_subevents.clear()
         var result = true
@@ -190,6 +191,7 @@ class PayersInputSubevents : AppCompatActivity() {
         return result
     }
 
+    //add new view using layout inflator
     private fun addView() {
         val payerView: View = layoutInflater.inflate(R.layout.row_add_payer_subevent, null, false)
         val pnamewrite = payerView.findViewById<View>(R.id.edit_payers_name_subevent) as EditText
@@ -201,10 +203,12 @@ class PayersInputSubevents : AppCompatActivity() {
         layoutList!!.addView(payerView) //addView is an inbuilt func - not to be confused w the addView() function we have created
     }
 
+    //remove view on clicking cross
     private fun removeView(view: View) {
         layoutList!!.removeView(view) //removeView is an inbuilt func
     }
 
+    //add view for read payers data for subevents
     private fun readpayersView_subevent(sampleobj_subevents: Payers_subevent?) {
         val payerViewx: View = layoutInflater.inflate(R.layout.row_add_payer_subevent, null, false)
         val pnamewrite = payerViewx.findViewById<View>(R.id.edit_payers_name_subevent) as EditText
@@ -216,6 +220,7 @@ class PayersInputSubevents : AppCompatActivity() {
         layoutList!!.addView(payerViewx) //addView is an inbuilt func - not to be confused w the addView() function we have created
     }
 
+    //remove view for read payers data subevents
     private fun removepayerView(view: View) {
         layoutList!!.removeView(view) //removeView is an inbuilt func
     }

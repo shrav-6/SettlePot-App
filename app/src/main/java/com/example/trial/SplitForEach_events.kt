@@ -7,6 +7,7 @@ class SplitForEach_events {
 
     constructor() {}
 
+    //store members name and amount after split for events
     constructor(e_name: String, e_amt: Float) {
         this.e_name = e_name
         this.e_amt = e_amt

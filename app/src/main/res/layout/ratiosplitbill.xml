@@ -10,19 +10,18 @@
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="84dp"
         android:background="@drawable/settlepotlogo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.53"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <TextView
         android:id="@+id/tv_ratiosplitactivityname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="52dp"
         android:textColor="#ab7a52"
         android:textSize="15dp"
         android:textStyle="bold"
@@ -38,6 +37,7 @@
         android:textColor="#ab7a52"
         android:textSize="13dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_ratiosplitactivityname" />
 
@@ -45,7 +45,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="300dp"
         android:layout_height="100dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/roundedborder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
@@ -86,7 +86,7 @@
         android:id="@+id/constraintLayout"
         android:layout_width="300dp"
         android:layout_height="100dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/roundedborder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
@@ -126,41 +126,42 @@
         android:id="@+id/backtoratiosplitinputpage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="104dp"
         android:background="@android:color/transparent"
         android:scaleX="0.6"
         android:scaleY="0.5"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/backforratiosplitbillpage" />
 
     <ImageButton
         android:id="@+id/homebutton"
         android:layout_width="59dp"
         android:layout_height="48dp"
-        android:layout_marginStart="134dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="76dp"
         android:background="@android:color/transparent"
         android:scaleX="0.5"
         android:scaleY="0.5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.073"
-        app:layout_constraintStart_toEndOf="@+id/backtoratiosplitinputpage"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
         app:srcCompat="@drawable/homeicon" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="70dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="76dp"
         android:text="HOME"
         android:textColor="#ab7a52"
         android:textScaleX="1.6"
         android:textSize="10dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton3" />
+        app:layout_constraintTop_toBottomOf="@+id/homebutton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

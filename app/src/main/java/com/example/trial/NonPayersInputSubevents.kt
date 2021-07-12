@@ -28,7 +28,6 @@ class NonPayersInputSubevents : AppCompatActivity(){
     private lateinit var Nonpayersref_subevents: DatabaseReference
     private lateinit var GetNonPayersref_subevents: DatabaseReference
     var nonpayersList_subevents = ArrayList<NonPayers_subevent>()
-
     var flag: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +40,8 @@ class NonPayersInputSubevents : AppCompatActivity(){
         var eid: String? = null
         var sid: String? = null
         var receiverintent = intent
+
+        //get data from caller activity
         if(receiverintent.hasExtra("nonpayerid_subevents - eid")) {
             eid  = receiverintent.getStringExtra("nonpayerid_subevents - eid")
             sid  = receiverintent.getStringExtra("nonpayerid_subevents - sid")
@@ -52,7 +53,7 @@ class NonPayersInputSubevents : AppCompatActivity(){
 
         }
 
-
+        //read non payers data for subevents and call view
         GetNonPayersref_subevents = FirebaseDatabase.getInstance().getReference("Users").
         child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events").
         child(eid.toString()).child("SubEvents").
@@ -77,17 +78,14 @@ class NonPayersInputSubevents : AppCompatActivity(){
         GetNonPayersref_subevents.addValueEventListener(getnonpayersdata_subevents)
 
 
-
+        //add row on clicking add roles for subevents
         button_addnonpayers_subevent.setOnClickListener {
             addView_subevent()
         }
 
+        //save changes made and save in firebase database if valid
         button_createrolesfornonpayers_subevent.setOnClickListener {
             flag = 1
-//            Nonpayersref_subevents = FirebaseDatabase.getInstance().getReference("Users").
-//            child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events").
-//            child(eid.toString()).child("SubEvents")
-//            Nonpayersref_subevents.child(sid.toString()).child("Roles SubEvents").child("Non Payers").removeValue()
             i =1
             val result = checkIfValidAndRead()
             if(result) {
@@ -111,6 +109,7 @@ class NonPayersInputSubevents : AppCompatActivity(){
             }
         }
 
+        //back to payersinput subevents or rolessubevents
         backbutton_nonpayersinput_subevent.setOnClickListener {
 
             if(intentcaller.hasExtra("callerfromboth_subevents - eid")) {
@@ -130,9 +129,9 @@ class NonPayersInputSubevents : AppCompatActivity(){
                 finish()
             }
         }
-
     }
 
+    //check if the data entered is valid or not
     private fun checkIfValidAndRead(): Boolean {
         nonpayersList_subevents.clear()
         var result = true
@@ -161,6 +160,7 @@ class NonPayersInputSubevents : AppCompatActivity(){
         return result
     }
 
+    //add view using layout inflator
     private fun addView_subevent() {
         val nonpayerView_subevent: View = layoutInflater.inflate(R.layout.row_add_nonpayer_subevent, null, false)
         val imageClose_subevent = nonpayerView_subevent.findViewById<View>(R.id.image_remove_nonpayers_subevent) as ImageView
@@ -168,10 +168,12 @@ class NonPayersInputSubevents : AppCompatActivity(){
         layoutList!!.addView(nonpayerView_subevent)
     }
 
+    //remove view
     private fun removeView(view: View) {
         layoutList!!.removeView(view)
     }
 
+    //add view for read data
     private fun readnonpayersView_subevent(sampleobject_subevent: NonPayers_subevent?) {
         val nonpayerViewx_subevent: View = layoutInflater.inflate(R.layout.row_add_nonpayer_subevent, null, false)
         val npnamewrite_subevent = nonpayerViewx_subevent.findViewById<View>(R.id.edit_nonpayers_name_subevent) as EditText
@@ -181,6 +183,7 @@ class NonPayersInputSubevents : AppCompatActivity(){
         layoutList!!.addView(nonpayerViewx_subevent) //addView is an inbuilt func - not to be confused w the addView() function we have created
     }
 
+    //remove view for read data
     private fun removenonpayerView_subevent(view: View) {
         layoutList!!.removeView(view) //removeView is an inbuilt func
     }

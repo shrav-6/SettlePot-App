@@ -3,12 +3,10 @@ package com.example.trial
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -40,9 +38,9 @@ class googlesignin : AppCompatActivity() {
         auth = Firebase.auth
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
         val googleSignInClient = GoogleSignIn.getClient(this, gso)
 
 
@@ -79,9 +77,6 @@ class googlesignin : AppCompatActivity() {
                     val user = auth.currentUser
                     updateUI(user)
                     Toast.makeText(this,"Sign in successful",Toast.LENGTH_LONG).show()
-                    //val intent1 = Intent(this, successfulsign::class.java)
-                    //startActivity(intent1)
-                    //finish()
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)

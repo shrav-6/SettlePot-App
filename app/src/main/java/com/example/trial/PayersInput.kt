@@ -20,8 +20,8 @@ import maes.tech.intentanim.CustomIntent.customType
 import java.util.*
 import kotlin.collections.ArrayList
 
-//class PayersInput : AppCompatActivity() , View.OnClickListener {
 class PayersInput : AppCompatActivity() {
+    //global variables
     companion object{
         var i: Int = 1
         var payercount: Int = 1
@@ -44,6 +44,8 @@ class PayersInput : AppCompatActivity() {
         val intentcaller = intent
         var pid: String? = null     //==rid=eid
         var receiveintent = intent
+
+        //receive data from caller activity
         if(receiveintent.hasExtra("payerid")) {        //from roles page (rid) = eid
             pid  = receiveintent.getStringExtra("payerid")
         }
@@ -55,6 +57,7 @@ class PayersInput : AppCompatActivity() {
         }
 
 
+        //read payers list from database and add view
         GetPayersref = FirebaseDatabase.getInstance().getReference("Users")
             .child(FirebaseAuth.getInstance().currentUser!!.uid)
             .child("Events").child(pid.toString())
@@ -81,12 +84,9 @@ class PayersInput : AppCompatActivity() {
             addView()
         }
 
-
         //from here, writing data onto firebase
         button_createrolesforpayers.setOnClickListener {
             flag=1
-//            Payersref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("Events")
-//            Payersref.child(pid.toString()).child("Roles").child("Payers").removeValue()
             i=1
             val result = checkIfValidAndRead()
             if(result) {
@@ -97,7 +97,6 @@ class PayersInput : AppCompatActivity() {
                     i++
                 }
             }
-
             if(result) {
                 if(intentcaller.hasExtra("bothpayerid") ) {
                     val intentcallfrompayersinput = Intent(this, NonPayersInput::class.java)
@@ -129,10 +128,9 @@ class PayersInput : AppCompatActivity() {
             customType(this, "right-to-left")
             finish()
         }
-
     }
 
-
+    //check if data entered for payers is valid or not
     private fun checkIfValidAndRead(): Boolean {
         payersList.clear()
         var result = true
@@ -145,7 +143,6 @@ class PayersInput : AppCompatActivity() {
                 payer.payerName = editPayersName.text.toString()
             } else {
                 payer.payerName = "Payer $payercount"
-//                Toast.makeText(baseContext, payer.payerName, Toast.LENGTH_SHORT).show()
                 payercount++
             }
             for(j in 0 until i)
@@ -174,6 +171,7 @@ class PayersInput : AppCompatActivity() {
         return result
     }
 
+    //add row for new payer
     private fun addView() {
         val payerView: View = layoutInflater.inflate(R.layout.row_add_payer, null, false)
         val pnamewrite = payerView.findViewById<View>(R.id.edit_payers_name) as EditText
@@ -185,10 +183,12 @@ class PayersInput : AppCompatActivity() {
         layoutList!!.addView(payerView) //addView is an inbuilt func - not to be confused w the addView() function we have created
     }
 
+    //remove row
     private fun removeView(view: View) {
         layoutList!!.removeView(view) //removeView is an inbuilt func
     }
 
+    //add view for read data
     private fun readpayersView(sampleobject: Payers?) {
         val payerViewx: View = layoutInflater.inflate(R.layout.row_add_payer, null, false)
         val pnamewrite = payerViewx.findViewById<View>(R.id.edit_payers_name) as EditText
@@ -200,6 +200,7 @@ class PayersInput : AppCompatActivity() {
         layoutList!!.addView(payerViewx) //addView is an inbuilt func - not to be confused w the addView() function we have created
     }
 
+    //remove view for read data
     private fun removepayerView(view: View) {
         layoutList!!.removeView(view) //removeView is an inbuilt func
     }
