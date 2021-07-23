@@ -2,8 +2,8 @@
 Settling bills made easier
 
 # Implemented using?
-Kotlin
-Firebase Database
+1. Kotlin
+2. Firebase Database
 
 # How to use the app?
 1. Signup/Login via SettlePot account/Phone number/Google Account
