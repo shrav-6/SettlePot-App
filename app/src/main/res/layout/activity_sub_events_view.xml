@@ -72,8 +72,9 @@
     <TextView
         android:id="@+id/eventname_subevents"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="50dp"
         android:background="#a7d28b"
+        android:layout_marginTop="45dp"
         android:gravity="center"
         android:paddingLeft="15dp"
         android:paddingTop="15dp"

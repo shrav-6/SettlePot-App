@@ -61,7 +61,7 @@
         android:id="@+id/Loginviaemail"
         android:layout_width="145dp"
         android:layout_height="75dp"
-        android:layout_marginBottom="76dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="@color/white"
         android:text="Login"
         android:textAllCaps="true"
@@ -69,11 +69,9 @@
         android:textSize="20dp"
         android:textStyle="bold"
         app:cornerRadius="45dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputPasswordLogin"
-        app:layout_constraintVertical_bias="0.875" />
+        app:layout_constraintTop_toBottomOf="@+id/inputPasswordLogin" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
