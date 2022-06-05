@@ -1,11 +1,11 @@
 # SettlePot-App
-Settling bills made easier
+Settling bills made easier.<br/>
 
-# Implemented using?
-1. Kotlin
-2. Firebase Database
+## Publication
+- <a href="https://thegrenze.com/index.php?display=page&view=journalabstract&absid=1004&id=8">Abstract</a>
+- <a href="https://thegrenze.com/pages/servej.php?fn=3.pdf&name=Settle%20Pot&id=1004&association=GRENZE&journal=GIJET&year=2022&volume=8&issue=1">Conference Paper</a>
 
-# How to use the app?
+## How to use the app?
 1. Signup/Login via SettlePot account/Phone number/Google Account
 2. Edit user profile info
 3. Create events and their corresponding subevents
